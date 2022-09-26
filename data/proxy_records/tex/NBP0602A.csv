@@ -1,0 +1,6 @@
+﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes,BIT,MI,deltaRI,QualityFlag
+NP-07-13-49 NBP0107-49 LMG0404-3,,-63.2913,-55.8393,,,,,,,,0,0.437,tex,,,Tierney,2015,https://doi.org/10.1038/sdata.2015.29,https://www.ncei.noaa.gov/access/paleo-search/study/18615,3 coretops 220 km,,,,0
+NBP0602A,5D,-63.2515,-52.36565,-63.5393966,-53.1993015,-63.67010877,-53.58791496,506,12.32,,4.7,0.363,tex,,,Tibbett,2022,https://doi.org/10.1029/2022PA004430,https://doi.org/10.25921/n9kg-yw91,,0.1,0.048,0.097,0
+NBP0602A,5D,-63.2515,-52.36565,-63.5393966,-53.1993015,-63.67010877,-53.58791496,506,14.09,,4.7,0.343,tex,,,Tibbett,2022,https://doi.org/10.1029/2022PA004430,https://doi.org/10.25921/n9kg-yw91,,0.09,0.076,0.106,0
+NBP0602A,5D,-63.2515,-52.36565,-63.5393966,-53.1993015,-63.67010877,-53.58791496,506,15.66,,4.7,0.487,tex,,,Tibbett,2022,https://doi.org/10.1029/2022PA004430,https://doi.org/10.25921/n9kg-yw91,,0.08,0.281,0.38,1
+NBP0602A,5D,-63.2515,-52.36565,-63.5393966,-53.1993015,-63.67010877,-53.58791496,506,16.23,,4.7,0.363,tex,,,Tibbett,2022,https://doi.org/10.1029/2022PA004430,https://doi.org/10.25921/n9kg-yw91,,0.09,0.185,0.05,0
