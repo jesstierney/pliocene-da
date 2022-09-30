@@ -3,3 +3,8 @@
 
 # For Mac users
 **.DS_Store
+
+# Model output files
+**.nc
+**.mat
+data/model_output/**
