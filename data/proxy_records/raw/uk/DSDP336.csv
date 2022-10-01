@@ -1,0 +1,10 @@
+﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
+HadiSST,,63.5,-7.5,,,,,,,,0,0.363,uk,,,,,,,Preindustrial SST estimate of uk from HadiSST 1870 to 1900
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,0.52,,0.0703,0.358464167,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,1.52,,0.0703,0.340828166,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,39.0875,,0.4515,0.39956924,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,67.6875,,3.09,0.344167808,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,77.1325,,3.09,0.393745464,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,113.52,,4.47,0.368671375,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,131.02,,4.47,0.314868801,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate
+DSDP336,*,63.351,-7.7878,62.91498136,-8.71627532,62.71262402,-9.140482589,811,133.0475,,4.47,0.341953484,uk,,,Liu,2009,https://doi.org/10.1126/science.1166368,,age is stage average and approximate

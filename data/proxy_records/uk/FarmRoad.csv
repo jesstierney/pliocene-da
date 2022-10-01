@@ -1,5 +1,0 @@
-﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-CH-07-98-GGC19 CH-07-98 MC1 CH-07-98 MC18,,37.1193,-74.106,,,,,,,,0,0.549,uk,,,Tierney,2018,https://doi.org/10.1002/2017PA003201,https://doi.org/10.25921/k1a1-8c59,3 coretops in 287 km
-FarmRoad,,37.033,-76.604,36.86710786,-76.0517536,36.78558651,-75.79929068,,0.4,,3.2,0.92185,uk,,,Dowsett,2017,https://doi.org/10.5066/F7959G1S,https://doi.org/10.5066/F7959G1S,
-FarmRoad,,37.033,-76.604,36.86710786,-76.0517536,36.78558651,-75.79929068,,0.75,,3.2,0.923922222,uk,,,Dowsett,2017,https://doi.org/10.5066/F7959G1S,https://doi.org/10.5066/F7959G1S,
-FarmRoad,,37.033,-76.604,36.86710786,-76.0517536,36.78558651,-75.79929068,,1.1,,3.2,0.92662,uk,,,Dowsett,2017,https://doi.org/10.5066/F7959G1S,https://doi.org/10.5066/F7959G1S,
