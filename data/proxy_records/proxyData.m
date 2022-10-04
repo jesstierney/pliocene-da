@@ -1,4 +1,15 @@
 classdef proxyData
+%% proxyData  Organizes proxy datasets and implements time averaging over Pliocene time slices
+% ----------
+%   The proxyData class provides several methods that help organize and
+%   format the proxy data sets in preparation for data assimilation. The
+%   key method here is "proxyData.organize". This method scans through the
+%   various CSV files, collecting proxy values and metadata. The method
+%   then averages proxy values within the time slices for the assimilation.
+%   Finally, it exports proxy metadata and time-averaged values to a
+%   MAT-file for use with the DASH toolbox.
+%
+%   To use this class, call 
 
     % Experimental parameters for time averaging proxy values
     properties(Constant)
