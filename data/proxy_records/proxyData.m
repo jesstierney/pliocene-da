@@ -19,7 +19,19 @@ classdef proxyData
 %   time-averaging for the proxy data). You can edit these parameters to
 %   change the time-slices for the assimilation. To edit these parameters,
 %   navigate to the "Experimental Parameters" property block (immediately
-%   after this comment) and follow the prompts.
+%   after this comment) and follow the prompts. You should run the
+%   "proxyData.validateParameters" method after editing to ensure that
+%   your new values are valid.
+%
+%   **ADDING NEW RECORDS**
+%   You can add more records to the assimilation. Each new record should be
+%   organized in a CSV file, and should follow the existing formatting
+%   style. (See raw/Contents.md for information on the formatting style).
+%   The CSV file should be placed in a subfolder of the "raw" folder. If
+%   using one of the currently used proxy types, add the CSV folder to the
+%   appropriate subfolder. If using a new proxy type, create a new
+%   subfolder for the proxy data file. The name of the new folder
+%   should be an identifying string for the proxy type.
 
     %% Experimental parameters
     %
@@ -75,7 +87,7 @@ classdef proxyData
 
     %% Scanned data properties
     % This properties are the values scanned from the raw data files. You
-    % probably shouldn't edit them...
+    % probably shouldn't edit these...
     properties (SetAccess = private)
         name;
         lat;
@@ -94,22 +106,102 @@ classdef proxyData
 
 
     methods (Static)
-        function[] = organize(folders, saveFile)
-            nFolders = numel(folders);
-            data = cell(nFolders, 1);
+        function[] = validateParameters
+            %% proxyData.validateParameters  Checks that experimental parameters are valid
+            % ----------
+            %   proxyData.validateParameters
+            %   Checks that the experimental parameters are valid. If
+            %   the parameters are valid, exits silently. Otherwise, throws
+            %   an error reporting the problem.
+            % ----------
+            
+            % nTime must be a scalar positive integer
+            nTime = proxyData.nTime;
+            assertNumeric(nTime, 'nTime');
+            assertScalar(nTime, 'nTime');
+            assertDefined(nTime, 'nTime');
+            assertInteger(nTime, 'nTime');
+            assert(nTime>0, 'nTime must be positive');
 
-            for f = 1:nFolders
-                folder = folders(f);
-                files = proxyData.csvFiles(folder);
-                files = fullfile(folder, files);
-                data{f} = proxyData(files, folder)';
+            % times must be a numeric vector with nTime elements
+            times = proxyData.times;
+            assertNumeric(times, 'times');
+            assert(isvector(times), 'times must be a vector');
+            assert(numel(times)==nTime, 'times must have %.f elements (one per assimilation time slice)', nTime);
+            assertDefined(times, 'times');
+
+            % timeUnits should be a scalar string
+            timeUnits = proxyData.timeUnits;
+            assert(isstring(timeUnits), 'timeUnits must be a string (using double quotes "")');
+            assertScalar(timeUnits, 'timeUnits');
+
+            % timeBounds should be a numeric matrix with one row per time
+            % slice and two columns. Each row should span the associated
+            % time slice. The second column should be >= the first
+            timeBounds = proxyData.timeBounds;
+            assertNumeric(timeBounds, 'timeBounds');
+            assert(ismatrix(timeBounds), 'timeBounds must be a matrix');
+            [nRows, nCols] = size(timeBounds);
+            assert(nRows==nTime, 'timeBounds must have %.f rows (one per assimilation time step)', nRows);
+            assert(nCols==2, 'timeBounds must have 2 columns');
+            assertDefined(timeBounds, 'timeBounds');
+
+            % Check each row spans the associated time slice
+            for t = 1:nTime
+                lower = timeBounds(t,1);
+                upper = timeBounds(t,2);
+                assert(upper>=lower, 'The upper bound for time slice %.f (%f) is less than the lower bound (%f)', t, upper, lower);
+                metadata = times(t);
+                assert(lower<=metadata, 'The lower bound for time slice %.f (%f) is greater than the metadata for the time slice (%f)', t, lower, metadata);
+                assert(upper>=metadata, 'The upper bound for time slice %.f (%f) is less than the metadata for the time slice (%f)', t, upper, metadata);
             end
-            data = [data{:}]';
 
-            data = data.screenFlags;
-            data = data.averageValues;
-            data.export(saveFile);
+            % nRound must be a scalar positive integer or NaN
+            nRound = proxyData.nRound;
+            assertNumeric(nRound, 'nRound');
+            assertScalar(nRound, 'nRound');
+            if ~isnan(nRound)
+                assertDefined(nRound, 'nRound');
+                assertInteger(nRound, 'nRound');
+            end
+
+            %% Utility functions
+            % A collection of short assertions. If an assertion fails, it throws
+            % an error that includes the name of the invalid parameter.
+            function[] = assertNumeric(input, name)
+                if ~isnumeric(input)
+                    ME = MException('', '%s must be numeric', name);
+                    throwAsCaller(ME);
+                end
+            end
+            function[] = assertScalar(input, name)
+                if ~isscalar(input)
+                    ME = MException('', '%s must be scalar', name);
+                    throwAsCaller(ME);
+                end
+            end
+            function[] = assertDefined(input, name)
+            if any(isnan(input(:)))
+                ME = MException('', '%s cannot contain NaN values', name);
+                throwAsCaller(ME);
+            elseif any(isinf(input(:)))
+                ME = MException('', '%s cannot contain infinite values', name);
+                throwAsCaller(ME);
+            end
+            end
+            function[] = assertInteger(input, name)
+                if mod(input, 1) ~= 0
+                    ME = MException('', '%s must be an integer', name);
+                    throwAsCaller(ME);
+                end
+            end
         end
+        function[] = 
+    end
+
+
+
+    methods
 
 
 
