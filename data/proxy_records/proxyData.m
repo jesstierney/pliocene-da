@@ -196,7 +196,58 @@ classdef proxyData
                 end
             end
         end
-        function[] = 
+        function[] = organize(folders, saveFile)
+%% proxyData.organize  Organizes raw proxy data in preparation for assimilation
+% ----------
+%   proxyData.organize
+%   Formats the raw proxy records in preparation for assimilation. Scans
+%   through the proxy record CSV files, collecting proxy values and metadata. 
+%   Averages proxy values within the assimilation time slices. Finally, 
+%   the method exports proxy metadata and time-averaged values to a NetCDF file
+%   named "formatted_proxies.nc". The NetCDF file will be saved to the current folder.
+%
+%   To locate proxy record CSV files, the method will first search
+%   for a folder named "raw" in the same folder as the
+%   "proxyData.m" class file. The method will then look for subfolders
+%   within the "raw" folder. Any file in these subfolders that ends
+%   with a ".csv" extension is assumed to be a proxy data file.
+%
+%   proxyData.organize(saveFile)
+%   Specify the name of the exported NetCDF file. May be a file name, relative
+%   path, or absolute path. If not an absolute path, the name is interpreted
+%   relative to the current folder. 
+%
+%   proxyData.organize(saveFile, folders)
+%   Specify the subfolders in the "raw" folder in which to search for proxy
+%   record CSV files.
+% ----------
+%   Inputs:
+%       saveFile (string scalar): The name to use for the exported NetCDF
+%           file. A file name, relative path, or absolute path.
+%       folders (string vector): The names of subfolders in the "raw"
+%           folder in which to search for proxy record CSV data files.
+%
+%   Exports:
+%       Creates a NetCDF file with proxy record metadata and time-averaged 
+%       values. By default, the file will be named "formatted_proxies.nc"
+%       and will be saved in the current folder. Use the "saveFile" input
+%       to specify a different name and/or location.
+
+            nFolders = numel(folders);
+            data = cell(nFolders, 1);
+
+            for f = 1:nFolders
+                folder = folders(f);
+                files = proxyData.csvFiles(folder);
+                files = fullfile(folder, files);
+                data{f} = proxyData(files, folder)';
+            end
+            data = [data{:}]';
+
+            data = data.screenFlags;
+            data = data.averageValues;
+            data.export(saveFile);
+        end
     end
 
 
