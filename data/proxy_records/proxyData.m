@@ -196,134 +196,191 @@ classdef proxyData
                 end
             end
         end
-        function[] = organize(folders, saveFile)
-%% proxyData.organize  Organizes raw proxy data in preparation for assimilation
-% ----------
-%   proxyData.organize
-%   Formats the raw proxy records in preparation for assimilation. Scans
-%   through the proxy record CSV files, collecting proxy values and metadata. 
-%   Averages proxy values within the assimilation time slices. Finally, 
-%   the method exports proxy metadata and time-averaged values to a NetCDF file
-%   named "formatted_proxies.nc". The NetCDF file will be saved to the current folder.
-%
-%   To locate proxy record CSV files, the method will first search
-%   for a folder named "raw" in the same folder as the
-%   "proxyData.m" class file. The method will then look for subfolders
-%   within the "raw" folder. Any file in these subfolders that ends
-%   with a ".csv" extension is assumed to be a proxy data file.
-%
-%   proxyData.organize(saveFile)
-%   Specify the name of the exported NetCDF file. May be a file name, relative
-%   path, or absolute path. If not an absolute path, the name is interpreted
-%   relative to the current folder. 
-%
-%   proxyData.organize(saveFile, folders)
-%   Specify the subfolders in the "raw" folder in which to search for proxy
-%   record CSV files.
-% ----------
-%   Inputs:
-%       saveFile (string scalar): The name to use for the exported NetCDF
-%           file. A file name, relative path, or absolute path.
-%       folders (string vector): The names of subfolders in the "raw"
-%           folder in which to search for proxy record CSV data files.
-%
-%   Exports:
-%       Creates a NetCDF file with proxy record metadata and time-averaged 
-%       values. By default, the file will be named "formatted_proxies.nc"
-%       and will be saved in the current folder. Use the "saveFile" input
-%       to specify a different name and/or location.
+        function[] = organize
+            %% proxyData.organize  Organizes raw proxy data in preparation for assimilation
+            % ----------
+            %   proxyData.organize
+            %   Formats the raw proxy records in preparation for assimilation. Scans
+            %   through the proxy record CSV files, collecting proxy values and metadata. 
+            %   Averages proxy values within the assimilation time slices. Finally, 
+            %   the method exports proxy metadata and time-averaged values to a NetCDF file
+            %   named "formatted_proxies.nc". The NetCDF file will be saved to the current folder.
+            %
+            %   To locate proxy record CSV files, the method will first search
+            %   for a folder named "raw" in the same folder as the
+            %   "proxyData.m" class file. The method will then look for subfolders
+            %   within the "raw" folder. Any file in these subfolders that ends
+            %   with a ".csv" extension is assumed to be a proxy data file.
+            % ----------
+            %   Saves:
+            %       Creates a NetCDF file named "formatted_proxies.nc" in
+            %       the current folder.
 
+            % Check for the "raw" folder
+            path = strsplit(mfilename('fullpath'), filesep);
+            home = strjoin(path(1:end-1), filesep);
+            raw = strjoin({home, 'raw'}, filesep);
+            if ~isfolder(raw)
+                error(['Cannot locate the "raw" folder. The "raw" folder must be ',...
+                    'located in the folder:\n\t%s'], home);
+            end
+
+            % Get the subfolders in the "raw" folder
+            contents = dir(raw);
+            contents(1:2) = [];
+            isdir = [contents.isdir];
+            contents = string({contents.name});
+            folders = contents(isdir);
+
+            % Preallocate the data object arrays for each folder
             nFolders = numel(folders);
             data = cell(nFolders, 1);
 
+            % Cycle through folders.
             for f = 1:nFolders
                 folder = folders(f);
-                files = proxyData.csvFiles(folder);
-                files = fullfile(folder, files);
-                data{f} = proxyData(files, folder)';
-            end
-            data = [data{:}]';
+                path = strjoin([raw, folder], filesep);
 
+                % Get the CSV files in the folder
+                files = dir(path);
+                files(1:2) = [];
+                files = string({files.name});
+                isCSV = endsWith(files, '.csv');
+                files = files(isCSV);
+
+                % Scan the CSV files into data objects. Use the file name
+                % as the default proxy type when type metadata is missing
+                files = strcat(path, filesep, files);
+                data{f} = proxyData(files, folder);
+            end
+            data = [data{:}];
+
+            % Remove flagged values. Implement time averaging. Export to NetCDF
             data = data.screenFlags;
             data = data.averageValues;
-            data.export(saveFile);
+            data.export;
         end
     end
 
 
-
     methods
-
-
-
-
-
-
-
-
-
-
         function[obj] = proxyData(filenames, defaultType)
-            if ~exist('defaultType', 'var')
+            %% proxyData  Creates data objects for proxy records by scanning raw proxy data files
+            % ----------
+            %   obj = proxyData(filenames)
+            %   Creates proxyData objects for the input data files. Scans
+            %   each file and extracts proxy metadata and raw data values.
+            %
+            %   obj = proxyData(filenames, defaultType)
+            %   Applies a default proxy type if the proxy type metadata is
+            %   missing.
+            % ----------
+            %   Inputs:
+            %       filenames (string array): A list of raw proxy data
+            %           files. The data files should be CSV files.
+            %       defaultType (string scalar): A default proxy type to
+            %           use when proxy type metadata is missing. If
+            %           unspecified, uses <missing> for missing type.
+            %
+            %   Outputs:
+            %       obj (proxyData array): The proxyData objects for the
+            %           input files. Will have the same size as "filenames"
+            
+            % Defaults and error checks
+            if ~exist('defaultType', 'var') || isempty(defaultType)
                 defaultType = string(NaN);
+            else
+                assert(isstring(defaultType), 'defaultType must be a string');
+                assert(isscalar(defaultType), 'defaultType must be scalar');
             end
+            assert(isstring(filenames), 'filenames must be a string array');
 
-            nFile = numel(filenames);
-            obj = repmat(obj, [nFile, 1]);
+            % Create an object array over the files
+            obj = repmat(obj, size(filenames));
 
-            for f = 1:nFile
-                file = filenames(f);
-    
-                % Import data file as a table
-                T = readtable(file, 'TextType', 'string', 'NumHeaderLines', 1, ...
-                      'VariableNamesLine', 1);
-        
-                % Record values
-                obj(f).name = string(T.SiteName(2));
-                obj(f).lat = T.Lat(2);
-                obj(f).lon = T.Lon(2);
-                obj(f).pLat325 = T.pLat325(2);
-                obj(f).pLon325 = T.pLon325(2);
-                obj(f).pLat475 = T.pLat475(2);
-                obj(f).pLon475 = T.pLon475(2);
-                obj(f).type = string(T.ProxyType(2));
-                obj(f).cleaning = string(T.CleaningMethod(2));
-                obj(f).species = string(T.Species(2));
-        
-                % Values and ages
-                obj(f).values = T.ProxyValue;
-                obj(f).ages = T.Age;
-        
-                % Optional quality flag
-                if ismember("QualityFlag", T.Properties.VariableNames)
-                    obj(f).flags = T.QualityFlag;
+            % Scan each file into a table
+            try
+                for f = 1:numel(filenames)
+                    file = filenames(f);
+                    T = readtable(file, 'TextType', 'string', 'NumHeaderLines', 1, ...
+                          'VariableNamesLine', 1);
+
+                    % Record metadata
+                    obj(f).name = string(T.SiteName(2));
+                    obj(f).lat = T.Lat(2);
+                    obj(f).lon = T.Lon(2);
+                    obj(f).pLat325 = T.pLat325(2);
+                    obj(f).pLon325 = T.pLon325(2);
+                    obj(f).pLat475 = T.pLat475(2);
+                    obj(f).pLon475 = T.pLon475(2);
+                    obj(f).type = string(T.ProxyType(2));
+                    obj(f).cleaning = string(T.CleaningMethod(2));
+                    obj(f).species = string(T.Species(2));
+
+                    % Values, ages, and optional quality flag
+                    obj(f).values = T.ProxyValue;
+                    obj(f).ages = T.Age;
+                    if ismember("QualityFlag", T.Properties.VariableNames)
+                        obj(f).flags = T.QualityFlag;
+                    end
+
+                    % Fill missing type metadata
+                    if ismissing(obj(f).type)
+                        obj(f).type = defaultType;
+                    end
                 end
 
-                % Fill missing proxy type
-                if ismissing(obj(f).type)
-                    obj(f).type = defaultType;
-                end
+            % Informative error if a file cannot be scanned
+            catch cause
+                [~, file] = fileparts(file);
+                ME = MException('', 'Could not import file: %s.csv\n', file);
+                ME = addCause(ME, cause);
+                throw(ME);
             end
         end
         function[obj] = screenFlags(obj)
+            %% proxyData.screenFlags  Remove flagged values from proxy data
+            % ----------
+            %   obj = obj.screenFlags
+            %   Checks each object in a proxyData array for flags. Removes
+            %   all data values and ages for which the associated flag is
+            %   equal to 1.
+            % ----------
+            %   Outputs:
+            %       obj (proxyData array): The updated proxyData array
+
             for k = 1:numel(obj)
                 if ~isempty(obj(k).flags)
                     remove = obj(k).flags == 1;
                     obj(k).ages(remove) = [];
                     obj(k).values(remove) = [];
+                    obj(k).flags = [];
                 end
             end
         end
         function[obj] = averageValues(obj)
+            %% proxyData.averageValues  Implement time-averaging for a proxyData array
+            % ----------
+            %   obj = obj.averageValues
+            %   Implements time-averaging on the data values in a proxyData
+            %   array. Raw data values are averaged for assimilation time
+            %   slices using the time bounds and rounding parameters set by
+            %   the "Experimental Parameters" properties.
+            % ----------
+            %   Outputs:
+            %       obj (proxyData array): The updated proxyData array
+
+            % Round the ages for each object
             for k = 1:numel(obj)
-                obj(k).ages = round(obj(k).ages, proxyData.nRound);
-    
-                % Preallocate mean values for the timeslices
-                nTime = size(proxyData.timeBounds, 1);
-                meanValues = NaN(nTime, 1);
+                if ~isnan(proxyData.nRound)
+                    obj(k).ages = round(obj(k).ages, proxyData.nRound);
+                end
+
+                % Preallocate values for the time slices
+                meanValues = NaN(proxyData.nTime, 1);
                 
                 % Get the upper and lower bound of each time slice
-                for t = 1:nTime
+                for t = 1:proxyData.nTime
                     lower = proxyData.timeBounds(t,1);
                     upper = proxyData.timeBounds(t,2);
                 
@@ -337,40 +394,86 @@ classdef proxyData
                 obj(k).values = meanValues;
             end
         end
-        function[] = export(obj, file)
-
-            % Collect values
-            names = obj.collect('name');
-            lats = obj.collect('lat');
-            lons = obj.collect('lon');
-            pLat325 = obj.collect('pLat325'); %#ok<PROPLC> 
-            pLon325 = obj.collect('pLon325'); %#ok<PROPLC> 
-            pLat475 = obj.collect('pLat475'); %#ok<PROPLC> 
-            pLon475 = obj.collect('pLon475'); %#ok<PROPLC> 
-            types = obj.collect('type');
-            species = obj.collect('species'); %#ok<PROPLC> 
-            cleaning = obj.collect('cleaning'); %#ok<PROPLC> 
-            data = obj.collect('values');
-            times = proxyData.times; %#ok<PROPLC> 
-
-            % Save to file
-            save(file, '-v7.3', 'names', 'lats', 'lons', 'pLat325', ...
-                'pLon325', 'pLat475', 'pLon475', 'types', 'species', 'cleaning',...
-                'data', 'times');
-
-        end
         function[values] = collect(obj, field)
+            %% 
             values = [obj.(field)]';
         end
-    end
+        function[] = export(obj)
+            %% proxyData.export  Exports an vector of proxyData objects to a NetCDF file
+            % ----------
+            %   obj.export
+            %   Takes a vector of proxyData objects and collects data
+            %   values and proxy metadata. Exports these values to a NetCDF
+            %   file. Time-averaged proxy values are stored in the "data"
+            %   variable. The NetCDF file is named "formatted_proxies.nc"
+            %   and is created in the current folder.
+            % ----------
+            %   Saves:
+            %       Creates a NetCDF file named "formatted_proxies.nc" in
+            %       the current folder
 
-    methods (Static)
-        function[files] = csvFiles(folder)
-            files = dir(folder);
-            files = string({files.name});
-            files = files(endsWith(files, '.csv'));
+            % Only export proxyData vectors (exported data grid is poorly defined for
+            % proxyData arrays). Ensure array is a column vector
+            assert(isvector(obj), 'You can only export proxyData vectors');
+            obj = obj(:);
+            
+            % Collect proxy metadata
+            fields = ["name","lat","lon","pLat325","pLon325","pLat475","pLon475",...
+                "type","species","cleaning"];
+            s = struct;
+            for f = 1:numel(fields)
+                field = fields(f);
+                s.(field) = obj.collect(field);
+            end
+            s.cleaning = double(s.cleaning);
+            
+            % Also get proxy data values
+            data = obj.collect('values');
+
+            % Get sizes
+            nTime = proxyData.nTime;
+            nSite = numel(obj);
+            
+            % Create the NetCDF data variable, as well as dimension variables
+            file = 'formatted_proxies.nc';
+            nccreate(file, 'data', 'Format', 'netcdf4', 'Dimensions', {'site', nSite, 'time', nTime});
+            nccreate(file, 'time', 'Dimensions', {'time', nTime});
+            nccreate(file, 'site', 'Dimensions', {'site', nSite}, 'Datatype', 'string');
+
+            % Then write the variables
+            % (This order is important as writing the data variable before
+            % the dimension variable can cause errors in NetCDF4).
+            ncwrite(file, 'data', data);
+            ncwrite(file, 'time', proxyData.times);
+            ncwriteatt(file, 'time', 'Units', proxyData.timeUnits);
+            ncwrite(file, 'site', s.name);
+            ncwriteatt(file, 'site', 'Description', 'Proxy site IDs');
+            
+            % Create proxy metadata numeric variables
+            numericFields = ["lat","lon","pLat325","pLon325","pLat475","pLon475","cleaning"];
+            for f = 1:numel(numericFields)
+                field = numericFields(f);
+                nccreate(file, field, 'Dimensions', {'site', nSite});
+                ncwrite(file, field, s.(field));
+            end
+            
+            % Create proxy metadata string variables
+            stringFields = ["type","species"];
+            for f = 1:numel(stringFields)
+                field = stringFields(f);
+                nccreate(file, field, 'Dimensions', {'site', nSite}, 'Datatype', 'string');
+                
+                % Replace <missing> with "" and write metadata
+                value = s.(field);
+                value(ismissing(value)) = "";
+                ncwrite(file, field, value);
+            end
+
+            % Time bounds
+            nccreate(file, 'timeBounds', 'Dimensions', {'time', nTime, 'bounds', 2});
+            ncwrite(file, 'timeBounds', proxyData.timeBounds);
+            ncwriteatt(file, 'timeBounds', 'Note', 'First column is lower bound. Second column is upper.');
         end
-
     end
 
 end
