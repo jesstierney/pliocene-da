@@ -7,7 +7,6 @@
 # Model output files
 **.nc
 **.mat
-data/model_output/**
 
 # Allow the formatted proxy data
 !data/proxy_records/formatted_proxies.nc
