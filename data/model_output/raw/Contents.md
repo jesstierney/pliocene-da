@@ -29,11 +29,13 @@ Each CSV file summarizes the raw data files used from the model. The summaries a
 ### CMIP6 Name
 The name of a climate variable used for assimilation. Here, we use CMIP6 naming conventions for assimilated variables. Options are:
 
-* pr: Total precipitation
-* tas: Near surface air temperature
-* tos: Sea surface temperature
-* sos: Sea surface salinity
-* siconc: Sea ice area percentage
+| Name | Description |
+| ---- | ----------- |
+| pr   | Total precipitation |
+| tas  | Near surface air temperature |
+| tos  | Sea surface temperature |
+| sos  | Sea surface salinity |
+| siconc | Sea ice area percentage |
 
 In most cases, the summary for a variable will span a single line. However, if multiple files were used for the variable, then the summary will span multiple lines. Names
 
@@ -65,10 +67,12 @@ Sometimes, a preprocessed variable is constructed from the sum of raw output var
 ### Experiment
 A tag that indicates the experiment associated with the raw output file. Options are as follows:
 
-* E280:                   A run with pre-industrial (1850 CE) boundary conditions
-* Eoi400:                 A run with mid-Pliocene boundary conditions
-* pi.400:    (CESM2 only) A run with pre-industrial boundary conditions and 400 ppm CO2
-* eo400.new: (CESM2 only) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet
+| Experiment | Description |
+| ---------- | ----------- |
+| E280 | A run with pre-industrial (1850 CE) boundary conditions |
+| Eoi400 | A run with mid-Pliocene boundary conditions |
+| pi.400 | (CESM2 only) A run with pre-industrial boundary conditions and 400 ppm CO2 |
+| eo400.new | (CESM2 only) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet |
 
 
 ### Variable Name in File
@@ -83,15 +87,18 @@ The name of the variable in the raw output file that holds longitude metadata.
 ### Grid Type
 Indicates the type of spatial grid used in the raw output file. Options are:
 
-* Curvilinear: Data has explicit latitude and longitude dimensions.
-* Tripolar:    Data is organized on a tripolar grid.
-* Regridded:   Data has been regridded to a 1x1 spatial field.
+| Grid Type | Description |
+| --------- | ----------- |
+| Curvilinear | Data has explicit latitude and longitude dimensions. |
+| Tripolar | Data is organized on a tripolar grid. |
+| Regridded | Data has been regridded to a 1x1 spatial field. |
 
 ### Time Step
 Indicates the time step of data in the raw output file. Options are:
 
-* Monthly:     Monthly time series
-* Climatology: Monthly climatology
+| Time Step | Description |
+| Monthly | Monthly time series |
+| Climatology | Monthly climatology |
 
 ### Layer
 Some output files include output from multiple layers (i.e. different heights or depths). This field indicates which layer holds the required data. If an output file does not have multiple layers, then NA is used as a placeholder value.
@@ -131,8 +138,8 @@ The following table summarizes the source of the raw data files for each model:
 
 |   Model     | Source |
 | ----------- | ------ |
-|CCSM4-NCAR   | 
-|CCSM4-UoT    |
+|*CCSM4-NCAR   |        |
+|CCSM4-UoT    | PlioMIP2 Data Server (via Globus) |
 |CESM1.0.5    | PlioMIP2 Data Server (via Globus) |
 |CESM1.2      | Sent by Natalie Burls |
 |CESM2        | Sent by Ran Feng, also available on PlioMIP2 Data Server and ESGF - CMIP6 Archive |
@@ -156,7 +163,7 @@ The following table summarizes the source of the raw data files for each model:
 This section summarizes any missing data fields
 
 MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
-
+CCSM4-NCAR  - (Data probably exists, but the Globus repository is a mess and needs to be parsed)
 
 
 
