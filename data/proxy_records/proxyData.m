@@ -442,7 +442,7 @@ classdef proxyData
 
             % Then write the variables
             % (This order is important as writing the data variable before
-            % the dimension variable can cause errors in NetCDF4).
+            % creating the dimension variable can cause errors in NetCDF4).
             ncwrite(file, 'data', data);
             ncwrite(file, 'time', proxyData.times);
             ncwriteatt(file, 'time', 'Units', proxyData.timeUnits);
