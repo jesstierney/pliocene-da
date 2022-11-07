@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     MIROC4m_E280_Amon_pr.nc,     E280, pr,     lat, lon, curvilinear, monthly, NA, mm/day
+tas,    MIROC4m_E280_Amon_tas.nc,    E280, tas,    lat, lon, curvilinear, monthly, NA, C
+tos,    MIROC4m_E280_Omon_tos.nc,    E280, tos,    lat, lon, curvilinear, monthly, NA, C
+sos,    MIROC4m_E280_Omon_so.nc,     E280, so,     lat, lon, curvilinear, monthly, 1,  g/kg 
+siconc, MIROC4m_E280_Omon_siconc.nc, E280, siconc, lat, lon, curvilinear, monthly, NA, %
+
+pr,     MIROC4m_Eoi400_Amon_pr.nc,     Eoi400, pr,     lat, lon, curvilinear, monthly, NA, mm/day
+tas,    MIROC4m_Eoi400_Amon_tas.nc,    Eoi400, tas,    lat, lon, curvilinear, monthly, NA, C
+tos,    MIROC4m_Eoi400_Omon_tos.nc,    Eoi400, tos,    lat, lon, curvilinear, monthly, NA, C
+sos,    MIROC4m_Eoi400_Omon_so.nc,     Eoi400, so,     lat, lon, curvilinear, monthly, 1,  g/kg 
+siconc, MIROC4m_Eoi400_Omon_siconc.nc, Eoi400, siconc, lat, lon, curvilinear, monthly, NA, %

@@ -1,0 +1,42 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     pr_Amon_EC-Earth3-LR_piControl_r1i1p1f1_gr_221901-221912.nc,      E280, pr,     lat,      lon,       curvilinear, monthly, NA, kg/(s*m^2)
+        to 
+        pr_Amon_EC-Earth3-LR_piControl_r1i1p1f1_gr_231801-231812.nc
+----------
+tas,    tas_Amon_EC-Earth3-LR_piControl_r1i1p1f1_gr_221901-221912.nc,     E280, tas,    lat,      lon,       curvilinear, monthly, NA, K
+        to
+        tas_Amon_EC-Earth3-LR_piControl_r1i1p1f1_gr_231801-231812.nc
+----------
+tos,    tos_Omon_EC-Earth3-LR_piControl_r1i1p1f1_gn_221901-221912.nc,     E280, tos,    latitude, longitude, tripolar,    monthly, NA, C
+        to
+        tos_Omon_EC-Earth3-LR_piControl_r1i1p1f1_gn_231801-231812.nc
+----------
+sos,    sos_Omon_EC-Earth3-LR_piControl_r1i1p1f1_gn_221901-221912.nc,     E280, sos,    latitude, longitude, tripolar,    monthly, NA, g/kg 
+        to
+        sos_Omon_EC-Earth3-LR_piControl_r1i1p1f1_gn_231801-231812.nc
+----------
+siconc, siconc_SImon_EC-Earth3-LR_piControl_r1i1p1f1_gn_221901-221912.nc, E280, siconc, latitude, longitude, tripolar,    monthly, NA, %
+        to
+        siconc_SImon_EC-Earth3-LR_piControl_r1i1p1f1_gn_231801-231812.nc
+
+
+pr,     pr_Amon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gr_320701-320712.nc,      Eoi400, pr,     lat,      lon,       curvilinear, monthly, NA, kg/(s*m^2)
+        to
+        pr_Amon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gr_330601-330612.nc
+----------
+tas,    tas_Amon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gr_320701-320712.nc,     Eoi400, tas,    lat,      lon,       curvilinear, monthly, NA, K
+        to
+        tas_Amon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gr_330601-330612.nc
+----------
+tos,    tos_Omon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gn_320701-320712.nc,     Eoi400, tos,    latitude, longitude, tripolar,    monthly, NA, C
+        to
+        tos_Omon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gn_330601-330612.nc
+----------
+sos,    sos_Omon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gn_320701-320712.nc,     Eoi400, sos,    latitude, longitude, tripolar,    monthly, NA, g/kg 
+        to
+        sos_Omon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gn_330601-330612.nc
+----------
+siconc, siconc_SImon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gn_320701-320712.nc, Eoi400, siconc, latitude, longitude, tripolar,    monthly, NA, %
+        to
+        siconc_SImon_EC-Earth3-LR_midPliocene-eoi400_r1i1p1f1_gn_330601-330612.nc

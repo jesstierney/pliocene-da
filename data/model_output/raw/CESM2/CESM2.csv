@@ -1,0 +1,29 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,       b.e21.B1850.f09_g17.CMIP6-piControl.001.cam.h0.PRECC.190001-200012.nc,   E280, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+        + b.e21.B1850.f09_g17.CMIP6-piControl.001.cam.h0.PRECL.190001-200012.nc,   E280, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,      b.e21.B1850.f09_g17.CMIP6-piControl.001.cam.h0.TREFHT.190001-200012.nc,  E280, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,      b.e21.B1850.f09_g17.CMIP6-piControl.001.TEMP.1901.2000.0.nc,             E280, TEMP,    TLAT, TLONG, tripolar,    monthly, NA, C
+sos,      b.e21.B1850.f09_g17.CMIP6-piControl.001.SALT.1901.2000.0.nc,             E280, SALT,    TLAT, TLONG, tripolar,    monthly, NA, kg/kg
+siconc,   b.e21.B1850.f09_g17.CMIP6-piControl.001.cam.h0.ICEFRAC.190001-200012.nc, E280, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction
+
+pr,       b.e21.B1850.f09_g17.PMIP4-midPliocene-eoi400.001.cam.h0.PRECC.1401.1500.nc,   Eoi400, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+        + b.e21.B1850.f09_g17.PMIP4-midPliocene-eoi400.001.cam.h0.PRECL.1401.1500.nc,   Eoi400, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,      b.e21.B1850.f09_g17.PMIP4-midPliocene-eoi400.001.cam.h0.TREFHT.1401.1500.nc,  Eoi400, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,      b.e21.B1850.f09_g17.PMIP4-midPliocene-eoi400.001.TEMP.1401.1500.0.nc,         Eoi400, TEMP,    TLAT, TLONG, tripolar,    monthly, NA, C
+sos,      b.e21.B1850.f09_g17.PMIP4-midPliocene-eoi400.001.SALT.1401.1500.0.nc,         Eoi400, SALT,    TLAT, TLONG, tripolar,    monthly, NA, kg/kg
+siconc,   b.e21.B1850.f09_g17.PMIP4-midPliocene-eoi400.001.cam.h0.ICEFRAC.1401.1500.nc, Eoi400, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction
+
+pr,       b.e21.B1850.f09_g17.CMIP6-piControl.400.cam.h0.PRECC.0801.0900.nc,   pi.400, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+        + b.e21.B1850.f09_g17.CMIP6-piControl.400.cam.h0.PRECL.0801.0900.nc,   pi.400, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,      b.e21.B1850.f09_g17.CMIP6-piControl.400.cam.h0.TREFHT.0801.0900.nc,  pi.400, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,      b.e21.B1850.f09_g17.CMIP6-piControl.400.TEMP.0801.0900.0.nc,         pi.400, TEMP,    TLAT, TLONG, tripolar,    monthly, NA, C
+sos,      b.e21.B1850.f09_g17.CMIP6-piControl.400.SALT.0801.0900.0.nc,         pi.400, SALT,    TLAT, TLONG, tripolar,    monthly, NA, kg/kg
+siconc,   b.e21.B1850.f09_g17.CMIP6-piControl.400.cam.h0.ICEFRAC.0801.0900.nc, pi.400, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction
+
+pr,      b.e21.B1850.f09_g17.PMIP4-midPliocene-eo400.new.cam.h0.PRECC.0405.0504.nc,   Eo400.new, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+       + b.e21.B1850.f09_g17.PMIP4-midPliocene-eo400.new.cam.h0.PRECL.0405.0504.nc,   Eo400.new, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,     b.e21.B1850.f09_g17.PMIP4-midPliocene-eo400.new.cam.h0.TREFHT.0405.0504.nc,  Eo400.new, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,     b.e21.B1850.f09_g17.PMIP4-midPliocene-eo400.new.TEMP.0405.0504.0.nc,         Eo400.new, TEMP,    TLAT, TLONG, tripolar,    monthly, NA, C
+sos,     b.e21.B1850.f09_g17.PMIP4-midPliocene-eo400.new.SALT.0405.0504.0.nc,         Eo400.new, SALT,    TLAT, TLONG, tripolar,    monthly, NA, kg/kg
+siconc,  b.e21.B1850.f09_g17.PMIP4-midPliocene-eo400.new.cam.h0.ICEFRAC.0405.0504.nc, Eo400.new, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction

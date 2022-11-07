@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     pr_Amon_IPSL-CM6A-LR_piControl_r1i1p1f1_gr_185001-234912.nc,      E280, pr,     lat,     lon,     curvilinear, monthly, NA, kg/(s*m^2)
+tas,    tas_Amon_IPSL-CM6A-LR_piControl_r1i1p1f1_gr_185001-234912.nc,     E280, tas,    lat,     lon,     curvilinear, monthly, NA, K
+tos,    tos_Omon_IPSL-CM6A-LR_piControl_r1i1p1f1_gn_185001-234912.nc,     E280, tos,    nav_lat, nav_lon, tripolar,    monthly, NA, C
+sos,    sos_Omon_IPSL-CM6A-LR_piControl_r1i1p1f1_gn_185001-234912.nc,     E280, sos,    nav_lat, nav_lon, tripolar,    monthly, NA, g/kg
+siconc, siconc_SImon_IPSL-CM6A-LR_piControl_r1i1p1f1_gn_185001-234912.nc, E280, siconc, nav_lat, nav_lon, tripolar,    monthly, NA, %
+
+pr,     pr_Amon_IPSL-CM6A-LR_midPliocene-eoi400_r1i1p1f1_gr_185001-204912.nc,      Eoi400, pr,     lat,     lon,     curvilinear, monthly, NA, kg/(s*m^2) 
+tas,    tas_Amon_IPSL-CM6A-LR_midPliocene-eoi400_r1i1p1f1_gr_185001-204912.nc,     Eoi400, tas,    lat,     lon,     curvilinear, monthly, NA, K
+tos,    tos_Omon_IPSL-CM6A-LR_midPliocene-eoi400_r1i1p1f1_gn_185001-204912.nc,     Eoi400, tos,    nav_lat, nav_lon, tripolar,    monthly, NA, C
+sos,    sos_Omon_IPSL-CM6A-LR_midPliocene-eoi400_r1i1p1f1_gn_185001-204912.nc,     Eoi400, sos,    nav_lat, nav_lon, tripolar,    monthly, NA, g/kg
+siconc, siconc_SImon_IPSL-CM6A-LR_midPliocene-eoi400_r1i1p1f1_gn_185001-204912.nc, Eoi400, siconc, nav_lat, nav_lon, tripolar,    monthly, NA, %

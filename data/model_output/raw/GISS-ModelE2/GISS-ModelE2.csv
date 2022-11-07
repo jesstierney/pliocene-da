@@ -1,0 +1,23 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     pr_Amon_GISS-E2-1-G_piControl_r1i1p1f1_gn_415001-420012.nc,       E280, pr,      lat, lon, curvilinear, monthly, NA, kg/(s*m^2)
+        pr_Amon_GISS-E2-1-G_piControl_r1i1p1f1_gn_420101-425012.nc,       E280, pr,      lat, lon, curvilinear, monthly, NA, kg/(s*m^2)
+tas,    tas_Amon_GISS-E2-1-G_piControl_r1i1p1f1_gn_415001-420012.nc,      E280, tas,     lat, lon, curvilinear, monthly, NA, K
+        tas_Amon_GISS-E2-1-G_piControl_r1i1p1f1_gn_420101-425012.nc,      E280, tas,     lat, lon, curvilinear, monthly, NA, K
+tos,    tos_Omon_GISS-E2-1-G_piControl_r1i1p1f1_gn_415001-420012.nc,      E280, tos,     lat, lon, curvilinear, monthly, NA, C
+        tos_Omon_GISS-E2-1-G_piControl_r1i1p1f1_gn_420101-425012.nc,      E280, tos,     lat, lon, curvilinear, monthly, NA, C
+sos,    sos_Omon_GISS-E2-1-G_piControl_r1i1p1f1_gn_415001-420012.nc,      E280, sos,     lat, lon, curvilinear, monthly, NA, g/kg
+        sos_Omon_GISS-E2-1-G_piControl_r1i1p1f1_gn_420101-425012.nc,      E280, sos,     lat, lon, curvilinear, monthly, NA, g/kg
+siconc, siconca_SImon_GISS-E2-1-G_piControl_r1i1p1f1_gn_415001-420012.nc, E280, siconca, lat, lon, curvilinear, monthly, NA, %
+        siconca_SImon_GISS-E2-1-G_piControl_r1i1p1f1_gn_420101-425012.nc, E280, siconca, lat, lon, curvilinear, monthly, NA, %
+
+pr,     pr_Amon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_305101-310012.nc,       Eoi400, pr,      lat, lon, curvilinear, monthly, NA, kg/(s*m^2)
+        pr_Amon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_310101-315012.nc,       Eoi400, pr,      lat, lon, curvilinear, monthly, NA, kg/(s*m^2)
+tas,    tas_Amon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_305101-310012.nc,      Eoi400, tas,     lat, lon, curvilinear, monthly, NA, K
+        tas_Amon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_310101-315012.nc,      Eoi400, tas,     lat, lon, curvilinear, monthly, NA, K
+tos,    tos_Omon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_305101-310012.nc,      Eoi400, tos,     lat, lon, curvilinear, monthly, NA, C
+        tos_Omon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_310101-315012.nc,      Eoi400, tos,     lat, lon, curvilinear, monthly, NA, C
+sos,    sos_Omon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_305101-310012.nc,      Eoi400, sos,     lat, lon, curvilinear, monthly, NA, g/kg
+        sos_Omon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_310101-315012.nc,      Eoi400, sos,     lat, lon, curvilinear, monthly, NA, g/kg
+siconc, siconca_SImon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_305101-310012.nc, Eoi400, siconca, lat, lon, curvilinear, monthly, NA, %
+        siconca_SImon_GISS-E2-1-G_midPliocene-eoi400_r1i1p1f1_gn_310101-315012.nc, Eoi400, siconca, lat, lon, curvilinear, monthly, NA, %

@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     clims_hadgem3_pi_precip_final.nc,   E280, precip, latitude, longitude, curvilinear, climatology, NA, kg/(s*m^2)
+tas,    clims_hadgem3_pi_airtemp_final.nc,  E280, temp,   latitude, longitude, curvilinear, climatology, NA, K
+tos,    clims_hadgem3_pi_sst.nc,            E280, tos,    latitude, longtiude, regridded,   climatology, NA, C
+sos,    clims_hadgem3_pi_sal.nc,            E280, sal,    latitude, longtiude, regridded,   climatology, 1,  g/kg
+siconc, clims_hadgem3_pi_fraccice_final.nc, E280, seaice, lattiude, longitude, curvilinear, climatology, NA, fraction
+
+pr,     clims_hadgem3_pliocene_precip_final.nc,   Eoi400, precip, latitude, longitude, curvilinear, climatology, NA, kg/(s*m^2)
+tas,    clims_hadgem3_pliocene_airtemp_final.nc,  Eoi400, temp,   latitude, longitude, curvilinear, climatology, NA, K
+tos,    clims_hadgem3_pliocene_sst_final.nc,      Eoi400, tos,    latitude, longtiude, regridded,   climatology, NA, C
+sos,    clims_hadgem3_pliocene_sal_final.nc,      Eoi400, sal,    latitude, longtiude, regridded,   climatology, 1,  g/kg
+siconc, clims_hadgem3_pliocene_fraccice_final.nc, Eoi400, seaice, lattiude, longitude, curvilinear, climatology, NA, fraction

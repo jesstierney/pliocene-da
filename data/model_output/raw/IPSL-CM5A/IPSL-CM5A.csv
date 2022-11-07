@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     PI.TotalPrecip_pr_3600_3699_monthly_TS.nc,      E280, pr,       lat,     lon,     curvilinear, monthly,     NA, kg/(s*m^2)
+tas,    PI.NearSurfaceTemp_tas_3600_3699_monthly_TS.nc, E280, tas,      lat,     lon,     curvilinear, monthly,     NA, K
+tos,    PI.SeasurfaceTemp_sst_3600_3699_monthly_TS.nc,  E280, sst,      nav_lat, nav_lon, tripolar,    monthly,     NA, C
+sos,    piControl_IPSLCM5A_SSS.nc,                      E280, sosaline, lat,     lon,     regridded,   climatology, NA, psu
+siconc, PI.Sicfraction_sic_3600_3699_monthly_TS.nc,     E280, sic,      nav_lat, nav_lon, tripolar,    monthly,     NA, fraction
+
+pr,     Eoi400.TotalPrecip_pr_3581_3680_monthly_TS.nc,      Eoi400, pr,       lat,     lon,     curvilinear, monthly,     NA, kg/(s*m^2)
+tas,    Eoi400.NearSurfaceTemp_tas_3581_3680_monthly_TS.nc, Eoi400, tas,      lat,     lon,     curvilinear, monthly,     NA, K
+tos,    Eoi400.Seasurfacetemp_sst_3581_3680_monthly_TS.nc,  Eoi400, sst,      nav_lat, nav_lon, tripolar,    monthly,     NA, C
+sos,    Eoi400_IPSLCM5A_SSS.nc,                             Eoi400, sosaline, lat,     lon,     regridded,   climatology, NA, psu
+siconc, Eoi400.Sicfraction_sic_3581_3680_monthly_TS.nc,     Eoi400, sic,      nav_lat, nav_lon, tripolar,    monthly,     NA, fraction

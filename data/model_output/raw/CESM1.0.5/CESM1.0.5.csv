@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     pr_Amon_CESM1.0.5_E280_r1i1p1f1_gn_275001-285012.nc,     E280, pr,     lat,  lon,   loncurvilinear, monthly, NA, mm/day
+tas,    tas_Amon_CESM1.0.5_E280_r1i1p1f1_gn_275001-285012.nc,    E280, tas,    lat,  lon,   curvilinear,    monthly, NA, C
+tos,    tos_Omon_CESM1.0.5_E280_r1i1p1f1_gn_275001-285012.nc,    E280, tos,    TLAT, TLONG, tripolar,       monthly, 1,  C
+sos,    so_Omon_CESM1.0.5_E280_r1i1p1f1_gn_2750-2850.nc,         E280, so,     TLAT, TLONG, tripolar,       monthly, 1,  psu
+siconc, siconc_Omon_CESM1.0.5_E280_r1i1p1f1_gn_275001-285012.nc, E280, siconc, TLAT, TLONG, tripolar,       monthly, NA, %
+
+pr,     pr_Amon_CESM1.0.5_Eoi400_r1i1p1f1_gn_190001-200012.nc,     Eoi400, pr,     lat,  lon,   curvilinear, monthly, NA, mm/day
+tas,    tas_Amon_CESM1.0.5_Eoi400_r1i1p1f1_gn_190001-200012.nc,    Eoi400, tas,    lat,  lon,   curvilinear, monthly, NA, C
+tos,    tos_Omon_CESM1.0.5_Eoi400_r1i1p1f1_gn_190001-200012.nc,    Eoi400, tos,    TLAT, TLONG, tripolar,    monthly, 1,  C
+sos,    so_Omon_CESM1.0.5_Eoi400_r1i1p1f1_gn_1900-2000.nc,         Eoi400, so,     TLAT, TLONG, tripolar,    monthly, 1,  psu
+siconc, siconc_Omon_CESM1.0.5_Eoi400_r1i1p1f1_gn_190001-200012.nc, Eoi400, siconc, TLAT, TLONG, tripolar,    monthly, NA, %

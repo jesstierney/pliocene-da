@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     pr_Amon_UofT-CCSM4_piControl_r1i1p1f1_gn_150101-160012.nc,  pr,     lat, lon, curvilinear, monthly, NA, kg/(s * m^2)
+tas,    tas_Amon_UofT-CCSM4_piControl_r1i1p1f1_gn_150101-160012.nc, tas,    lat, lon, curvilinear, monthly, NA, K
+tos,    tos_Omon_UofT-CCSM4_piControl_r1i1p1f1_gn_150101-160012.nc, tos,    lat, lon, tripolar,    monthly, NA, C
+sos,    sos_Omon_UofT-CCSM4_piControl_r1i1p1f1_gn_150101-160012.nc, sos,    lat, lon, tripolar,    monthly, NA, g/kg
+siconc, siconc_SImon_E280_UofT-CCSM4_gr.nc,                         siconc, lat, lon, regridded,   monthly, NA, %
+
+pr,     pr_Amon_UofT-CCSM4_midPliocene-eoi400_r1i1p1f1_gn_160101-170012.nc,  pr,     lat, lon, curvilinear, monthly, NA, kg/(s * m^2)
+tas,    tas_Amon_UofT-CCSM4_midPliocene-eoi400_r1i1p1f1_gn_160101-170012.nc, tas,    lat, lon, curvilinear, monthly, NA, K
+tos,    tos_Omon_UofT-CCSM4_midPliocene-eoi400_r1i1p1f1_gn_160101-170012.nc, tos,    lat, lon, tripolar,    monthly, NA, C
+sos,    sos_Omon_UofT-CCSM4_midPliocene-eoi400_r1i1p1f1_gn_160101-170012.nc, sos,    lat, lon, tripolar,    monthly, NA, g/kg
+siconc, siconc_SImon_Eoi400_UofT-CCSM4_gr.nc,                                siconc, lat, lon, regridded,   monthly, NA, %

@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,      NorESM-L_E280_PRECT.nc,     E280, PRECT,  lat, lon, curvilinear, monthly,     NA, m/s
+tas,     NorESM-L_E280_TREFHT.nc,    E280, TREFHT, lat, lon, curvilinear, monthly,     NA, K
+tos,     NorESM-L_E280.sst.climo.nc, E280, sst,    lat, lon, regridded,   climatology, NA, C
+sos,     NorESM-L_E280.sss.climo.nc, E280, sss,    lat, lon, regridded,   climatology, NA, g/kg
+sicconc, NorESM-L_E280_aice.nc,      E280, aice,   lat, lon, tripolar,    monthly,     NA, %
+
+pr,     NorESM-L_Eoi400_PRECT.nc,     Eoi400, PRECT,  lat, lon, curvilinear, monthly,     NA, m/s
+tas,    NorESM-L_Eoi400_TREFHT.nc,    Eoi400, TREFHT, lat, lon, curvilinear, monthly,     NA, K
+tos,    NorESM-L_Eoi400.sst.climo.nc, Eoi400, sst,    lat, lon, regridded,   climatology, NA, C
+sos,    NorESM-L_Eoi400.sss.climo.nc, Eoi400, sss,    lat, lon, regridded,   climatology, NA, g/kg
+siconc, NorESM-L_Eoi400_aice.nc,      Eoi400, aice,   lat, lon, tripolar,    monthly,     NA, %

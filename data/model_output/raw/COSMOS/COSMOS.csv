@@ -1,0 +1,13 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,  E280.TotalPrecip_CMIP6_name_pr_2650-2749_monthly_mean_time_series.nc,         E280, pr, lat, lon, curvilinear, monthly, NA, mm/day
+tas, E280.NearSurfaceAirTemp_CMIP6_name_tas_2650-2749_monthly_mean_time_series.nc, E280, tas, lat, lon, curvilinear, monthly, NA, C
+tos, E280.SeaSurfaceTemp_CMIP6_name_tos_2650-2749_monthly_mean_time_series.nc,     E280, tos, lat, lon, regridded, monthly, NA, C
+sos, E280.SeaSurfaceSalinity_CMIP6_name_sos_2650-2749_monthly_mean_time_series.nc, E280, sos, lat, lon, regridded, monthly, NA, g/kg
+sic, E280.SeaIceAreaFraction_CMIP6_name_sic_2650-2749_monthly_mean_time_series.nc, E280, sic, lat, lon, regridded, monthly, NA, %
+
+pr,  Eoi400.TotalPrecip_CMIP6_name_pr_2650-2749_monthly_mean_time_series.nc,         Eoi400, pr, lat, lon, curvilinear, monthly, NA, mm/day
+tas, Eoi400.NearSurfaceAirTemp_CMIP6_name_tas_2650-2749_monthly_mean_time_series.nc, Eoi400, tas, lat, lon, curvilinear, monthly, NA, C
+tos, Eoi400.SeaSurfaceTemp_CMIP6_name_tos_2650-2749_monthly_mean_time_series.nc,     Eoi400, tos, lat, lon, regridded, monthly, NA, C
+sos, Eoi400.SeaSurfaceSalinity_CMIP6_name_sos_2650-2749_monthly_mean_time_series.nc, Eoi400, sos, lat, lon, regridded, monthly, NA, g/kg
+sic, Eoi400.SeaIceAreaFraction_CMIP6_name_sic_2650-2749_monthly_mean_time_series.nc, Eoi400, sic, lat, lon, regridded, monthly, NA, %
