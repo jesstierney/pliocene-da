@@ -11,7 +11,7 @@ The sources of the raw climate model output are also [summarized below](#data-so
 
 ----------------------------------------
 
-### CSV Files
+## CSV Files
 Each CSV file summarizes the raw data files used from the model. The summaries are grouped by experiment, and files within an experiment group are grouped by assimilated climate variable. Each summary includes the following comma separated values:
 
 * [CMIP6 Name](#cmip6-name)
@@ -26,7 +26,7 @@ Each CSV file summarizes the raw data files used from the model. The summaries a
 * [Units](#units)
 
 
-##### CMIP6 Name
+### CMIP6 Name
 The name of a climate variable used for assimilation. Here, we use CMIP6 naming conventions for assimilated variables. Options are:
 
 * pr: Total precipitation
@@ -38,7 +38,7 @@ The name of a climate variable used for assimilation. Here, we use CMIP6 naming 
 In most cases, the summary for a variable will span a single line. However, if multiple files were used for the variable, then the summary will span multiple lines. Names
 
 
-##### File
+### File
 The name of the raw data file. 
 
 In some cases, multiple files were used for a single assimilated variable. (For example, the output from GISS-Model2 splits variables across two files). When this occurs, the multiple files are listed. for a single assimilation variable. In this case, multiple files are listed as per:
@@ -62,7 +62,7 @@ Sometimes, a preprocessed variable is constructed from the sum of raw output var
 ```
 
 
-##### Experiment
+### Experiment
 A tag that indicates the experiment associated with the raw output file. Options are as follows:
 
 * E280:                   A run with pre-industrial (1850 CE) boundary conditions
@@ -71,37 +71,37 @@ A tag that indicates the experiment associated with the raw output file. Options
 * eo400.new: (CESM2 only) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet
 
 
-##### Variable Name in File
+### Variable Name in File
 The name of the variable in the raw output file that holds the climate field.
 
-##### Lat Name
+### Lat Name
 The name of the variable in the raw output file that holds latitude metadata.
 
-##### Lon Name
+### Lon Name
 The name of the variable in the raw output file that holds longitude metadata.
 
-##### Grid Type
+### Grid Type
 Indicates the type of spatial grid used in the raw output file. Options are:
 
 * Curvilinear: Data has explicit latitude and longitude dimensions.
 * Tripolar:    Data is organized on a tripolar grid.
 * Regridded:   Data has been regridded to a 1x1 spatial field.
 
-##### Time Step
+### Time Step
 Indicates the time step of data in the raw output file. Options are:
 
 * Monthly:     Monthly time series
 * Climatology: Monthly climatology
 
-##### Layer
+### Layer
 Some output files include output from multiple layers (i.e. different heights or depths). This field indicates which layer holds the required data. If an output file does not have multiple layers, then NA is used as a placeholder value.
 
-##### Units
+### Units
 Indicates the units of the climate field in the raw output file.
 
 ----------------------------------------
 
-### Matlab Functions
+## Matlab Functions
 Each folder also contains several Matlab functions, which were used to pre-process the raw climate model output. Most climate models have two associated functions named `<model name>_preindustrial.m` and `<model name>_midpliocene.m`, which preprocess the data from the preindustrial (E280) and mid-Pliocene (Eoi400) experiments, respectively. 
 
 The CESM2 folder also includes two additional functions `CESM2_eo400new.m` and `CESM2_pi400.m`, which pre-process data from those two experiments. Separately, the ECEarth-3.3 folder also includes two functions `download_ECEarth3.3_EOI400.m` and `download_ECEarth3.3_E280.m`, which were used to download raw output files from ESGF.
@@ -126,7 +126,7 @@ Each function will produce a NetCDF file that matches the name of the function (
 
 ----------------------------------------
 
-### Data sources
+## Data sources
 The following table summarizes the source of the raw data files for each model:
 
 |   Model     | Source |
@@ -152,7 +152,7 @@ The following table summarizes the source of the raw data files for each model:
 
 
 
-##### Missing Data
+### Missing Data
 This section summarizes any missing data fields
 
 MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
