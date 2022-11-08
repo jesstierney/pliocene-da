@@ -37,7 +37,7 @@ The name of a climate variable used for assimilation. Here, we use CMIP6 naming 
 | sos  | Sea surface salinity |
 | siconc | Sea ice area percentage |
 
-In most cases, the summary for a variable will span a single line. However, if multiple files were used for the variable, then the summary will span multiple lines. Names
+In most cases, the summary for a variable will span a single line. However, if multiple files were used for the variable, then the summary will span multiple lines.
 
 
 ### File
@@ -67,16 +67,26 @@ Sometimes, a preprocessed variable is constructed from the sum of raw output var
 ### Experiment
 A tag that indicates the experiment associated with the raw output file. Options are as follows:
 
-| Experiment | Description |
-| ---------- | ----------- |
-| E280 | A run with pre-industrial (1850 CE) boundary conditions |
-| Eoi400 | A run with mid-Pliocene boundary conditions |
-| pi.400 | (CESM2 only) A run with pre-industrial boundary conditions and 400 ppm CO2 |
-| eo400.new | (CESM2 only) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet |
+| Experiment | Description | Citation |
+| ---------- | ----------- | -------- |
+| E280       | A run with pre-industrial (1850 CE) boundary conditions | [Haywood et al., (2020). A return to large-scale features of Pliocene climate: the Pliocene Model Intercomparison Project Phase 2. Climate of the Past.](https://eprints.whiterose.ac.uk/155346/)
+| Eoi400     | A run with mid-Pliocene boundary conditions | [Haywood et al., (2020). A return to large-scale features of Pliocene climate: the Pliocene Model Intercomparison Project Phase 2. Climate of the Past.](https://eprints.whiterose.ac.uk/155346/)
+| pi.400     | (CESM2) A run with pre-industrial boundary conditions and 400 ppm CO2 | [Feng et al., (2022). Past terrestrial hydroclimate sensitivity controlled by Earth system feedbacks. Nature communications, 13(1), 1-11.](https://doi.org/10.1038/s41467-022-28814-7)
+| eo400.new  | (CESM2) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet | [Feng et al., (2022). Past terrestrial hydroclimate sensitivity controlled by Earth system feedbacks. Nature communications, 13(1), 1-11.](https://doi.org/10.1038/s41467-022-28814-7)
+| PreInd     | (CESM1.2.5) A pre-industrial control run | [Ford et al., (2022). Sustained mid-Pliocene warmth led to deep water formation in the North Pacific. Nature Geoscience, 15(8), 658-663.](https://doi.org/10.1038/s41561-022-00978-3)
+| PlioB17    | (CESM1.2.5) A run with early-Pliocene boundary conditions | [Ford et al., (2022). Sustained mid-Pliocene warmth led to deep water formation in the North Pacific. Nature Geoscience, 15(8), 658-663.](https://doi.org/10.1038/s41561-022-00978-3)
+| Plio       | (CESM1.2.5) A run with late-Pliocene boundary conditions | [Ford et al., (2022). Sustained mid-Pliocene warmth led to deep water formation in the North Pacific. Nature Geoscience, 15(8), 658-663.](https://doi.org/10.1038/s41561-022-00978-3)
+
 
 
 ### Variable Name in File
 The name of the variable in the raw output file that holds the climate field.
+
+In some cases, an assimilated variable is derived as the sum of two variables in a raw output file. (For example, precipitation for CESM1.2.5 is derived as the sum of the PRECC and PRECL variables in each raw output file). In this case, variable names are denoted as:
+```
+  <variable 1>
++ <variable 2>
+```
 
 ### Lat Name
 The name of the variable in the raw output file that holds latitude metadata.
