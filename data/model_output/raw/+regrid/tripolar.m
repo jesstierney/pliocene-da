@@ -1,4 +1,4 @@
-function[V, qlon, qlat] = tripolar(tlon, tlat, X)
+function[V, lon, lat] = tripolar(tlon, tlat, X)
 %% regrid.tripolar  Regrids a variable on a tripolar spatial grid
 % ----------
 %   V = regrid.tripolar(tlon, tlat, X)
@@ -43,11 +43,11 @@ elseif size(tlon, 2) ~= size(X, 2)
 end
 
 % Get the 1x1 query points
-[qlon, qlat] = regrid.points;
+[lon, lat] = regrid.points;
 
 % Get sizes
-nLon = numel(qlon);
-nLat = numel(qlat);
+nLon = numel(lon);
+nLat = numel(lat);
 nTime = size(X, 3);
 
 % Reshape as a collection of scattered points
@@ -63,7 +63,7 @@ X(nans,:) = [];
 
 % Preallocate the 1x1 regridded variable and get query point grid
 V = NaN(nLon, nLat, nTime);
-[qlon, qlat] = ndgrid(qlon, qlat);
+[qlon, qlat] = ndgrid(lon, lat);
 
 % Regrid each time step
 for t = 1:nTime
