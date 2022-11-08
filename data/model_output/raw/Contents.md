@@ -69,13 +69,13 @@ A tag that indicates the experiment associated with the raw output file. Options
 
 | Experiment | Description | Citation |
 | ---------- | ----------- | -------- |
-| E280       | A run with pre-industrial (1850 CE) boundary conditions | [Haywood et al., (2020). A return to large-scale features of Pliocene climate: the Pliocene Model Intercomparison Project Phase 2. Climate of the Past.](https://eprints.whiterose.ac.uk/155346/)
-| Eoi400     | A run with mid-Pliocene boundary conditions | [Haywood et al., (2020). A return to large-scale features of Pliocene climate: the Pliocene Model Intercomparison Project Phase 2. Climate of the Past.](https://eprints.whiterose.ac.uk/155346/)
-| pi.400     | (CESM2) A run with pre-industrial boundary conditions and 400 ppm CO2 | [Feng et al., (2022). Past terrestrial hydroclimate sensitivity controlled by Earth system feedbacks. Nature communications, 13(1), 1-11.](https://doi.org/10.1038/s41467-022-28814-7)
-| eo400.new  | (CESM2) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet | [Feng et al., (2022). Past terrestrial hydroclimate sensitivity controlled by Earth system feedbacks. Nature communications, 13(1), 1-11.](https://doi.org/10.1038/s41467-022-28814-7)
-| PreInd     | (CESM1.2.5) A pre-industrial control run | [Ford et al., (2022). Sustained mid-Pliocene warmth led to deep water formation in the North Pacific. Nature Geoscience, 15(8), 658-663.](https://doi.org/10.1038/s41561-022-00978-3)
-| PlioB17    | (CESM1.2.5) A run with early-Pliocene boundary conditions | [Ford et al., (2022). Sustained mid-Pliocene warmth led to deep water formation in the North Pacific. Nature Geoscience, 15(8), 658-663.](https://doi.org/10.1038/s41561-022-00978-3)
-| Plio       | (CESM1.2.5) A run with late-Pliocene boundary conditions | [Ford et al., (2022). Sustained mid-Pliocene warmth led to deep water formation in the North Pacific. Nature Geoscience, 15(8), 658-663.](https://doi.org/10.1038/s41561-022-00978-3)
+| E280       | A run with pre-industrial (1850 CE) boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
+| Eoi400     | A run with mid-Pliocene boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
+| pi.400     | (CESM2) A run with pre-industrial boundary conditions and 400 ppm CO2 | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
+| eo400.new  | (CESM2) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
+| PreInd     | (CESM1.2.5) A pre-industrial control run | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
+| PlioB17    | (CESM1.2.5) A run with early-Pliocene boundary conditions | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
+| Plio       | (CESM1.2.5) A run with late-Pliocene boundary conditions | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
 
 
 
