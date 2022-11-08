@@ -1,21 +1,21 @@
-function[] = NorESM_L_e280
-%% NorESM_L_e280  Pre-processes the data for the NorESM-L E280 run
+function[] = NorESM1_F_e280
+%% NorESM1_F_e280  Pre-processes the data for the NorESM1-F E280 run
 % ----------
-%   NorESM_L_e280
+%   NorESM1_F_e280
 %   Loads variables from the raw output data files, computes climatologies,
 %   and regrids variables to 1x1 resolution. Exports pre-processed
 %   variables to NetCDF.
 % ----------
 %   Outputs:
-%       Creates a NetCDF file named "NorESM-L_e280.nc" in the current
+%       Creates a NetCDF file named "NorESM1-F_e280.nc" in the current
 %       directory.
 
 % Get the files
-prFile =      "NorESM-L_E280_PRECT.nc";
-tasFile =     "NorESM-L_E280_TREFHT.nc";
-tosFile =     "NorESM-L_E280.sst.climo.nc";
-sosFile =     "NorESM-L_E280.sss.climo.nc";
-siconcFile =  "NorESM-L_E280_aice.nc";
+prFile =      "NorESM1-F_E280_PRECT.nc";
+tasFile =     "NorESM1-F_E280_TREFHT.nc";
+tosFile =     "NorESM1-F_E280.sst.climo.nc";
+sosFile =     "NorESM1-F_E280.sss.climo.nc";
+siconcFile =  "NorESM1-F_E280_aice.nc";
 
 % Load variables
 pr = ncread(prFile, 'PRECT');
@@ -66,7 +66,7 @@ lat = ncread(siconcFile, 'TLAT');
 [siconc] = regrid.tripolar(lon, lat, siconc);
 
 % Export to NetCDF
-file = "NorESM-L_e280.nc";
+file = "NorESM1-F_e280.nc";
 exportNetCDF(file, pr, tas, tos, sos, siconc);
 
 end

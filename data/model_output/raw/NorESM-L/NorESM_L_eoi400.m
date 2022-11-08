@@ -7,7 +7,7 @@ function[] = NorESM_L_eoi400
 %   variables to NetCDF.
 % ----------
 %   Outputs:
-%       Creates a NetCDF file named "NorESM-L_EOI400.nc" in the current
+%       Creates a NetCDF file named "NorESM-L_eoi400.nc" in the current
 %       directory.
 
 % Get the files
