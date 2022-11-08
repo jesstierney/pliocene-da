@@ -8,7 +8,7 @@ which organize the climate model output data used for the assimilation. The inst
 
 
 ## Preprocessed
-This folder may contain the pre-processed climate model output data used for assimilation. Currently, the pre-processed climate output is stored in the following Google Drive Folder: [Pre-processed NetCDFs](https://drive.google.com/drive/folders/18J7O8Ahz30bfhab11OFJltG7vT_1rYP8?usp=sharing)
+This folder will contain the pre-processed climate model output data used for assimilation. Currently, the pre-processed climate output is stored in the following Google Drive Folder: [Pre-processed NetCDFs](https://drive.google.com/drive/folders/18J7O8Ahz30bfhab11OFJltG7vT_1rYP8?usp=sharing)
 
 The folder contains a number of NetCDF files. Each NetCDF file data values for a particular model run. The naming convention is `<model name>_<experiment ID>.nc` (and the experiment IDs are [summarized below](#experiment-ids)).
 
