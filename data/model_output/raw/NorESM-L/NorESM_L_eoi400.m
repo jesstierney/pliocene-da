@@ -47,13 +47,13 @@ tas = regrid.curvilinear(lon, lat, tas);
 % TOS
 lon = ncread(tosFile, 'lon');
 lat = ncread(tosFile, 'lat');
-[tos, lon] = regrid.lon180to360(lon, tos);
+[tos, lon] = regrid.lon360(lon, tos);
 tos = regrid.curvilinear(lon, lat, tos);
 
 % SOS
 lon = ncread(sosFile, 'lon');
 lat = ncread(sosFile, 'lat');
-[sos, lon] = regrid.lon180to360(lon, sos);
+[sos, lon] = regrid.lon360(lon, sos);
 sos = regrid.curvilinear(lon, lat, sos);
 
 % SICONC
