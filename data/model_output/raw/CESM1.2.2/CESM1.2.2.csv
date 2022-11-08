@@ -1,0 +1,63 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     Plio_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, Plio,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
+        to                                                       + PRECL
+        Plio_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
+----------
+tas,    Plio_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, Plio,   TREFHT,  lat,  lon,   curvilinear, climatology, NA, K
+        to
+        Plio_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
+----------
+tos,    Plio_ciso_T31_gx3v7.pop.h.2901-3000._01_climo.nc,  Plio,   TEMP,    TLAT, TLONG, tripolar,    climatology, 1,  C
+        to 
+        Plio_ciso_T31_gx3v7.pop.h.2901-3000._12_climo.nc
+----------
+sos,    Plio_ciso_T31_gx3v7.pop.h.2901-3000._01_climo.nc,  Plio,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+        to
+        Plio_ciso_T31_gx3v7.pop.h.2901-3000._12_climo.nc
+----------
+siconc, Plio_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, Plio,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
+        to
+        Plio_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
+
+
+pr,     PlioB17_ciso_T31_gx3v7_branch.cam.h0.2901-2999._01_climo.nc, PlioB17,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
+        to                                                                    + PRECL
+        PlioB17_ciso_T31_gx3v7_branch.cam.h0.2901-2999._12_climo.nc
+----------
+tas,    PlioB17_ciso_T31_gx3v7_branch.cam.h0.2901-2999._01_climo.nc, PlioB17,   TREFHT,  lat,  lon,   curvilinear, climatology, NA, K
+        to
+        PlioB17_ciso_T31_gx3v7_branch.cam.h0.2901-2999._12_climo.nc
+----------
+tos,    PlioB17_ciso_T31_gx3v7_branch.pop.h.2901-3000._01_climo.nc,  PlioB17,   TEMP,    TLAT, TLONG, tripolar,    climatology, 1,  C
+        to 
+        PlioB17_ciso_T31_gx3v7_branch.pop.h.2901-3000._12_climo.nc
+----------
+sos,    PlioB17_ciso_T31_gx3v7_branch.pop.h.2901-3000._01_climo.nc,  PlioB17,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+        to
+        PlioB17_ciso_T31_gx3v7_branch.pop.h.2901-3000._12_climo.nc
+----------
+siconc, PlioB17_ciso_T31_gx3v7_branch.cam.h0.2901-2999._01_climo.nc, PlioB17,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
+        to
+        PlioB17_ciso_T31_gx3v7_branch.cam.h0.2901-2999._12_climo.nc
+
+
+pr,     PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, PreInd,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
+        to                                                           + PRECL
+        PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
+----------
+tas,    PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, PreInd,   TREFHT,  lat,  lon,   curvilinear, climatology, NA, K
+        to
+        PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
+----------
+tos,    PreInd_ciso_T31_gx3v7.pop.h.2901-3000._01_climo.nc,  PreInd,   TEMP,    TLAT, TLONG, tripolar,    climatology, 1,  C
+        to 
+        PreInd_ciso_T31_gx3v7.pop.h.2901-3000._12_climo.nc
+----------
+sos,    PreInd_ciso_T31_gx3v7.pop.h.2901-3000._01_climo.nc,  PreInd,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+        to
+        PreInd_ciso_T31_gx3v7.pop.h.2901-3000._12_climo.nc
+----------
+siconc, PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, PreInd,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
+        to
+        PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
