@@ -24,7 +24,7 @@ Each file holds data for the following variables:
 
 The data for each variable consists of 12 monthly climatologies. Each climatology is constructed using a 100-year average. All variables have been regridded to a 1 degree x 1 degree curvilinear spatial grid.
 
-Currently, the pre-processed climate output is stored in the following Google Drive Folder: [Pre-processed NetCDFs](#https://drive.google.com/drive/folders/18J7O8Ahz30bfhab11OFJltG7vT_1rYP8?usp=sharing)
+Currently, the pre-processed climate output is stored in the following Google Drive Folder: [Pre-processed NetCDFs](https://drive.google.com/drive/folders/18J7O8Ahz30bfhab11OFJltG7vT_1rYP8?usp=sharing)
 
 
 ### Experiment IDs
