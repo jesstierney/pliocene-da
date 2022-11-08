@@ -66,7 +66,7 @@ lat = ncread(siconcFile, 'TLAT');
 [siconc] = regrid.tripolar(lon, lat, siconc);
 
 % Export to NetCDF
-file = "NorESM1-F_eoi400.nc";
+file = "NorESM-L_eoi400.nc";
 exportNetCDF(file, pr, tas, tos, sos, siconc);
 
 end
