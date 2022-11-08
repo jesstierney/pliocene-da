@@ -29,7 +29,7 @@ function[V, qlon, qlat] = curvilinear(lon, lat, X)
 %           (curvilinear) regridded variable in decimal degrees.
 
 % Error check
-if any(lon<0, 'all')
+if any(lon<0, 'all') || any(lon>360, 'all')
     error('longitudes must be 0-360');
 elseif ndims(X)~=3
     error('X must be a 3D array');
