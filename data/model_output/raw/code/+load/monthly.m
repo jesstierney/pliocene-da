@@ -30,7 +30,7 @@ end
 
 % Check time has at least 1200 elements
 siz = [info.Variables(v).Dimensions.Length];
-assert(siz(end)>=1200, 'The time dimension of variable "%s" does not have 1200 elements', variable);
+assert(siz(end)>=1188, 'The time dimension of variable "%s" does not have 1188 elements', variable);
 
 % Load
 if hasLayers

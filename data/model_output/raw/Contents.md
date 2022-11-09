@@ -1,6 +1,10 @@
 # Raw Climate Model Output
 
-This folder contains resources and tools used to preprocess the raw climate model output. The folder contains a subfolder for each climate model used in the assimilation.
+This folder contains resources and tools used to preprocess the raw climate model output. The folder contains:
+
+* A +regrid folder
+* The exportNetCDF.m function, and
+* A subfolder for each climate model used in the assimilation.
 
 Each climate model subfolder contains:
 
@@ -119,9 +123,7 @@ Indicates the units of the climate field in the raw output file.
 ----------------------------------------
 
 ## Matlab Functions
-Each folder also contains several Matlab functions, which were used to pre-process the raw climate model output. Most climate models have two associated functions named `<model name>_preindustrial.m` and `<model name>_midpliocene.m`, which preprocess the data from the preindustrial (E280) and mid-Pliocene (Eoi400) experiments, respectively. 
-
-The CESM2 folder also includes two additional functions `CESM2_eo400new.m` and `CESM2_pi400.m`, which pre-process data from those two experiments. Separately, the ECEarth-3.3 folder also includes two functions `download_ECEarth3.3_EOI400.m` and `download_ECEarth3.3_E280.m`, which were used to download raw output files from ESGF.
+Each folder also contains several Matlab functions, which were used to pre-process the raw climate model output. The naming convention is `<model name>_<experiment tag>.m`. For example, the `COSMOS_eoi400.m` function was used to preprocess the COSMOS EOI400 run.
 
 The Matlab functions follow this general procedure:
 
@@ -150,7 +152,7 @@ The following table summarizes the source of the raw data files for each model:
 | ----------- | ------ |
 |*CCSM4-NCAR   |        |
 |CCSM4-UoT    | PlioMIP2 Data Server (via Globus) |
-|CESM1.0.5    | PlioMIP2 Data Server (via Globus) |
+|*CESM1.0.5    | PlioMIP2 Data Server (via Globus) |
 |CESM1.2      | Sent by Natalie Burls |
 |CESM2        | Sent by Ran Feng, also available on PlioMIP2 Data Server and ESGF - CMIP6 Archive |
 |COSMOS       | PlioMIP2 Data Server (via Globus) |
@@ -174,7 +176,7 @@ This section summarizes any missing data fields
 
 MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
 CCSM4-NCAR  - (Data probably exists, but the Globus repository is a mess and needs to be parsed)
-
+CESM1.0.5   - Missing monthly SOS data. Currently data only has annual averages
 
 
 
