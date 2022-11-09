@@ -1,6 +1,5 @@
 # Proxy record data
-
-Here is some important information about the proxy data collection.
+This file contains information about the raw proxy record dataset.
 
 ## File organization
 
