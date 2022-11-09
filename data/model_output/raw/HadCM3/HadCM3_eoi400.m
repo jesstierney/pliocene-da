@@ -10,69 +10,37 @@ function[] = HadCM3_eoi400
 %       Creates a NetCDF file named "HadCM3_eoi400.nc" in the current
 %       directory.
 
-% Get the files / file patterns
-prPattern =   "eoi400.TotalPrecipitation.%03.f.nc";
-tasPattern =  "eoi400.NearSurfaceTemperature.%03.f.nc";
-tosFile =     "EOI400_2400_2499_Monthly_SST.nc";
-sosFile =     "EOI400_2400_2499_Monthly_SSS.nc";
-siconcFile =  "EOI400_2400_2499_Monthly_iceconc.nc";
+% Set exported NetCDF file
+exportFile = "HadCM3_eoi400.nc";
 
-% Preallocate 
-pr = NaN(96, 73, 1200);
-tas = NaN(96, 73, 1200);
+% Note characteristics of raw output
+names = ["precip","temp","temp_opf","salinity_opf","iceconc_opf"];
+istripolar = [false, false, false, false, false];
+lonNames = ["longitude","longitude","lon2","lon2","lon2"];
+latNames = ["latitude","latitude","lat1","lat1","lat1"];
+conversions = [NaN, NaN, NaN, NaN, 100];
+conversionTypes = ["", "", "", "", "*"];
 
-% Load variables that span multiple files
-for k = 0:99
-    prFile = sprintf(prPattern, k);
-    tasFile = sprintf(tasPattern, k);
+% Get the files / file patterns. 
+files = [...
+    "eoi400.TotalPrecipitation.%03.f.nc";
+    "eoi400.NearSurfaceTemperature.%03.f.nc";
+    "EOI400_2400_2499_Monthly_SST.nc";
+    "EOI400_2400_2499_Monthly_SSS.nc";
+    "EOI400_2400_2499_Monthly_iceconc.nc";
+    ];
 
-    time = k*12+(1:12);
-    pr(:,:,time) = ncread(prFile, 'precip');
-    tas(:,:,time) = ncread(tasFile, 'temp');
-end
+% Load the variables
+[pr, files(1)] = load.fileRange(files(1), names(1), [0 99], 1);
+[tas, files(2)] = load.fileRange(files(2), names(2), [0 99], 1);
+tos = load.climatology(files(3), names(3));
+sos = load.climatology(files(4), names(4));
+siconc = load.climatology(files(5), names(5));
 
-% Load single file variables
-tos = ncread(tosFile, 'temp_opf');
-sos = ncread(sosFile, 'salinity_opf');
-siconc = ncread(siconcFile, 'iceconc_opf');
-
-% PR
-[nLon, nLat] = size(pr, 1:2);
-pr = reshape(pr, nLon, nLat, 12, []);
-pr = mean(pr, 4);
-
-lon = ncread(prFile, 'longitude');
-lat = ncread(prFile, 'latitude');
-pr = regrid.curvilinear(lon, lat, pr);
-
-% TAS
-[nLon, nLat] = size(tas, 1:2);
-tas = reshape(tas, nLon, nLat, 12, []);
-tas = mean(tas, 4);
-
-lon = ncread(tasFile, 'longitude');
-lat = ncread(tasFile, 'latitude');
-tas = regrid.curvilinear(lon, lat, tas);
-
-% TOS
-lon = ncread(tosFile, 'lon2');
-lat = ncread(tosFile, 'lat1');
-tos = regrid.curvilinear(lon, lat, tos);
-
-% SOS
-lon = ncread(sosFile, 'lon2');
-lat = ncread(sosFile, 'lat1');
-sos = regrid.curvilinear(lon, lat, sos);
-
-% SICONC
-lon = ncread(siconcFile, 'lon2');
-lat = ncread(siconcFile, 'lat1');
-siconc = regrid.curvilinear(lon, lat, siconc);
-
-siconc = siconc * 100;  % Convert to percentage
-
-% Export to NetCDF
-file = "HadCM3_eoi400.nc";
-exportNetCDF(file, pr, tas, tos, sos, siconc);
+% Process the variables and export to NetCDF
+variables = {pr, tas, tos, sos, siconc};
+variables = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes);
+[pr, tas, tos, sos, siconc] = variables{:};
+exportNetCDF(exportFile, pr, tas, tos, sos, siconc);
 
 end

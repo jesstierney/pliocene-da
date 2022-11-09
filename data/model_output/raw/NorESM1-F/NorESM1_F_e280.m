@@ -10,63 +10,38 @@ function[] = NorESM1_F_e280
 %       Creates a NetCDF file named "NorESM1-F_e280.nc" in the current
 %       directory.
 
-% Get the files
-prFile =      "NorESM1-F_E280_PRECT.nc";
-tasFile =     "NorESM1-F_E280_TREFHT.nc";
-tosFile =     "NorESM1-F_E280.sst.climo.nc";
-sosFile =     "NorESM1-F_E280.sss.climo.nc";
-siconcFile =  "NorESM1-F_E280_aice.nc";
+% Set exported NetCDF file
+exportFile = "NorESM1-F_e280.nc";
 
-% Load variables
-pr = ncread(prFile, 'PRECT');
-tas = ncread(tasFile, 'TREFHT');
-tos = ncread(tosFile, 'sst');
-sos = ncread(sosFile, 'sss');
-siconc = ncread(siconcFile, 'aice');
+% Note characteristics of raw output
+names = ["PRECT","TREFHT","sst","sss","aice"];
+istripolar = [false, false, false, false, true];
+lonNames = ["lon","lon","lon","lon","TLON"];
+latNames = ["lat","lat","lat","lat","TLAT"];
+conversions = [1000*60*60*24, NaN, NaN, NaN, NaN];
+conversionTypes = ["*", "", "", "", ""];
 
-% PR
-[nLon, nLat] = size(pr, 1:2);
-pr = reshape(pr, nLon, nLat, 12, []);
-pr = mean(pr, 4);
+% Get the files / file patterns. Note whether variables are stored in
+% multiple files
+files = [...
+    "NorESM1-F_E280_PRECT.nc";
+    "NorESM1-F_E280_TREFHT.nc";
+    "NorESM1-F_E280.sst.climo.nc";
+    "NorESM1-F_E280.sss.climo.nc";
+    "NorESM1-F_E280_aice.nc";
+    ];
 
-lon = ncread(prFile, 'lon');
-lat = ncread(prFile, 'lat');
-pr = regrid.curvilinear(lon, lat, pr);
+% Load the variables
+pr = load.monthly(files(1), names(1));
+tas = load.monthly(files(2), names(2));
+tos = load.climatology(files(3), names(3));
+sos = load.climatology(files(4), names(4));
+siconc = load.monthly(files(5), names(5));
 
-pr = pr * (1000*60*60*24); % Convert to mm/day
-
-% TAS
-[nLon, nLat] = size(tas, 1:2);
-tas = reshape(tas, nLon, nLat, 12, []);
-tas = mean(tas, 4);
-
-lon = ncread(prFile, 'lon');
-lat = ncread(prFile, 'lat');
-tas = regrid.curvilinear(lon, lat, tas);
-
-% TOS
-lon = ncread(tosFile, 'lon');
-lat = ncread(tosFile, 'lat');
-[tos, lon] = regrid.lon360(lon, tos);
-tos = regrid.curvilinear(lon, lat, tos);
-
-% SOS
-lon = ncread(sosFile, 'lon');
-lat = ncread(sosFile, 'lat');
-[sos, lon] = regrid.lon360(lon, sos);
-sos = regrid.curvilinear(lon, lat, sos);
-
-% SICONC
-[nRows, nCols] = size(siconc, 1:2);
-siconc = reshape(siconc, nRows, nCols, 12, []);
-siconc = mean(siconc, 4);
-
-lon = ncread(siconcFile, 'TLON');
-lat = ncread(siconcFile, 'TLAT');
-[siconc] = regrid.tripolar(lon, lat, siconc);
-
-% Export to NetCDF
-file = "NorESM1-F_e280.nc";
-exportNetCDF(file, pr, tas, tos, sos, siconc);
+% Process the variables and export to NetCDF
+variables = {pr, tas, tos, sos, siconc};
+variables = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes);
+[pr, tas, tos, sos, siconc] = variables{:};
+exportNetCDF(exportFile, pr, tas, tos, sos, siconc);
 
 end

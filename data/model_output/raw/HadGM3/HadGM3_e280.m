@@ -10,54 +10,37 @@ function[] = HadGM3_e280
 %       Creates a NetCDF file named "HadGM3_e280.nc" in the current
 %       directory.
 
-% Get the files
-prFile =      "clims_hadgem3_pi_precip_final.nc";
-tasFile =     "clims_hadgem3_pi_airtemp_final.nc";
-tosFile =     "clims_hadgem3_pi_sst.nc";
-sosFile =     "clims_hadgem3_pi_sal.nc";
-siconcFile =  "clims_hadgem3_pi_fraccice_final.nc";
+% Set exported NetCDF file
+exportFile = "HadGM3_e280.nc";
 
-% Load variables
-pr = ncread(prFile, 'precip');
-tas = ncread(tasFile, 'temp');
-tos = ncread(tosFile, 'tos');
-sos = ncread(sosFile, 'sal');
-siconc = ncread(siconcFile, 'seaice');
+% Note characteristics of raw output
+names = ["precip","temp","tos","sal","seaice"];
+istripolar = [false, false, false, false, false];
+lonNames = ["longitude","longitude","longitude","longitude","longitude"];
+latNames = ["latitude","latitude","latitude","latitude","latitude"];
+conversions = [60*60*24, NaN, NaN, NaN, 100];
+conversionTypes = ["*", "", "", "", "*"];
 
-% PR
-lon = ncread(prFile, 'longitude');
-lat = ncread(prFile, 'latitude');
-pr = regrid.curvilinear(lon, lat, pr);
+% Get the files / file patterns. 
+files = [...
+    "clims_hadgem3_pi_precip_final.nc";
+    "clims_hadgem3_pi_airtemp_final.nc";
+    "clims_hadgem3_pi_sst.nc";
+    "clims_hadgem3_pi_sal.nc";
+    "clims_hadgem3_pi_fraccice_final.nc";
+    ];
 
-pr = pr * (60*60*24); % Convert to mm/day
+% Load the variables
+pr = load.climatology(files(1), names(1));
+tas = load.climatology(files(2), names(2));
+tos = load.climatology(files(3), names(3));
+sos = load.climatology(files(4), names(4), 1);
+siconc = load.climatology(files(5), names(5));
 
-% TAS
-lon = ncread(tasFile, 'longitude');
-lat = ncread(tasFile, 'latitude');
-tas = regrid.curvilinear(lon, lat, tas);
-
-% TOS
-lon = ncread(tosFile, 'longitude');
-lat = ncread(tosFile, 'latitude');
-[tos, lon] = regrid.lon360(lon, tos);
-tos = regrid.curvilinear(lon, lat, tos);
-
-% SOS
-sos = squeeze(sos(:,:,1,:));
-lon = ncread(sosFile, 'longitude');
-lat = ncread(sosFile, 'latitude');
-[sos, lon] = regrid.lon360(lon, sos);
-sos = regrid.curvilinear(lon, lat, sos);
-
-% SICONC
-lon = ncread(siconcFile, 'longitude');
-lat = ncread(siconcFile, 'latitude');
-siconc = regrid.curvilinear(lon, lat, siconc);
-
-siconc = siconc * 100;  % Convert to percentage
-
-% Export to NetCDF
-file = "HadGM3_e280.nc";
-exportNetCDF(file, pr, tas, tos, sos, siconc);
+% Process the variables and export to NetCDF
+variables = {pr, tas, tos, sos, siconc};
+variables = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes);
+[pr, tas, tos, sos, siconc] = variables{:};
+exportNetCDF(exportFile, pr, tas, tos, sos, siconc);
 
 end

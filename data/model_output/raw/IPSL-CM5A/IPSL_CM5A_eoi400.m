@@ -10,71 +10,37 @@ function[] = IPSL_CM5A_eoi400
 %       Creates a NetCDF file named "IPSL-CM5A_eoi400.nc" in the current
 %       directory.
 
-% Get the files
-prFile =      "Eoi400.TotalPrecip_pr_3581_3680_monthly_TS.nc";
-tasFile =     "Eoi400.NearSurfaceTemp_tas_3581_3680_monthly_TS.nc";
-tosFile =     "Eoi400.Seasurfacetemp_sst_3581_3680_monthly_TS.nc";
-sosFile =     "Eoi400_IPSLCM5A_SSS.nc";
-siconcFile =  "Eoi400.Sicfraction_sic_3581_3680_monthly_TS.nc";
+% Set exported NetCDF file
+exportFile = "IPSL-CM5A_eoi400.nc";
 
-% Load variables
-pr = ncread(prFile, 'pr');
-tas = ncread(tasFile, 'tas');
-tos = ncread(tosFile, 'sst');
-sos = ncread(sosFile, 'sosaline');
-siconc = ncread(siconcFile, 'sic');
+% Note characteristics of raw output
+names = ["pr","tas","sst","sosaline","sic"];
+istripolar = [false, false, true, false, true];
+lonNames = ["lon","lon","nav_lon","lon","nav_lon"];
+latNames = ["lat","lat","nav_lat","lat","nav_lat"];
+conversions = [60*60*24, NaN, NaN, NaN, 100];
+conversionTypes = ["*", "", "", "", "*"];
 
-% PR
-[nLon, nLat] = size(pr, 1:2);
-pr = reshape(pr, nLon, nLat, 12, []);
-pr = mean(pr, 4);
+% Get the files / file patterns. 
+files = [...
+    "Eoi400.TotalPrecip_pr_3581_3680_monthly_TS.nc";
+    "Eoi400.NearSurfaceTemp_tas_3581_3680_monthly_TS.nc";
+    "Eoi400.SeasurfaceTemp_sst_3581_3680_monthly_TS.nc";
+    "Eoi400_IPSLCM5A_SSS.nc";
+    "Eoi400.Sicfraction_sic_3581_3680_monthly_TS.nc";
+    ];
 
-lon = ncread(prFile, 'lon');
-lat = ncread(prFile, 'lat');
-[pr, lon] = regrid.lon360(lon, pr);
-pr = regrid.curvilinear(lon, lat, pr);
+% Load the variables
+pr = load.monthly(files(1), names(1));
+tas = load.monthly(files(2), names(2));
+tos = load.monthly(files(3), names(3));
+sos = load.climatology(files(4), names(4));
+siconc = load.monthly(files(5), names(5));
 
-pr = pr * (60*60*24); % Convert to mm/day
-
-% TAS
-[nLon, nLat] = size(tas, 1:2);
-tas = reshape(tas, nLon, nLat, 12, []);
-tas = mean(tas, 4);
-
-lon = ncread(tasFile, 'lon');
-lat = ncread(tasFile, 'lat');
-[tas, lon] = regrid.lon360(lon, tas);
-tas = regrid.curvilinear(lon, lat, tas);
-
-% TOS
-[nLon, nLat] = size(tos, 1:2);
-tos = reshape(tos, nLon, nLat, 12, []);
-tos = mean(tos, 4);
-
-lon = ncread(tosFile, 'nav_lon');
-lat = ncread(tosFile, 'nav_lat');
-lon = regrid.lon360(lon);
-tos = regrid.tripolar(lon, lat, tos);
-
-% SOS
-lon = ncread(sosFile, 'lon');
-lat = ncread(sosFile, 'lat');
-sos = regrid.curvilinear(lon, lat, sos);
-
-% SICONC
-[nLon, nLat] = size(siconc, 1:2);
-siconc = reshape(siconc, nLon, nLat, 12, []);
-siconc = mean(siconc, 4);
-
-lon = ncread(siconcFile, 'nav_lon');
-lat = ncread(siconcFile, 'nav_lat');
-lon = regrid.lon360(lon);
-siconc = regrid.tripolar(lon, lat, siconc);
-
-siconc = siconc * 100;  % Convert to percentage
-
-% Export to NetCDF
-file = "IPSL-CM5A_eoi400.nc";
-exportNetCDF(file, pr, tas, tos, sos, siconc);
+% Process the variables and export to NetCDF
+variables = {pr, tas, tos, sos, siconc};
+variables = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes);
+[pr, tas, tos, sos, siconc] = variables{:};
+exportNetCDF(exportFile, pr, tas, tos, sos, siconc);
 
 end

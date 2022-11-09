@@ -10,75 +10,38 @@ function[] = MIROC4m_e280
 %       Creates a NetCDF file named "MIROC4m_e280.nc" in the current
 %       directory.
 
-% Get the files
-prFile =      "MIROC4m_E280_Amon_pr.nc";
-tasFile =     "MIROC4m_E280_Amon_tas.nc";
-tosFile =     "MIROC4m_E280_Omon_tos.nc";
-sosFile =     "MIROC4m_E280_Omon_so.nc";
-siconcFile =  "MIROC4m_E280_Omon_siconc.nc";
+% Set exported NetCDF file
+exportFile = "MIROC4m_e280.nc";
 
-% Load variables
-pr = ncread(prFile, 'pr');
-tas = ncread(tasFile, 'tas');
-tos = ncread(tosFile, 'tos');
-sos = ncread(sosFile, 'so');
-siconc = ncread(siconcFile, 'siconc');
+% Note characteristics of raw output
+names = ["pr","tas","tos","so","siconc"];
+istripolar = [false, false, false, false, false];
+lonNames = ["lon","lon","lon","lon","lon"];
+latNames = ["lat","lat","lat","lat","lat"];
+conversions = [NaN, 273.15, NaN, NaN, NaN];
+conversionTypes = ["", "+", "", "", ""];
 
-% Extract depths
-sos = sos(:,:,1,:);
+% Get the files / file patterns. Note whether variables are stored in
+% multiple files
+files = [...
+    "MIROC4m_E280_Amon_pr.nc";
+    "MIROC4m_E280_Amon_tas.nc";
+    "MIROC4m_E280_Omon_tos.nc";
+    "MIROC4m_E280_Omon_so.nc";
+    "MIROC4m_E280_Omon_siconc.nc";
+    ];
 
-% PR
-[nLon, nLat] = size(pr, 1:2);
-pr = reshape(pr, nLon, nLat, 12, []);
-pr = mean(pr, 4);
+% Load the variables
+pr = load.monthly(files(1), names(1));
+tas = load.monthly(files(2), names(2));
+tos = load.monthly(files(3), names(3));
+sos = load.climatology(files(4), names(4), 1);
+siconc = load.monthly(files(5), names(5));
 
-lon = ncread(prFile, 'lon');
-lat = ncread(prFile, 'lat');
-pr = regrid.curvilinear(lon, lat, pr);
-
-% TAS
-[nLon, nLat] = size(tas, 1:2);
-tas = reshape(tas, nLon, nLat, 12, []);
-tas = mean(tas, 4);
-
-lon = ncread(tasFile, 'lon');
-lat = ncread(tasFile, 'lat');
-tas = regrid.curvilinear(lon, lat, tas);
-
-tas = tas + 273.15;  % Convert to K
-
-% TOS
-[nLon, nLat] = size(tos, 1:2);
-tos = reshape(tos, nLon, nLat, 12, []);
-tos = mean(tos, 4);
-
-lon = ncread(tosFile, 'lon');
-lat = ncread(tosFile, 'lat');
-[tos, lon] = regrid.lon360(lon, tos);
-tos = regrid.curvilinear(lon, lat, tos);
-
-% SOS
-[nLon, nLat] = size(sos, 1:2);
-sos = reshape(sos, nLon, nLat, 12, []);
-sos = mean(sos, 4);
-
-lon = ncread(sosFile, 'lon');
-lat = ncread(sosFile, 'lat');
-[sos, lon] = regrid.lon360(lon, sos);
-sos = regrid.curvilinear(lon, lat, sos);
-
-% SICONC
-[nLon, nLat] = size(siconc, 1:2);
-siconc = reshape(siconc, nLon, nLat, 12, []);
-siconc = mean(siconc, 4);
-
-lon = ncread(siconcFile, 'lon');
-lat = ncread(siconcFile, 'lat');
-[siconc, lon] = regrid.lon360(lon, siconc);
-siconc = regrid.curvilinear(lon, lat, siconc);
-
-% Export to NetCDF
-file = "MIROC4m_e280.nc";
-exportNetCDF(file, pr, tas, tos, sos, siconc);
+% Process the variables and export to NetCDF
+variables = {pr, tas, tos, sos, siconc};
+variables = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes);
+[pr, tas, tos, sos, siconc] = variables{:};
+exportNetCDF(exportFile, pr, tas, tos, sos, siconc);
 
 end
