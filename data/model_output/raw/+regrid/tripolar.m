@@ -65,6 +65,16 @@ X(nans,:) = [];
 V = NaN(nLon, nLat, nTime);
 [qlon, qlat] = ndgrid(lon, lat);
 
+% Use double data type for input points
+tlon = double(tlon);
+tlat = double(tlat);
+
+% Disable warning message
+id = 'MATLAB:scatteredInterpolant:DupPtsAvValuesWarnId';
+status = warning('query', id).state;
+reset = onCleanup( @()warning(status, id) );
+warning('off', id);
+
 % Regrid each time step
 for t = 1:nTime
     V(:,:,t) = griddata(tlon, tlat, X(:,t), qlon, qlat); %#ok<GRIDD> 
