@@ -14,7 +14,7 @@ if exist('layer','var')
 end
 
 % Check the first file exists
-file = sprintf(filePattern, startYears(1), stopYears(1));
+file = sprintf(filePattern, range(1));
 if isempty(which(file))
     error('Could not find file:\n%s', file);
 end
