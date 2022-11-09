@@ -1,9 +1,9 @@
 CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
 
-pr,     e280.TotalPrecipitation.000.nc,     E280, precip,       latitude, longitude, curvilinear, climatology, 1,  mm/day
+pr,     e280.TotalPrecipitation.000.nc,     E280, precip,       latitude, longitude, curvilinear, monthly,     1,  mm/day
         to
         e280.TotalPrecipitation.099.nc
-tas,    e280.NearSurfaceTemperature.000.nc, E280, temp,         latitude, longitude, curvilinear, climatology, 1,  K
+tas,    e280.NearSurfaceTemperature.000.nc, E280, temp,         latitude, longitude, curvilinear, monthly,     1,  K
         to
         e280.NearSurfaceTemperature.099.nc
 tos,    E280_2900_2999_Monthly_SST.nc,      E280, temp_opf,     lat1,     lon2,      curvilinear, climatology, NA, C
@@ -11,10 +11,10 @@ sos,    E280_2900_2999_Monthly_SSS.nc,      E280, salinity_opf, lat1,     lon2, 
 siconc, E280_2900_2999_Monthly_iceconc.nc,  E280, iceconc_opf,  lat1,     lon2,      curvilinear, climatology, NA, fraction
 
 
-pr,     eoi400.TotalPrecipitation.000.nc,     Eoi400, precip,       latitude, longitude, curvilinear, climatology, 1,  mm/day
+pr,     eoi400.TotalPrecipitation.000.nc,     Eoi400, precip,       latitude, longitude, curvilinear, monthly,     1,  mm/day
         to
         eoi400.TotalPrecipitation.099.nc
-tas,    eoi400.NearSurfaceTemperature.000.nc, Eoi400, temp,         latitude, longtidue, curvilinear, climatology, 1,  K 
+tas,    eoi400.NearSurfaceTemperature.000.nc, Eoi400, temp,         latitude, longtidue, curvilinear, monthly,     1,  K 
         to
         eoi400.NearSurfaceTemperature.099.nc
 tos,    EOI400_2400_2499_Monthly_SST.nc,      Eoi400, temp_opf,     lat1,     lon2,      curvilinear, climatology, NA, C
