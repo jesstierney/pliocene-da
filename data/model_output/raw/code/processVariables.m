@@ -1,4 +1,37 @@
 function[variables] = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes)
+%% processVariables  Computes climatologies, regrids to a common resolution, and applies unit conversions to a set of raw output variables
+% ----------
+%   variables = processVariables(variables, istripolar, files, lonNames,
+%                                   latNames, conversions, conversionTypes)
+%   Processes a set of raw climate model output variables. Each variable is
+%   used to compute monthly climatologies. The climatologies are regridded
+%   to a common resolution, and applies user-specified unit conversions.
+% ----------
+%   Inputs:
+%       variables (cell vector [nVars]): A cell vector. Each element holds
+%           a raw climate model output variable. Each variable should be a
+%           3D numeric array with time arranged along the time dimension.
+%       istripolar (logical vector [nVars]): Indicates whether each
+%           variable is organized on a curvilinear or tripolar grid. True
+%           elements indicate tripolar variables, and false elements
+%           indicate curvilinear.
+%       files (string vector [nVars]): The name of an output file holding
+%           latitude and longitude metadata for each variable.
+%       lonNames (string vector [nVars]): The name of the NetCDF variable
+%           holding longitude metadata for each variable
+%       latNames (string vector [nVars]): The name of the NetCDF variable
+%           holding latitude metadata for each variable
+%       conversions (numeric vector [nVars]): Indicates the numeric
+%           parameter used for unit conversion for each variable. Use a NaN
+%           element if a variable does not require unit conversion.
+%       conversionTypes (string vector [nVars]): Indicates the type of
+%           mathematical operation to use for unit conversion for each
+%           variable. Use "*" for multiplication, "+" for addition, and ""
+%           if no unit conversion should be applied.
+%
+%   Outputs:
+%       variables (cell vector [nVars]): A cell vector holding the
+%           processed climate model output variables.
 
 % Error check the inputs
 assertVectorTypeN(variables, 'cell', NaN, 'variables');

@@ -1,4 +1,31 @@
 function[X, file] = climatologyRange(filePattern, variable, layer)
+%% load.climatologyRange  Loads monthly climatologies for a variable from an iterative range of files
+% ----------
+%   [X, file] = load.climatologyRange(filePattern, variable)
+%   Loads monthly climatologies for a variable from an iterative range of
+%   NetCDF file. Each individual file should hold data for 1 monthly
+%   climatology. The files should follow a common naming pattern in which
+%   the file name includes an integer from 1 to 12. The variable in each
+%   file should have 3 dimensions and the third dimension should hold the
+%   single monthly climatology. Returns the loaded climatologies and the
+%   name of the final file used to load data.
+%
+%   [...] = load.climatologyRange(..., layer)
+%   Loads data from a specific layer of the variable. The variable
+%   should have 4 dimensions. Layers should be arranged along the third
+%   dimension, and the single climatology along the fourth dimension.
+% ----------
+%   Inputs:
+%       filePattern (string scalar): The "sprintf" style naming pattern
+%           used for the files. Should include one %f operands, used to
+%           signify the month (from 1 to 12) associated with the file.
+%       variable (string scalar): The name of a variable in the NetCDF file
+%       layer (scalar positive integer): The layer of the variable from
+%           which to load monthly climatologies
+%
+%   Outputs:
+%       X (numeric 3D array [nRows x nCols x 12]): The loaded climatologies
+%       file (string scalar): The name of the final file used to load data
 
 % Error check
 assert(isstring(filePattern) && isscalar(filePattern), 'filePattern must be a string scalar');

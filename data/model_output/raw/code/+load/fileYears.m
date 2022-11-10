@@ -1,4 +1,40 @@
 function[X, file] = fileYears(filePattern, variable, startYears, stopYears, layer)
+%% load.fileYears  Loads a monthly variable stored in a set of NetCDF files that span multiple years
+% ----------
+%   [X, file] = load.fileYears(filePattern, variable, startYears, stopYears)
+%   Loads data for a variable on a monthly time step that is stored across
+%   several NetCDF files. Each NetCDF file holds output for a series of
+%   successive years. The files should follow a common naming pattern that
+%   includes the first and last year of output recorded in the file. Each 
+%   file should hold data for all 12 months of each included year. The
+%   variable in each file should have 3 dimensions with monthly timesteps
+%   along the third dimension. Returns monthly data over the first 100
+%   years of output. Also returns the name of the final file used to load
+%   data.
+%
+%   [...] = load.fileYears(..., layer)
+%   Loads data from a specific layer of the variable. The variable 
+%   should have 4 dimensions. Layers should be arranged along the third
+%   dimension, and the monthly timesteps arranged along the fourth
+%   dimension.
+% ----------
+%   Inputs:
+%       filePattern (string scalar): The "sprintf" style naming pattern
+%           used for the files. Should include two %f operands, used to
+%           signify the first and last year associated with the file.
+%       variable (string scalar): The name of a variable in the NetCDF file
+%       startYears (vector, integers [nFiles]): The first year of recorded
+%           output for each output file. From the second element onward,
+%           each element should be exactly 1 greater than the previous stop
+%           year.
+%       stopYears (vector, integers [nFiles]): The final year of recorded
+%           output for each file. 
+%       layer (scalar positive integer): The layer of the variable from
+%           which to load monthly data
+%
+%   Outputs:
+%       X (numeric 3D array [nRows x nCols x 1200]): The loaded data
+%       file (string scalar): The name of the final file used to load data
 
 % Initial error check
 assert(isstring(filePattern) && isscalar(filePattern), 'filePattern must be a string scalar');

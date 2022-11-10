@@ -1,4 +1,27 @@
 function[X] = monthly(file, variable, layer)
+%% load.monthly  Loads monthly data from a variable in a NetCDF file
+% ----------
+%   X = load.monthly(file, variable)
+%   Loads a variable from a NetCDF file in the case where the NetCDF stores
+%   monthly data for the variable. Only loads data for the first 100 years
+%   (1200 monthly time steps). The variable should have 3 dimensions with
+%   the monthly time steps along the third dimension.
+%
+%   X = load.monthly(file, variable, layer)
+%   Loads monthly data from a specific layer of the variable. The variable
+%   should have 4 dimensions. Layers should be arranged along the third
+%   dimension, and the monthly timesteps arranged along the fourth
+%   dimension.
+% ----------
+%   Inputs:
+%       file (string scalar): The name of a NetCDF file
+%       variable (string scalar): The name of a variable in the NetCDF file
+%       layer (scalar positive integer): The layer of the variable from
+%           which to load monthly data
+%
+%   Outputs:
+%       X (numeric 3D array [nRows x nCols x 1200]): The loaded monthly
+%           data for the first 100 years of file data.
 
 % Initial error check
 assert(isstring(file) && isscalar(file), 'file must be a string scalar');

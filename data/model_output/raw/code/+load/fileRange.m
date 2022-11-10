@@ -1,4 +1,37 @@
 function[X, file] = fileRange(filePattern, variable, range, layer)
+%% load.fileRange  Loads a monthly variable stored in an iterative range of NetCDF files
+% ----------
+%   [X, file] = load.fileRange(filePattern, variable, range)
+%   Loads data for a variable on a monthly time step that is stored across
+%   an iterative range of NetCDF files. Each individual file should hold
+%   data for 1 year. The files should follow a common naming pattern
+%   in which the file name includes an integer that increases by 1 for each
+%   successive file. The variable in each file should have 3 dimensions
+%   and the third dimension should hold the 12 monthly time steps for that
+%   year of output. Returns monthly data over the first 100 years of output.
+%   Also returns the name of the final file used load data.
+%
+%   [...] = load.fileRange(..., layer)
+%   Loads data from a specific layer of the variable. The variable
+%   should have 4 dimensions. Layers should be arranged along the third
+%   dimension, and the 12 climatologies arranged along the fourth
+%   dimension.
+% ----------
+%   Inputs:
+%       filePattern (string scalar): The "sprintf" style naming pattern
+%           used for the files. Should include a single %f operand,
+%           used to signify the integer associated with each file.
+%       variable (string scalar): The name of a variable in the NetCDF file
+%       range (vector [2], integers): Indicates the integers associated
+%           with the first and last file in the file range. The first
+%           element should be the integer for the first file, and the
+%           second element is the integer for the final file.
+%       layer (scalar positive integer): The layer of the variable from
+%           which to load monthly data
+%
+%   Outputs:
+%       X (numeric 3D array [nRows x nCols x 1200]): The loaded data
+%       file (string scalar): The name of the final file used to load data
 
 % Error check
 assert(isstring(filePattern) && isscalar(filePattern), 'filePattern must be a string scalar');

@@ -1,4 +1,27 @@
 function[X] = climatology(file, variable, layer)
+%% load.climatology  Loads monthly climatologies for a variable from a NetCDF file
+% ----------
+%   X = load.climatology(file, variable)
+%   Loads a variable from a NetCDF file for the case where the NetCDF file 
+%   stores the 12 monthly climatologies for the variable. The variable
+%   should have 3 dimension with the 12 climatologies arranged along the
+%   third dimension.
+%
+%   X = load.climatology(file, variable, layer)
+%   Loads climatologies from a specific layer of the variable. The variable
+%   should have 4 dimensions. Layers should be arranged along the third
+%   dimension, and the 12 climatologies arranged along the fourth
+%   dimension.
+% ----------
+%   Inputs:
+%       file (string scalar): The name of a NetCDF file
+%       variable (string scalar): The name of a variable in the NetCDF file
+%       layer (scalar positive integer): The layer of the variable from
+%           which to load monthly climatologies
+%
+%   Outputs:
+%       X (numeric 3D array [nRows x nCols x 12]): The loaded monthly
+%           climatologies
 
 % Initial error check
 assert(isstring(file) && isscalar(file), 'file must be a string scalar');
