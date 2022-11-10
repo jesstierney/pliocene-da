@@ -13,6 +13,7 @@ To rebuild the processed NetCDF files, you should
 * Add the raw output files to the active Matlab path,
 * Add the `code` folder to the active Matlab path, and
 * Run `processModelOutput` from the Matlab console
+
 This will generate the processed NetCDF files in the current directory.
 
 
