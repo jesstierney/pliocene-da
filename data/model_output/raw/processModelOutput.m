@@ -1,5 +1,25 @@
 function[] = processModelOutput
+%% processModelOutput  Build pre-processed climate model NetCDF files from raw output files
+% ----------
+%   processModelOutput
+%   Processes raw climate model outputs in preparation for assimilation.
+%   Creates a NetCDF file with pre-processed variables for each climate 
+%   model run. Writes the NetCDF files to the current directory. The naming
+%   convention for the NetCDFs is <model name>_<experiment ID>.nc
+% 
+%   Each NetCDF contains data and metadata for precipitation (pr), 
+%   near surface air temperature (tas), sea surface temperature (tos), sea
+%   surface salinity (sos), and sea ice area percentage (siconc).
+%
+%   To build the files, raw climate model output is first used to compute
+%   monthly climatologies for each climate variable. Each climatology is
+%   constructed from 100 years output. The monthly climatologies are then
+%   regridded to a 1x1 resolution.
+% ----------
+%   Outputs:
+%       Creates a number of NetCDF files in the current directory.
 
+% Call the pre-processing script for every model run
 CCSM4_UoT_e280;
 CCSM4_UoT_eoi400;
 
