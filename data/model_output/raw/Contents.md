@@ -124,6 +124,7 @@ Indicates the type of spatial grid used in the raw output file. Options are:
 Indicates the time step of data in the raw output file. Options are:
 
 | Time Step | Description |
+| --------- | ----------- |
 | Monthly | Monthly time series |
 | Climatology | Monthly climatology |
 
