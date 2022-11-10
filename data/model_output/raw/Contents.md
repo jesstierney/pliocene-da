@@ -182,16 +182,16 @@ The following table summarizes the source of the raw data files for each model:
 |*MRI-CGCM2.3  | PlioMIP2 Data Server (via Globus) |
 |NorESM1-F    | PlioMIP2 Data Server (via Globus) |
 |NorESML      | PlioMIP2 Data Server (via Globus) |
-| *           | Indicates model is missing data |
+| *           | Indicates model is missing data and not currently used for assimilation|
 
 
 
 ### Missing Data
 This section summarizes any missing data fields
 
-MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
-CCSM4-NCAR  - (Data probably exists, but the Globus repository is a mess and needs to be parsed)
-CESM1.0.5   - Missing monthly SOS data. Current data only has annual averages
+* MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
+* CCSM4-NCAR  - (Data probably exists, but the Globus repository is a mess and needs to be parsed)
+* CESM1.0.5   - Missing monthly SOS data. Current data only has annual averages
 
 
 
