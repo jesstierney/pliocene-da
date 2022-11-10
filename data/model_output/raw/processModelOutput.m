@@ -26,6 +26,12 @@ CCSM4_UoT_eoi400;
 CESM1_2_2_plio;
 CESM1_2_2_pliob17;
 CESM1_2_2_preind;
+CESM1_2_2_cheyco2;
+CESM1_2_2_cheyctrl;
+tags = ["p05","p10","p15","p20","n05","n10","n15","n20"];
+for t = 1:numel(tags)
+    CESM1_2_2_laystrat(tags(t));
+end
 
 CESM2_e280;
 CESM2_eoi400;
