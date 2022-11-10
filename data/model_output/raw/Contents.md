@@ -1,10 +1,22 @@
-# Raw Climate Model Output
+# Raw Climate Model Output Folder
 
 This folder contains resources and tools used to preprocess the raw climate model output. The folder contains:
 
-* A +regrid folder
-* The exportNetCDF.m function, and
-* A subfolder for each climate model used in the assimilation.
+* A `code` folder,
+* A subfolder for each climate model used in the assimilation, and
+* `processModelOutput.m`
+
+The code folder holds a number of utility functions used to process raw climate output. The climate model subfolders contain summaries of the raw output files used, as well as functions that process the data for each individual model run. The `processModelOutput.m` function runs the processing script for every model run used by the assimilation.
+
+To rebuild the processed NetCDF files, you should
+* Download the raw output files detailed in the climate model summaries,
+* Add the raw output files to the active Matlab path,
+* Add the `code` folder to the active Matlab path, and
+* Run `processModelOutput` from the Matlab console
+This will generate the processed NetCDF files in the current directory.
+
+
+# Climate Model Subfolders
 
 Each climate model subfolder contains:
 
@@ -15,7 +27,7 @@ The sources of the raw climate model output are also [summarized below](#data-so
 
 ----------------------------------------
 
-## CSV Files
+### CSV Files
 Each CSV file summarizes the raw data files used from the model. The summaries are grouped by experiment, and files within an experiment group are grouped by assimilated climate variable. Each summary includes the following comma separated values:
 
 * [CMIP6 Name](#cmip6-name)
@@ -143,6 +155,8 @@ To run the functions youself, you should:
 
 Each function will produce a NetCDF file that matches the name of the function (i.e. `<model name>_<experiment>.nc`). The file contains the pre-processed variable for the associated model/experiment.
 
+Alternatively, you can run the `processModelOutput.m` function to generate the NetCDF file for every climate model run used in the assimialtion.
+
 ----------------------------------------
 
 ## Data sources
@@ -176,7 +190,7 @@ This section summarizes any missing data fields
 
 MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
 CCSM4-NCAR  - (Data probably exists, but the Globus repository is a mess and needs to be parsed)
-CESM1.0.5   - Missing monthly SOS data. Currently data only has annual averages
+CESM1.0.5   - Missing monthly SOS data. Current data only has annual averages
 
 
 
