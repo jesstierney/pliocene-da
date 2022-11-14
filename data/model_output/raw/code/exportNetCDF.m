@@ -52,6 +52,13 @@ ncwriteatt(file, 'sos', 'Units_Equivalent', "psu");
 ncwriteatt(file, 'siconc', 'Units', "Percent");
 ncwriteatt(file, 'siconc', 'Units_Range', "0 - 100%");
 
+% Write variable descriptions
+ncwriteatt(file, 'pr', 'Description', 'Total precipitation');
+ncwriteatt(file, 'tas', 'Description', 'Near surface (usually 2m) air temperature');
+ncwriteatt(file, 'tos', 'Description', 'Sea surface temperature');
+ncwriteatt(file, 'sos', 'Description', 'Sea surface salinity');
+ncwriteatt(file, 'siconc', 'Description', 'Sea ice area percentage');
+
 % Write variables
 ncwrite(file, 'lat', lat);
 ncwrite(file, 'lon', lon);
