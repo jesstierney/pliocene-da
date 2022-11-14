@@ -40,6 +40,13 @@ nccreate(file, 'tos', 'Dimensions', {'lon', nLon, 'lat', nLat, 'month', 12}, 'Da
 nccreate(file, 'sos', 'Dimensions', {'lon', nLon, 'lat', nLat, 'month', 12}, 'Datatype', class(sos));
 nccreate(file, 'siconc', 'Dimensions', {'lon', nLon, 'lat', nLat, 'month', 12}, 'Datatype', class(siconc));
 
+% Write variable descriptions
+ncwriteatt(file, 'pr', 'Description', 'Total precipitation');
+ncwriteatt(file, 'tas', 'Description', 'Near surface (usually 2m) air temperature');
+ncwriteatt(file, 'tos', 'Description', 'Sea surface temperature');
+ncwriteatt(file, 'sos', 'Description', 'Sea surface salinity');
+ncwriteatt(file, 'siconc', 'Description', 'Sea ice area percentage');
+
 % Write variable units
 ncwriteatt(file, 'lat', 'Units', 'Decimal Degrees North');
 ncwriteatt(file, 'lon', 'Units', 'Decimal Degrees East');
@@ -51,13 +58,6 @@ ncwriteatt(file, 'sos', 'Units', "g / kg");
 ncwriteatt(file, 'sos', 'Units_Equivalent', "psu");
 ncwriteatt(file, 'siconc', 'Units', "Percent");
 ncwriteatt(file, 'siconc', 'Units_Range', "0 - 100%");
-
-% Write variable descriptions
-ncwriteatt(file, 'pr', 'Description', 'Total precipitation');
-ncwriteatt(file, 'tas', 'Description', 'Near surface (usually 2m) air temperature');
-ncwriteatt(file, 'tos', 'Description', 'Sea surface temperature');
-ncwriteatt(file, 'sos', 'Description', 'Sea surface salinity');
-ncwriteatt(file, 'siconc', 'Description', 'Sea ice area percentage');
 
 % Write variables
 ncwrite(file, 'lat', lat);
