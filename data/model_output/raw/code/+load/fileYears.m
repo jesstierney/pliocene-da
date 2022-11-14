@@ -1,4 +1,4 @@
-function[X, file] = fileYears(filePattern, variable, startYears, stopYears, layer)
+function[X, file] = fileYears(filePattern, variable, startYears, stopYears, layer, keepAll)
 %% load.fileYears  Loads a monthly variable stored in a set of NetCDF files that span multiple years
 % ----------
 %   [X, file] = load.fileYears(filePattern, variable, startYears, stopYears)
@@ -17,6 +17,11 @@ function[X, file] = fileYears(filePattern, variable, startYears, stopYears, laye
 %   should have 4 dimensions. Layers should be arranged along the third
 %   dimension, and the monthly timesteps arranged along the fourth
 %   dimension.
+%
+%   [...] = load.fileYears(..., layer, keepAll)
+%   Indicate whether to return monthly data over the first 100 years of output,
+%   or whether to return all loaded data. Default is to return the first 100
+%   years of output.
 % ----------
 %   Inputs:
 %       filePattern (string scalar): The "sprintf" style naming pattern
@@ -30,7 +35,10 @@ function[X, file] = fileYears(filePattern, variable, startYears, stopYears, laye
 %       stopYears (vector, integers [nFiles]): The final year of recorded
 %           output for each file. 
 %       layer (scalar positive integer): The layer of the variable from
-%           which to load monthly data
+%           which to load monthly data. If NaN or an empty array, does not
+%           use a layer.
+%       keepAll (scalar logical): If true, returns all loaded data. If
+%           false (default), returns data from the first 100 years of output
 %
 %   Outputs:
 %       X (numeric 3D array [nRows x nCols x 1200]): The loaded data
@@ -52,9 +60,16 @@ startYears = startYears(:);
 stopYears = stopYears(:);
 assert(all(startYears(2:end)==stopYears(1:end-1)+1), 'Each new startYear must be 1 higher than the previous stopYear');
 
+% Default and error check keepAll
+if exist('keepAll','var')
+    assert(islogical(keepAll) && isscalar(keepAll), 'keepAll must be a logical scalar');
+else
+    keepAll = false;
+end
+
 % Parse the layer
 hasLayers = false;
-if exist('layer','var')
+if exist('layer','var') && ~isempty(layer) && ~isnan(layer)
     assert(isnumeric(layer) && isscalar(layer) && mod(layer,1)==0 && layer>0, 'Layer must be a scalar positive integer');
     hasLayers = true;
 end
@@ -88,7 +103,7 @@ X = NaN(siz(1), siz(2), nYears*12);
 for f = 1:numel(startYears)
     file = sprintf(filePattern, startYears(f), stopYears(f));
     nMonths = 12 * (stopYears(f)-startYears(f)+1);
-    times = (stopYears(f)-startYears(1))*12 + (1:nMonths);
+    times = (startYears(f)-startYears(1))*12 + (1:nMonths);
 
     % Load
     if hasLayers
@@ -102,6 +117,8 @@ for f = 1:numel(startYears)
 end
 
 % Restrict to first 100 years
-X = X(:,:,1:1200);
+if ~keepAll
+    X = X(:,:,1:1200);
+end
 
 end
