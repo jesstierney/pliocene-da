@@ -1,0 +1,21 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,       b40.B1850.f09_g16.preind.cam.h0.PRECL.0081.0180.nc,               E280, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+        + b40.B1850.f09_g16.preind.cam.h0.PRECL.0081.0180.nc,               E280, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,      b40.B1850.f09_g16.preind.cam.h0.TREFHT.0081.0180.nc,              E280, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,      b.e12.B1850C5CN.f09_g16.preind.ccsm4.pop.h.TEMP.005101-010012.nc, E280, TEMP,    TLAT, TLONG, tripolar,    monthly, 1,  C
+          b.e12.B1850C5CN.f09_g16.preind.ccsm4.pop.h.TEMP.010101-015012.nc,
+          b.e12.B1850C5CN.f09_g16.preind.ccsm4.pop.h.TEMP.015101-018012.nc,
+sos,      b.e12.B1850C5CN.f09_g16.preind.ccsm4.pop.h.SALT.005101-010012.nc, E280, SALT,    TLAT, TLONG, tripolar,    monthly, 1,  g/kg
+          b.e12.B1850C5CN.f09_g16.preind.ccsm4.pop.h.SALT.010101-015012.nc,
+          b.e12.B1850C5CN.f09_g16.preind.ccsm4.pop.h.SALT.015101-018012.nc,
+siconc,   b40.B1850.f09_g16.preind.cam.h0.ICEFRAC.0081.0180.nc,             E280, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction
+
+pr,       b40.B1850.f09_g16.PMIP4-pliomip2.PRECC.1001.1100.nc,                  Eoi400, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+        + b40.B1850.f09_g16.PMIP4-pliomip2.PRECL.1001.1100.nc,                  Eoi400, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,      b40.B1850.f09_g16.PMIP4-pliomip2.TREFHT.1001.1100.nc,                 Eoi400, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,      b.e12.B1850.f09_g16.PIMP4-pliomip2.ccsm4.pop.h.TEMP.100001-104912.nc, Eoi400, TEMP,    TLAT, TLONG, tripolar,    monthly, 1,  C
+          b.e12.B1850.f09_g16.PIMP4-pliomip2.ccsm4.pop.h.TEMP.105001-109912.nc,
+sos,      b.e12.B1850.f09_g16.PIMP4-pliomip2.ccsm4.pop.h.SALT.100001-104912.nc, Eoi400, SALT,    TLAT, TLONG, tripolar,    monthly, 1,  g/kg
+          b.e12.B1850.f09_g16.PIMP4-pliomip2.ccsm4.pop.h.SALT.105001-109912.nc, 
+siconc,   b40.B1850.f09_g16.PMIP4-pliomip2.ICEFRAC.1001.1100.nc,                Eoi400, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction

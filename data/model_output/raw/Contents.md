@@ -118,7 +118,7 @@ Indicates the type of spatial grid used in the raw output file. Options are:
 | --------- | ----------- |
 | Curvilinear | Data has explicit latitude and longitude dimensions. |
 | Tripolar | Data is organized on a tripolar grid. |
-| Regridded | Data has been regridded to a 1x1 spatial field. |
+| Regridded | Data has been regridded to a 1x1 curvilinear spatial field. |
 
 ### Time Step
 Indicates the time step of data in the raw output file. Options are:
@@ -166,10 +166,11 @@ The following table summarizes the source of the raw data files for each model:
 
 |   Model     | Source |
 | ----------- | ------ |
-|*CCSM4-NCAR   |        |
+|CCSM4-NCAR   | PlioMIP2 Data Server (via Globus)       |
 |CCSM4-UoT    | PlioMIP2 Data Server (via Globus) |
-|*CESM1.0.5    | PlioMIP2 Data Server (via Globus) |
-|CESM1.2      | Sent by Natalie Burls |
+|*CESM1.0.5   | PlioMIP2 Data Server (via Globus) |
+|CESM1.2|     | PlioMIP2 Data Server (via Globus) |
+|CESM1.2.2    | Sent by Natalie Burls |
 |CESM2        | Sent by Ran Feng, also available on PlioMIP2 Data Server and ESGF - CMIP6 Archive |
 |COSMOS       | PlioMIP2 Data Server (via Globus) |
 |EC-Earth3.3  | Earth Systen Grid Federation - CMIP6 Data Search (via HTTP download scripts) |
@@ -191,7 +192,6 @@ The following table summarizes the source of the raw data files for each model:
 This section summarizes any missing data fields
 
 * MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
-* CCSM4-NCAR  - (Data probably exists, but the Globus repository is a mess and needs to be parsed)
 * CESM1.0.5   - Missing monthly SOS data. Current data only has annual averages
 
 

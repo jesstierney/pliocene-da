@@ -1,0 +1,19 @@
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,       b.e12.B1850.f09_g16.preind.cam.h0.PRECC.0701.0800.nc,       E280, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+        + b.e12.B1850.f09_g16.preind.cam.h0.PRECL.0701.0800.nc,       E280, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,      b.e12.B1850.f09_g16.preind.cam.h0.TREFHT.0701.0800.nc,      E280, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,      b.e12.B1850C5CN.f09_g16.preind.pop.h.TEMP.070101-075012.nc, E280, TEMP,    TLAT, TLONG, tripolar,    monthly, 1,  C
+          b.e12.B1850C5CN.f09_g16.preind.pop.h.TEMP.075101-080012.nc
+sos,      b.e12.B1850C5CN.f09_g16.preind.pop.h.SALT.070101-075012.nc, E280, SALT,    TLAT, TLONG, tripolar,    monthly, 1,  g/kg
+          b.e12.B1850C5CN.f09_g16.preind.pop.h.SALT.075101-080012.nc, 
+siconc,   b.e12.B1850.f09_g16.preind.cam.h0.ICEFRAC.0701.0800.nc,     E280, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction
+
+pr,       b.e12.B1850.f09_g16.PMIP4-pliomip2.cam.h0.PRECC.1101.1200.nc,          Eoi400, PRECC,   lat,  lon,   curvilinear, monthly, NA, m/s
+        + b.e12.B1850.f09_g16.PMIP4-pliomip2.cam.h0.PRECL.1101.1200.nc,          Eoi400, PRECL,   lat,  lon,   curvilinear, monthly, NA, m/s
+tas,      b.e12.B1850.f09_g16.PMIP4-pliomip2.cam.h0.TREFHT.1101.1200.nc,         Eoi400, TREFHT,  lat,  lon,   curvilinear, monthly, NA, K
+tos,      b.e12.B1850.f09_g16.PIMP4-pliomip2.modMed.pop.h.TEMP.110001-114912.nc, Eoi400, TEMP,    TLAT, TLONG, tripolar,    monthly, 1,  C
+          b.e12.B1850.f09_g16.PIMP4-pliomip2.modMed.pop.h.TEMP.115001-119912.nc,
+sos,      b.e12.B1850.f09_g16.PIMP4-pliomip2.modMed.pop.h.SALT.110001-114912.nc, Eoi400, SALT,    TLAT, TLONG, tripolar,    monthly, 1,  g/kg
+          b.e12.B1850.f09_g16.PIMP4-pliomip2.modMed.pop.h.SALT.115001-119912.nc, 
+siconc,   b.e12.B1850.f09_g16.PMIP4-pliomip2.cam.h0.ICEFRAC.1101.1200.nc,        Eoi400, ICEFRAC, lat,  lon,   curvilinear, monthly, NA, fraction
