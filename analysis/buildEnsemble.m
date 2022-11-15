@@ -1,15 +1,7 @@
-function[] = buildPlioceneEnsemble
-
-%%%% Parameters
-
-% Runs to use for reconstructing pre-industrial
-plioceneExperiments = ["eoi400","eo400new","pi400","plio","pliob17",...
-    "cheyco2","n05","n10","n15","n20","p05","p10","p15","p20"];
-
-%%%%
+function[] = buildEnsemble(label, experiments)
 
 % Create state vector
-sv = stateVector('Pliocene');
+sv = stateVector(label);
 
 % Get gridfiles
 pr = gridfile("pr");
@@ -41,12 +33,11 @@ sv = sv.add("tos_monthly", tos);
 sv = sv.add("sos_monthly", sos);
 
 % Select from pre-industrial runs
-experiments = tos.metadata.run(:,2);
-use = ismember(experiments, plioceneExperiments);
+allExperiments = tos.metadata.run(:,2);
+use = ismember(allExperiments, experiments);
 sv = sv.design(-1, 'run', 'ensemble', use);
 
 % Build the ensemble
-file = 'pliocene';
-sv.build('all', 'sequential', true, 'file', file, 'overwrite', true);
+sv.build('all', 'sequential', true, 'file', label, 'overwrite', true);
 
 end
