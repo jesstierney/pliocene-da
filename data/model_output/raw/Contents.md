@@ -3,10 +3,11 @@
 This folder contains resources and tools used to preprocess the raw climate model output. The folder contains:
 
 * A `code` folder,
-* A subfolder for each climate model used in the assimilation, and
-* `processModelOutput.m`
+* A subfolder for each climate model used in the assimilation, 
+* `processModelOutput.m`, and
+* `validateUnits.m`
 
-The code folder holds a number of utility functions used to process raw climate output. The climate model subfolders contain summaries of the raw output files used, as well as functions that process the data for each individual model run. The `processModelOutput.m` function runs the processing script for every model run used by the assimilation.
+The code folder holds a number of utility functions used to process raw climate output. The climate model subfolders contain summaries of the raw output files used, as well as functions that process the data for each individual model run. The `processModelOutput.m` function runs the processing script for every model run used by the assimilation. The `validateUnits.m` function helps check that pre-processed NetCDFs use the same units.
 
 To rebuild the processed NetCDF files, you should
 * Download the raw output files detailed in the climate model summaries,
