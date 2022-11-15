@@ -435,7 +435,7 @@ classdef proxyData
             nSite = numel(obj);
             
             % Create the NetCDF data variable, as well as dimension variables
-            file = 'formatted_proxies.nc';
+            file = 'proxies.nc';
             nccreate(file, 'data', 'Format', 'netcdf4', 'Dimensions', {'site', nSite, 'time', nTime});
             nccreate(file, 'time', 'Dimensions', {'time', nTime});
             nccreate(file, 'site', 'Dimensions', {'site', nSite}, 'Datatype', 'string');
