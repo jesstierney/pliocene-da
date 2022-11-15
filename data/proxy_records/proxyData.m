@@ -96,6 +96,7 @@ classdef proxyData
         pLon325;
         pLat475;
         pLon475;
+        depth;
         type;
         species;
         cleaning;
@@ -313,6 +314,7 @@ classdef proxyData
                     obj(f).pLon325 = T.pLon325(2);
                     obj(f).pLat475 = T.pLat475(2);
                     obj(f).pLon475 = T.pLon475(2);
+                    obj(f).depth = T.WaterDepth(2);
                     obj(f).type = string(T.ProxyType(2));
                     obj(f).cleaning = string(T.CleaningMethod(2));
                     obj(f).species = string(T.Species(2));
@@ -395,7 +397,6 @@ classdef proxyData
             end
         end
         function[values] = collect(obj, field)
-            %% 
             values = [obj.(field)]';
         end
         function[] = export(obj)
@@ -419,7 +420,7 @@ classdef proxyData
             
             % Collect proxy metadata
             fields = ["name","lat","lon","pLat325","pLon325","pLat475","pLon475",...
-                "type","species","cleaning"];
+                "depth","type","species","cleaning"];
             s = struct;
             for f = 1:numel(fields)
                 field = fields(f);
@@ -450,7 +451,7 @@ classdef proxyData
             ncwriteatt(file, 'site', 'Description', 'Proxy site IDs');
             
             % Create proxy metadata numeric variables
-            numericFields = ["lat","lon","pLat325","pLon325","pLat475","pLon475","cleaning"];
+            numericFields = ["lat","lon","pLat325","pLon325","pLat475","pLon475","depth","cleaning"];
             for f = 1:numel(numericFields)
                 field = numericFields(f);
                 nccreate(file, field, 'Dimensions', {'site', nSite});
