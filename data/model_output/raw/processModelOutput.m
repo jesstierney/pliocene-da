@@ -20,8 +20,14 @@ function[] = processModelOutput
 %       Creates a number of NetCDF files in the current directory.
 
 % Call the pre-processing script for every model run
+CCSM4_NCAR_e280;
+CCSM4_NCAR_eoi400;
+
 CCSM4_UoT_e280;
 CCSM4_UoT_eoi400;
+
+CESM1_2_e280;
+CESM1_2_eoi400;
 
 CESM1_2_2_plio;
 CESM1_2_2_pliob17;
