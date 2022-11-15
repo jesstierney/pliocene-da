@@ -8,5 +8,11 @@
 **.nc
 **.mat
 
-# Allow the formatted proxy data
-!data/proxy_records/formatted_proxies.nc
+# DASH output files
+**.grid
+**.ens
+
+# PSM codes
+analysis/BAYMAG
+analysis/BAYSPAR
+analysis/BAYSPLINE
