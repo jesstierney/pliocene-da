@@ -1,20 +1,33 @@
-function[output, ensMeta] = assimilatePi
+function[output, ensMeta] = assimilate(label, age, estimatesLabel, Rlabel)
 
 %% Observations
 
 % Load the proxy observations
 proxies = gridfile('proxies');
-Y = proxies.load;
+meta = proxies.metadata;
+timeSlice = meta.time == age;
+Y = proxies.load(["site","time"], {[],timeSlice});
 
 % Take natural log of Mg/Ca proxies
-types = proxies.metadata.site(:,2);
+types = meta.site(:,2);
 mg = types=="mg";
 Y(mg,:) = log( Y(mg,:) );
+
+%% Estimates and R
+
+% Load the estimates
+YeFile = strcat(estimatesLabel, '-estimates.nc');
+Ye = ncread(YeFile, 'Ye');
+
+% Load R
+Rfile = strcat('R-', Rlabel, '.nc');
+R = ncread(Rfile, 'R');
 
 %% Prior
 
 % Get prior
-ens = ensemble('preindustrial');
+ensembleName = ncread(YeFile, 'ensemble_name');
+ens = ensemble(ensembleName);
 
 % Don't bother assimilating variables that are only used to run the PSMs
 variables = ens.variables;
@@ -53,19 +66,13 @@ for v = 1:numel(variables)
     end
 end
 
-%% Estimates and R
 
-% Load the estimates
-Ye = ncread('preindustrial-estimates.nc', 'Ye');
-
-% Load R
-R = ncread('R-conservative.nc', 'R');
 
 
 %% Assimilate
 
 % Initialize Kalman filter and provide essential parameters
-kf = kalmanFilter('preindustrial');
+kf = kalmanFilter(label);
 kf = kf.observations(Y);
 kf = kf.prior(X);
 kf = kf.estimates(Ye);
@@ -83,5 +90,10 @@ for v = 1:numel(variables)
         output.Amean(rows,:) = exp( Av );
     end
 end
+
+% Save Amean and metadata
+Amean = output.Amean;
+file = strcat(label, '-assimilation');
+save(file, 'Amean', 'ensMeta', 'age');
 
 end
