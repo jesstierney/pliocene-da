@@ -72,7 +72,7 @@ for s = 1:nSite
     elseif tex(s)
         model = PSM.bayspar(lat(s), lon(s));
     elseif mg(s)
-        model = PSM.baymag(0, cleaning(s), species(s), 'omega', omega(s), 'pH', pH(s));
+        model = PSM.baymag(age, cleaning(s), species(s), 'omega', omega(s), 'pH', pH(s));
     end    
 
     % Get seasonal TOS for each site. Also get SOS for Mg/Ca
@@ -105,18 +105,21 @@ nccreate(file, 'members_columns', 'Dimensions', {'members_columns',nMemberCols},
 nccreate(file, 'sites', 'Dimensions', {'sites',nSite,'sites_columns',nSiteCols}, 'Datatype', 'string');
 nccreate(file, 'members', 'Dimensions', {'members',nMembers, 'members_columns',nMemberCols}, 'Datatype', 'string');
 nccreate(file, 'Ye', 'Dimensions', {'sites',nSite,'members',nMembers}, 'Datatype', 'double');
+nccreate(file, 'ensemble_name', 'datatype', 'string');
 
 ncwriteatt(file, 'sites_columns', 'Description', 'The type of metadata stored along each column of site');
 ncwriteatt(file, 'members_columns', 'Description', 'The type of metadata stored along each column of members');
 ncwriteatt(file, 'sites', 'Description', 'The proxy sites (and associated metadata)');
 ncwriteatt(file, 'members', 'Description', 'The ensemble members');
 ncwriteatt(file, 'Ye', 'Description', 'Proxy Estimates');
+ncwriteatt(file, 'ensemble_name', 'Description', 'The name of the ensemble used to generate the estimates');
 
 ncwrite(file, 'sites_columns', columns');
 ncwrite(file, 'members_columns', ["Model","Experiment"]);
 ncwrite(file, 'sites', proxies);
 ncwrite(file, 'members', tosMeta.members("run"));
 ncwrite(file, 'Ye', Ye);
+ncwrite(file, 'ensemble_name', ensembleName);
 
 end
 
