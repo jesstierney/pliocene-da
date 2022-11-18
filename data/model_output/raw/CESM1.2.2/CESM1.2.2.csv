@@ -61,3 +61,26 @@ sos,    PreInd_ciso_T31_gx3v7.pop.h.2901-3000._01_climo.nc,  PreInd,   SALT,    
 siconc, PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, PreInd,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
         to
         PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
+
+
+Erfani and Burls
+================
+pr,     chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, cheyco2,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
+        to                                                                       + PRECL
+        chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
+----------
+tas,    chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, cheyco2,   TREFHT,  lat,  lon,   curvilinear, climatology, NA, K
+        to                                                                    
+        chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
+----------
+tos,    chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.01.mavg_1701-1800.nc,  cheyco2,   TEMP,    TLAT, TLONG, tripolar,    climatology, 1,  C
+        to 
+        chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.12.mavg_1701-1800.nc
+----------
+tos,    chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.01.mavg_1701-1800.nc,  cheyco2,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+        to 
+        chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.12.mavg_1701-1800.nc
+----------
+siconc, chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, cheyco2,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
+        to                                                             
+        chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
