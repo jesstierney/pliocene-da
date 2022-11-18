@@ -5,15 +5,11 @@
 %   regrid variables onto a common curvilinear, longitude x latitude
 %   spatial grid.
 %
-%   The regrid package is also used to set the resolution of the final
-%   spatial grid when regridding climate model variables for assimilation.
-%   Currently, the package regrids variables to a 1x1 (longitude x latitude) 
-%   resolution. However, you can change the resolution of the regridded
-%   variables by editing the "regrid.points" function.
+%   The resolution of the common spatial grid is determined by the spatial
+%   points in the "parameters.spatialPoints" function. You can change the
+%   resolution of the regridded climate model output by editing that
+%   function.
 % ----------
-%   Parameter Functions:
-%       points      - Sets the query points (resolution) of regridded climate variables
-%
 %   Regridding Functions:
 %       tripolar    - Regrids a tripolar variable to a common curvilinear grid
 %       curvilinear - Regrids a curvilinear variable to a common curvilinear grid
