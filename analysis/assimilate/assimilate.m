@@ -54,20 +54,22 @@ for v = 1:numel(variables)
         Xv(correction) = NaN;
 
         % Replace precipitation zeros with the minimum non-zero value.
-        % (Sea ice zeros are usually over land and can remain NaN)
         if startsWith(variable, "pr")
             Xv(correction) = NaN;
             minVal = min(Xv, [], 'all', 'omitnan');
             Xv(correction) = minVal;
-        end
 
-        % Apply natural log to approximate Gaussian distribution
-        X(rows,:) = log(Xv);
+            % Then apply a natural-log transformation
+            X(rows,:) = log(Xv);
+
+        % Apply a logit transformation to sea ice
+        % (Sea ice zeros are usually over land and can remain NaN)
+        else
+            Xv = Xv ./ 100;
+            X(rows,:) = log( Xv./(1-Xv) );
+        end
     end
 end
-
-
-
 
 %% Assimilate
 
@@ -81,13 +83,20 @@ kf = kf.uncertainties(R);
 % Run the filter
 output = kf.run;
 
-% Reverse transform precipitation and sea ice
+% Locate precipitation and sea ice variables
 for v = 1:numel(variables)
     variable = variables(v);
     if startsWith(variable, ["pr","siconc"])
         rows = ensMeta.find(variable);
         Av = output.Amean(rows,:);
-        output.Amean(rows,:) = exp( Av );
+
+        % Apply reverse transformations from Gaussian
+        Av = exp(Av);
+        if startsWith(variable, "pr")
+            output.Amean(rows,:) = Av;
+        else           
+            output.Amean(rows,:) = 100 * (Av ./ (1+Av));
+        end
     end
 end
 
