@@ -13,4 +13,4 @@
 %   Regridding Functions:
 %       tripolar    - Regrids a tripolar variable to a common curvilinear grid
 %       curvilinear - Regrids a curvilinear variable to a common curvilinear grid
-%       lon360      - Matches a curvilinear variable to a 0:360 longitude coordinate system
+%       longitude   - Maps variables onto a -180:180 or 0:360 longitude coordinate system
