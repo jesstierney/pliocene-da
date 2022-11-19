@@ -1,4 +1,33 @@
 function[] = buildModelGridfiles(folder)
+%% buildModelGridfiles  Builds gridfiles for the climate model output variables
+% ----------
+%   buildModelGridfiles(folder)
+%   Builds gridfiles for each of the climate model output variables: pr,
+%   tas, tos, sos, and siconc. Each gridfile is named <variable name>.grid.
+%   For example: "tas.grid". 
+%
+%   The first input lists a folder that contains NetCDF files holding 
+%   the pre-processed climate model output. The function uses each NetCDF
+%   file as a data source in each gridfile catalogue. The NetCDF files
+%   should follow the naming convention "<model name>_<experiment ID>.nc".
+%   Neither the model name, nor the experiment ID should have any
+%   underscores. You can generate the pre-processed NetCDF files by running
+%   the "processModelOutput.m" function.
+%
+%   Each gridfile includes metadata for the spatial field, as well as the
+%   included climate model runs. The first column of the "run" metadata
+%   indicates the climate model used to produce the output (for example, "CESM1.2"), 
+%   and the second column indicates an ID for the experiment (for example, 
+%   "e280" or "eoi400").
+% ----------
+%   Inputs:
+%       folder (string scalar): The path to the folder holding the
+%           pre-processed NetCDF files. The path should be relative to the
+%           current directory.
+%
+%   Outputs:
+%       Creates 5 gridfiles: "pr.grid", "tas.grid", "tos.grid", "sos.grid",
+%       and "siconc.grid" in the current directory.
 
 % Get the NetCDF files in the folder
 contents = dir(folder);

@@ -1,4 +1,20 @@
 function[] = calculateR
+%% calculateR  Calculates R (error-variance) values for proxy records
+% ----------
+%   calculateR
+%   Calculates R (error-variances) for the proxy records. Calculates values
+%   using 2 methods: (1) Using conservative, global values for each proxy
+%   type, and (2) Applying the Osman scaling to the conservative values.
+%   The conservative R values are saved in the NetCDF "R-conservative.nc",
+%   and the values from the Osman scaling are saved in "R-osman.nc".
+%
+%   The global, conservative values for each proxy type are set in the
+%   "parameters.globalR" function, and the scaling weights for the Osman
+%   scaling are set in "parameters.osmanScaling".
+% ----------
+%   Outputs:
+%       Creates two NetCDF files named "R-conservative.nc" and "R-osman.nc"
+%       in the current directory.
 
 % Load proxy metadata
 proxies = gridfile('proxies').metadata.site;
