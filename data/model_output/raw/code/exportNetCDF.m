@@ -26,7 +26,7 @@ function[] = exportNetCDF(file, pr, tas, tos, sos, siconc)
 
 % Setup
 month = 1:12;
-[lon, lat] = regrid.points;
+[lon, lat] = parameters.spatialPoints;
 nLon = numel(lon);
 nLat = numel(lat);
 
