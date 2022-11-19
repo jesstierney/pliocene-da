@@ -42,7 +42,9 @@ function[varargout] = longitude(system, lon, X)
 % Error check
 assert(isnumeric(system) && isscalar(system), 'The longitude coordinate system must be a numeric scalar');
 assert(system==180 || system==360, 'The longitude coordinate system must either be 180 or 360');
-assert(all(lon>=-180,'all') && all(lon<=360,'all'), 'longitudes must be on the interval -180:360');
+if any(lon<-180,'all') || any(lon>360,'all')
+    error('longitudes must be on the interval -180:360');
+end
 
 % Get the longitude conversion function
 if system==180

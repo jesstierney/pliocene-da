@@ -33,7 +33,6 @@ function[V, lon, lat] = tripolar(tlon, tlat, X)
 %       lat (numeric row vector [nLat]): The latitude points of the
 %           (curvilinear) regridded variable in decimal degrees.
 
-
 % Error check
 if any(tlon<-180,'all') || any(tlon>360,'all')
     error('longitudes must be on the interval -180:360');
