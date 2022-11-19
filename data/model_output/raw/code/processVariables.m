@@ -65,14 +65,10 @@ for v = 1:nVars
     lon = ncread(files(v), lonNames(v));
     lat = ncread(files(v), latNames(v));
 
-    % Regrid tripolar
+    % Regrid tripolar or curvilinear
     if istripolar(v)
-        lon = regrid.lon360(lon);
-        X = regrid.tripolar(lon, lat, X);
-    
-    % Regrid curvilinear
+        X = regrid.tripolar(lon, lat, X);    
     else
-        [X, lon] = regrid.lon360(lon, X);
         X = regrid.curvilinear(lon, lat, X);
     end
 

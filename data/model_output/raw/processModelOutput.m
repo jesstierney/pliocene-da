@@ -13,7 +13,7 @@ function[] = processModelOutput
 %
 %   To build the files, raw climate model output is first used to compute
 %   monthly climatologies for each climate variable. Each climatology is
-%   constructed from 100 years output. The monthly climatologies are then
+%   constructed from 100 years of output. The monthly climatologies are then
 %   regridded to a 1x1 resolution.
 % ----------
 %   Outputs:
@@ -32,6 +32,7 @@ CESM1_2_eoi400;
 CESM1_2_2_plio;
 CESM1_2_2_pliob17;
 CESM1_2_2_preind;
+
 CESM1_2_2_cheyco2;
 CESM1_2_2_cheyctrl;
 tags = ["p05","p10","p15","p20","n05","n10","n15","n20"];
