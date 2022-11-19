@@ -65,8 +65,17 @@ for v = 1:nVars
     lon = ncread(files(v), lonNames(v));
     lat = ncread(files(v), latNames(v));
 
-    % Regrid tripolar or curvilinear
+    % If tripolar, check for longitude clipping. Remove but warn user.
     if istripolar(v)
+        nanRows = all(isnan(X), [2 3]);
+        if any(nanRows)
+            warning('Removing longitude clipping from variable %.f', v);
+            X(nanRows,:,:) = [];
+            lon(nanRows,:,:) = [];
+            lat(nanRows,:,:) = [];
+        end
+
+    % Regrid tripolar or curvilinear grids
         X = regrid.tripolar(lon, lat, X);    
     else
         X = regrid.curvilinear(lon, lat, X);
