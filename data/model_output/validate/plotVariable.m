@@ -43,7 +43,7 @@ lon = ncread(file, 'lon');
 
 % Plot
 figure;
-m_proj('miller', 'lat', [-90 90], 'lon', [0 360]);
+m_proj('miller', 'lat', [-90 90], 'lon', [-180 180]);
 m_pcolor(lon, lat, X');
 m_coast;
 m_grid;
