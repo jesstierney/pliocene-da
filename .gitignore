@@ -12,7 +12,7 @@
 **.grid
 **.ens
 
-# PSM codes
-analysis/BAYMAG
-analysis/BAYSPAR
-analysis/BAYSPLINE
+# External PSM codes
+BAYMAG
+BAYSPAR
+BAYSPLINE
