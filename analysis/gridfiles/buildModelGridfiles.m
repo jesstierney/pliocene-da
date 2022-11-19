@@ -37,7 +37,7 @@ files = files(netcdf);
 filepaths = fullfile(folder, files);
 
 % Create metadata object
-[lon, lat] = regrid.points;
+[lon, lat] = parameters.spatialPoints;
 lat = lat';
 time = (1:12)';
 run = split(files, '_');
