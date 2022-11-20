@@ -32,14 +32,17 @@ The following table summarizes the experiment IDs in the climate model output da
 
 | Experiment | Description | Citation |
 | ---------- | ----------- | -------- |
-| E280         | A run with pre-industrial (1850 CE) boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
-| Eoi400       | A run with mid-Pliocene boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
-| pi.400       | (CESM2) A run with pre-industrial boundary conditions and 400 ppm CO2 | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
-| eo400.new    | (CESM2) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
+| **Preindustrial Runs**   |    |     |
+| e280         | A run with pre-industrial (1850 CE) boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
 | PreInd       | (CESM1.2.2) A pre-industrial control run | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
+| cheyctrl     | (CESM1.2.2) A pre-industrial control run |
+|              |           |          |
+| **Pliocene Runs**        |    |     |
+| eoi400       | A run with mid-Pliocene boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
+| pi400        | (CESM2) A run with pre-industrial boundary conditions and 400 ppm CO2 | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
+| eo400new     | (CESM2) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
 | PlioB17      | (CESM1.2.2) A run with early-Pliocene boundary conditions | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
 | Plio         | (CESM1.2.2) A run with mid-Pliocene boundary conditions | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
-| cheyctrl     | (CESM1.2.2) A pre-industrial control run |
 | cheyco2      | (CESM1.2.2) Similar to cheyctrl, but with 2x CO2 |
 | (p/n)(05-20) | (CESM1.2.2) Similar to cheyco2, but with different cloud parameters |
 
