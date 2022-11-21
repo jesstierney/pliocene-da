@@ -1,3 +1,4 @@
+%% runAnalysis  - Implements the analysis used to assimilate the Pliocene reconstruction
 
 %% Build the gridfiles
 %
@@ -79,7 +80,10 @@ calculateR;
 %      of the ages in the time metadata of "proxies.grid"
 %   3. The label/file name of the proxy estimates to use for this assimilation
 %   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
-assimilate('pi_R-conservative', 0, 'preindustrial', 'conservative');
+%
+% You can optionally use a fifth input to indicate that the ensemble should
+% only use specified climate model runs as ensemble members.
+assimilate('preindustrial_R-conservative', 0, 'preindustrial', 'conservative');
 assimilate('mid-pliocene_R-conservative', 3.25, 'mid-pliocene', 'conservative');
 assimilate('early-pliocene_R-conservative', 4.75, 'early-pliocene', 'conservative');
 
