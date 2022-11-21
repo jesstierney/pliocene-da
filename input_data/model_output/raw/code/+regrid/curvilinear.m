@@ -73,13 +73,14 @@ if any(allnans)
 
     % Re-query the missing longitudes on -180:180 (they will be on the
     % center of the grid now, rather than the edge)
-    for v = 1:nTime
+    for t = 1:nTime
         V(allnans,:,t) = interpn(lon, lat, X(:,:,t), qlon180, qlat);
     end
 end
 
 % Check that no longitudes are clipped
-clipped = all(isnan(V), [2 3]);
+clipped = all(isnan(V), 2);
+clipped = any(clipped, 3);
 if any(clipped)
     error('There are clipped longitudes for which all values are NaN');
 end
