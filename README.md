@@ -8,7 +8,7 @@ The contents of the repository are as follows:
 
 * [runAnalysis.m](#runAnalysism)
 * [+parameters](#parameters)
-* [input_data](#input-data)
+* [input_data](#input_data)
 * [gridfiles](#gridfiles)
 * [ensembles](#ensembles)
 * [estimates](#estimates)
