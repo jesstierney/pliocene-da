@@ -50,6 +50,7 @@ ncwriteatt(file, 'siconc', 'Description', 'Sea ice area percentage');
 % Write variable units
 ncwriteatt(file, 'lat', 'Units', 'Decimal Degrees North');
 ncwriteatt(file, 'lon', 'Units', 'Decimal Degrees East');
+ncwriteatt(file, 'lon', 'Units', 'Units_Range', "0 - 360");
 ncwriteatt(file, 'month', 'Units', 'Calendar Month');
 ncwriteatt(file, 'pr', 'Units', "mm / day");
 ncwriteatt(file, 'tas', 'Units', "Kelvin");
@@ -57,7 +58,7 @@ ncwriteatt(file, 'tos', 'Units', "Celsius");
 ncwriteatt(file, 'sos', 'Units', "g / kg");
 ncwriteatt(file, 'sos', 'Units_Equivalent', "psu");
 ncwriteatt(file, 'siconc', 'Units', "Percent");
-ncwriteatt(file, 'siconc', 'Units_Range', "0 - 100%");
+ncwriteatt(file, 'siconc', 'Units_Range', "0 - 100");
 
 % Write variables
 ncwrite(file, 'lat', lat);

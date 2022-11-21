@@ -1,6 +1,6 @@
 # Raw Climate Model Output Folder
 
-This folder contains resources and tools used to preprocess the raw climate model output. The folder contains:
+This folder contains summaries and Matlab functions used to preprocess the raw climate model output. The folder contains:
 
 * A `code` folder,
 * A subfolder for each climate model used in the assimilation, 
@@ -22,7 +22,7 @@ This will generate the processed NetCDF files in the current directory.
 
 Each climate model subfolder contains:
 
-* [A .csv file summarizing the raw data files for the model](#csv-files), and
+* [A text file (.txt) summarizing the raw data files for the model](#csv-files), and
 * [The Matlab functions (.m files) used to pre-process the raw data](#matlab-functions)
 
 The sources of the raw climate model output are also [summarized below](#data-sources).
@@ -83,18 +83,7 @@ Sometimes, a preprocessed variable is constructed from the sum of raw output var
 
 
 ### Experiment
-A tag that indicates the experiment associated with the raw output file. Options are as follows:
-
-| Experiment | Description | Citation |
-| ---------- | ----------- | -------- |
-| E280       | A run with pre-industrial (1850 CE) boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
-| Eoi400     | A run with mid-Pliocene boundary conditions | [Haywood et al., (2020)](https://doi.org/10.5194/cp-2019-145) |
-| pi.400     | (CESM2) A run with pre-industrial boundary conditions and 400 ppm CO2 | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
-| eo400.new  | (CESM2) Pliocene topography, geography and CO2 (400 ppm), but preindustrial vegetation and ice sheet | [Feng et al., (2022)](https://doi.org/10.1038/s41467-022-28814-7) |
-| PreInd     | (CESM1.2.2) A pre-industrial control run | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
-| PlioB17    | (CESM1.2.2) A run with early-Pliocene boundary conditions | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
-| Plio       | (CESM1.2.2) A run with mid-Pliocene boundary conditions | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
-
+A tag that indicates the experiment associated with the raw output file. You can find a summary of tags in "input_data/model_output.Contents.md"
 
 
 ### Variable Name in File
@@ -169,6 +158,7 @@ The following table summarizes the source of the raw data files for each model:
 | ----------- | ------ |
 |CCSM4-NCAR   | PlioMIP2 Data Server (via Globus)       |
 |CCSM4-UoT    | PlioMIP2 Data Server (via Globus) |
+|CESM1.0.4    | Sent by Natalie Burls |
 |*CESM1.0.5   | PlioMIP2 Data Server (via Globus) |
 |CESM1.2|     | PlioMIP2 Data Server (via Globus) |
 |CESM1.2.2    | Sent by Natalie Burls |
@@ -182,17 +172,17 @@ The following table summarizes the source of the raw data files for each model:
 |IPSL-CM5A2   | PlioMIP2 Data Server (via Globus) |
 |IPSL-CM6A    | Earth System Grid Federation - CMIP6 Data Search |
 |MIROC4m      | PlioMIP2 Data Server (via Globus) |
-|*MRI-CGCM2.3  | PlioMIP2 Data Server (via Globus) |
+|*MRI-CGCM2.3 | PlioMIP2 Data Server (via Globus) |
 |NorESM1-F    | PlioMIP2 Data Server (via Globus) |
 |NorESML      | PlioMIP2 Data Server (via Globus) |
-| *           | Indicates model is missing data and not currently used for assimilation|
+| *           | Indicates model is missing data and not currently used for assimilation |
 
 
 
 ### Missing Data
 This section summarizes any missing data fields
 
-* MRI-CGCM2.3 - Missing SSS data     (as of Nov. 7, 2022)
+* MRI-CGCM2.3 - Missing SSS data
 * CESM1.0.5   - Missing monthly SOS data. Current data only has annual averages
 
 

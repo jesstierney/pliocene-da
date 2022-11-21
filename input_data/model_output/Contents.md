@@ -1,8 +1,8 @@
 # Climate model output data
 This folder contains two folders
 
-* [preprocessed](#preprocessed), and
-* [raw](#raw)
+* [preprocessed](#preprocessed),
+* [raw](#raw), and
 
 which organize the climate model output data used for the assimilation. The institutions associated with the various climate model runs are also [summarized below](#modeling-institutions).
 
