@@ -1,9 +1,28 @@
 function[] = exportReconstruction(label, piFile, midPlioFile, earlyPlioFile)
+%% exportReconstruction  Exports reconstruction outputs to NetCDF
+% ----------
+%   exportReconstruction(label, piFile, midPlioFile, earlyPlioFile)
+%   Exports a reconstruction to NetCDF. Takes saved outputs from DASH
+%   Kalman Filters and regrids them to a curvilinear spatial grid. Combines
+%   values from preindustrial, mid-pliocene, and early-pliocene
+%   assimilations into a single reconstruction.
+% ----------
+%   Inputs:
+%       label (string scalar): A label to use for the reconstruction. The
+%           label will be used as the name of the exported NetCDF file.
+%       piFile (string scalar): The label for the pre-industrial
+%           assimilation. This should be the first part of the saved .mat
+%           file (i.e. the file name prior to the "_assimilation.mat")
+%       midPlioFile (string scalar): The label for the mid-pliocene assimilation
+%       earlyPlioFile (string scalar): The label for the early-Pliocene assimilation
+%
+%   Outputs:
+%       Creates a file named "<label>.nc" in the current directory
 
 % Get full file names
-piFile = strcat(piFile, '-assimilation.mat');
-midPlioFile = strcat(midPlioFile, '-assimilation.mat');
-earlyPlioFile = strcat(earlyPlioFile, '-assimilation.mat');
+piFile = strcat(piFile, '_assimilation.mat');
+midPlioFile = strcat(midPlioFile, '_assimilation.mat');
+earlyPlioFile = strcat(earlyPlioFile, '_assimilation.mat');
 
 % Get a matfile object for each file
 pi = matfile(piFile);
