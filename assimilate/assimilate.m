@@ -80,7 +80,8 @@ kf = kf.prior(X);
 kf = kf.estimates(Ye);
 kf = kf.uncertainties(R);
 
-% Run the filter
+% Run the filter and return variance
+kf = kf.variance(true);
 output = kf.run;
 
 % Locate precipitation and sea ice variables
@@ -102,7 +103,8 @@ end
 
 % Save Amean and metadata
 Amean = output.Amean;
+Astd = sqrt(output.Avar);
 file = strcat(label, '-assimilation');
-save(file, 'Amean', 'ensMeta', 'age');
+save(file, 'Amean', 'Astd', 'ensMeta', 'age');
 
 end
