@@ -1,23 +1,21 @@
 function[runs] = pliomip2
-%% parameters.plioceneRuns.pliomip2  Returns the metadata for all PlioMIP2 EOI400 runs
+%% parameters.plioceneRuns.pliomip2  Returns the metadata for all Pliocene (EOI400) runs from PlioMIP2
 % ----------
 %   [runs] = parameters.plioceneRuns.pliomip2
-%   Returns the names of all EOI400 (pliocene-like) climate model runs from 
-%   PlioMI2. The output has one row per run and 2 columns. The first column
-%   lists the climate model associated with each run, and the second column
-%   lists the experimental ID (in this case "eoi400").
+%   Returns the metadata for all Pliocene model runs from PlioMIP2. This is
+%   the collection of EOI400 experiments. The output has one row per run and 2 columns. The first
+%   column lists the climate model associated with each run, and the second
+%   column lists the experimental ID.
 % ----------
 %   Outputs:
 %       runs (string matrix [nRuns x 2]): The name of the climate model
-%           (column 1) and the experiment ID (column 2) for each PlioMIP2
-%           EOI400 run.
+%           (column 1) and the experiment ID (column 2) for each run
 
 %%%%%%%%%
 experiment = "eoi400";
 models = [...
     "CCSM4-NCAR"
     "CCSM4-UoT"
-    "CESM1.0.5"
     "CESM1.2"
     "CESM2"
     "COSMOS"

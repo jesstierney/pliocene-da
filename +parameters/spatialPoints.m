@@ -1,10 +1,10 @@
 function[lons, lats] = spatialPoints
-%% parameters.spstialPoints  Return the spatial points for regridding climate model output
+%% parameters.spatialPoints  Returns the spatial points for regridding climate model output
 % ----------
-%   [qlon, qlat] = regrid.points
-%   Returns the spatial points for regridding cliamte model output. These
-%   are the longitude and latitude points that a variable will be regridded
-%   to.
+%   [lons, lats] = parameters.spatialPoints
+%   Returns the spatial points for regridding climate model output. These
+%   are the longitude and latitude points that raw climate model variables
+%   will be regridded to.
 % ----------
 %   Outputs:
 %       lons (numeric column vector): The longitude points that a variable

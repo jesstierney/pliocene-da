@@ -1,9 +1,9 @@
-function[runs] = cesm
-%% parameters.preindustrialRuns.cesm  Returns the metadata for all pre-industrial runs generated using CESM
+function[runs] = cesm122
+%% parameters.preindustrialRuns.cesm122  Returns the metadata for all pre-industrial runs generated using CESM1.2.2
 % ----------
-%   [runs] = parameters.preindustrialRuns.cesm
+%   [runs] = parameters.preindustrialRuns.cesm122
 %   Returns the metadata for all pre-industrial climate model runs generated
-%   using CESM. The output has one row per run and 2 columns. The first
+%   using CESM1.2.2. The output has one row per run and 2 columns. The first
 %   column lists the climate model associated with each run, and the second
 %   column lists the experimental ID.
 % ----------
@@ -13,9 +13,8 @@ function[runs] = cesm
 
 %%%%%%%%%
 runs = [
-    "CESM1.2",    "e280"
-    "CESM2",      "e280"
-    parameters.preindustrialRuns.cesm122;
+    "CESM1.2.2",  "preind"
+    "CESM1.2.2",  "cheyctrl"
     ];
 %%%%%%%%%%
 
