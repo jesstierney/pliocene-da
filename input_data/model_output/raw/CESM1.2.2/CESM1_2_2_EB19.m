@@ -1,15 +1,18 @@
-function[] = CESM1_2_2_laystrat(tag)
-%% CESM1_2_2_laystrat  Pre-processes the data for the CESM1.2.2 lay_strat runs
+function[] = CESM1_2_2_EB19(tag)
+%% CESM1_2_2_EB19  Pre-processes the data for the Erfani and Burls (2019) runs with perturbed cloud physics
 % ----------
-%   CESM1_2_2_laystrat(tag)
+%   CESM1_2_2_EB19(tag)
 %   Loads variables from the raw output data files, computes climatologies,
 %   and regrids variables to 1x1 resolution. Exports pre-processed
 %   variables to NetCDF.
 % ----------
 %   Inputs:
-%       tag (string scalar): Indicates the cloud settings used in the run.
-%           Options are p05, p10, p15, p20, n05, n10, n15, n20. Here, the n
-%           indicates a negative value, and p indicates a positive value.
+%       tag (string scalar): Indicates the value of the "c" cloud parameter
+%           used for the run. Options are p05, p10, p15, p20, n05, n10, 
+%           n15, n20. Here, the p and n indicate a positive or negative 
+%           value of the c parameter. Insert a decimal between the two numbers
+%           to obtain the value of the c parameter. For example, use "p05"
+%           for c = 0.5 and "n10" for c = -1.0
 %
 %   Outputs:
 %       Creates a NetCDF file named "CESM1.2.2_<tag>.nc" in the current
