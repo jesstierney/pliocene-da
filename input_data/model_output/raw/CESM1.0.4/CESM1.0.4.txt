@@ -1,0 +1,46 @@
+This summary applies to the following file headers:
+
+20p_ILWP_1590deg_tropx2_T31_gx3v7
+20p_ILWP_1590deg_tropx4_T31_gx3v7
+20p_ILWP_3060deg_tropx8_T31_gx3v7
+20p_LWP_1590deg_T31_gx3v7
+20p_op_LWP_1590deg_T31_gx3v7
+40p_ILWP_1590deg_tropx2_0.9x1.25_gx1v6
+40p_ILWP_1590deg_tropx2_T31_gx3v7
+40p_ILWP_1590deg_tropx4_T31_gx3v7
+40p_ILWP_3060deg_tropx8_T31_gx3v7
+40p_LWP_1590deg_0.9x1.25_gx1v6
+40p_LWP_1590deg_T31_gx3v7
+40p_op_LWP_1590deg_T31_gx3v7
+60p_ILWP_1590deg_tropx2_0.9x1.25_gx1v6
+60p_ILWP_1590deg_tropx2_T31_gx3v7
+60p_ILWP_1590deg_tropx4_T31_gx3v7
+60p_ILWP_3060deg_tropx8_T31_gx3v7
+60p_LWP_1590deg_0.9x1.25_gx1v6
+60p_LWP_1590deg_T31_gx3v7
+60p_op_LWP_1590deg_T31_gx3v7
+80p_ILWP_1590deg_tropx2_T31_gx3v7
+80p_ILWP_1590deg_tropx4_T31_gx3v7
+80p_ILWP_3060deg_tropx8_T31_gx3v7
+80p_LWP_1590deg_T31_gx3v7
+80p_op_LWP_1590deg_T31_gx3v7
+
+To get the experimental tag for a run, take the file header and replace all the underscores with hyphens.
+
+CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
+
+pr,     <header>.cam2.h0.01.mavg_0701-0800.nc, <tag>,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
+        to                                                                   + PRECL
+        <header>.cam2.h0.12.mavg_0701-0800.nc
+
+tas,    <header>.cam2.h0.01.mavg_0701-0800.nc, <tag>,   TREFHT,  lat,  lon,   curvilinear, climatology, NA, K
+        to
+        <header>.cam2.h0.12.mavg_0701-0800.nc
+
+tos,    <header>.pop.h.TEMP.mavg_0701-0800.nc, <tag>,   TEMP,    TLAT, TLONG, tripolar,    climatology, 1,  C
+
+sos,    <header>.pop.h.SALT.mavg_0701-0800.nc, <tag>,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+
+siconc, <header>.cam2.h0.01.mavg_0701-0800.nc, <tag>,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
+        to
+        <header>.cam2.h0.12.mavg_0701-0800.nc
