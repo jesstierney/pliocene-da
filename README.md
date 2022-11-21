@@ -6,7 +6,7 @@ This repository contains code and small data files required to implement the Pli
 
 The contents of the repository are as follows:
 
-* [runAnalysis.m](#runAnalysis)
+* [runAnalysis.m](#runAnalysism)
 * [+parameters](#parameters)
 * [input_data](#input-data)
 * [gridfiles](#gridfiles)
