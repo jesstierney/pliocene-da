@@ -120,21 +120,16 @@ for v = 1:numel(variables)
         negative = Xv < 0;
         Xv(negative) = 0;
 
-        % Also need to correct for true zeros
-        correction = Xv==0;
-        Xv(correction) = NaN;
+        % Correct for true zeros by replacing with minimum non-zero value
+        iszero = Xv==0;
+        minVal = min(Xv(~iszero), [], 'all');
+        Xv(iszero) = minVal;
 
-        % Replace precipitation zeros with the minimum non-zero value.
+        % Apply a natural-log transformation to precipitation
         if startsWith(variable, "pr")
-            Xv(correction) = NaN;
-            minVal = min(Xv, [], 'all', 'omitnan');
-            Xv(correction) = minVal;
-
-            % Then apply a natural-log transformation
             X(rows,:) = log(Xv);
 
         % Apply a logit transformation to sea ice
-        % (Sea ice zeros are usually over land and can remain NaN)
         else
             Xv = Xv ./ 100;
             X(rows,:) = log( Xv./(1-Xv) );
