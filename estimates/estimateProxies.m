@@ -148,7 +148,7 @@ end
 nSiteCols = numel(columns);
 nMemberCols = 2;
 
-file = strcat(label, "-estimates.nc");
+file = strcat(label, "_estimates.nc");
 nccreate(file, 'sites_columns', 'Dimensions', {'sites_columns', nSiteCols}, 'Format', 'netcdf4', 'Datatype', 'string');
 nccreate(file, 'members_columns', 'Dimensions', {'members_columns',nMemberCols}, 'Datatype', 'string');
 nccreate(file, 'sites', 'Dimensions', {'sites',nSite,'sites_columns',nSiteCols}, 'Datatype', 'string');
@@ -167,8 +167,8 @@ ncwriteatt(file, 'Ye', 'Description', 'Proxy Estimates');
 ncwriteatt(file, 'ensemble_name', 'Description', 'The name of the ensemble used to generate the estimates');
 ncwriteatt(file, 'time', 'Description', 'The time value used to implement the BayMAG seawater correction');
 ncwriteatt(file, 'time', 'Units', 'Ma');
-ncwriteatt(file, 'latColumn', 'The name of the site metadata column (see site_columns) used as latitude coordinates for the estimates');
-ncwrtieatt(file, 'lonColumn', 'The name of the site metadata columns (see site_columns) used as longitude coordinates for the estimates');
+ncwriteatt(file, 'latColumn', 'Description', 'The name of the site metadata column (see site_columns) used as latitude coordinates for the estimates');
+ncwriteatt(file, 'lonColumn', 'Description', 'The name of the site metadata columns (see site_columns) used as longitude coordinates for the estimates');
 
 ncwrite(file, 'sites_columns', columns');
 ncwrite(file, 'members_columns', ["Model","Experiment"]);

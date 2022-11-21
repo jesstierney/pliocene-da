@@ -17,5 +17,6 @@ BAYMAG
 BAYSPAR
 BAYSPLINE
 
-# Allow pre-computed R values
+# Allow various pre-computed values
+!estimates/**.nc
 !R-error-variances/**.nc
