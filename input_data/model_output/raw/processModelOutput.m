@@ -19,63 +19,65 @@ function[] = processModelOutput
 %   Outputs:
 %       Creates a number of NetCDF files in the current directory.
 
-% Call the pre-processing script for every model run
+% PlioMIP2 E280 runs
 CCSM4_NCAR_e280;
-CCSM4_NCAR_eoi400;
-
 CCSM4_UoT_e280;
-CCSM4_UoT_eoi400;
-
 CESM1_2_e280;
-CESM1_2_eoi400;
+CESM2_e280;
+COSMOS_e280;
+EC_Earth3_3_e280;
+GISS_ModelE2_e280;
+HadCM3_e280;
+HadGM3_e280;
+IPSL_CM5A_e280;
+IPSL_CM5A2_e280;
+IPSL_CM6A_e280;
+MIROC4m_e280;
+NorESM1_F_e280;
+NorESM_L_e280;
 
+% PlioMIP2 EOI400 runs
+CCSM4_NCAR_eoi400;
+CCSM4_UoT_eoi400;
+CESM1_2_eoi400;
+CESM2_eoi400;
+COSMOS_eoi400;
+EC_Earth3_3_eoi400;
+GISS_ModelE2_eoi400;
+HadCM3_eoi400;
+HadGM3_eoi400;
+IPSL_CM5A_eoi400;
+IPSL_CM5A2_eoi400;
+IPSL_CM6A_eoi400;
+MIROC4m_eoi400;
+NorESM1_F_eoi400;
+NorESM_L_eoi400;
+
+% Extra CESM2 Pliocene-like runs
+CESM2_pi400;
+CESM2_eo400new;
+
+% Ford et al. (2022)
 CESM1_2_2_plio;
 CESM1_2_2_pliob17;
 CESM1_2_2_preind;
 
-CESM1_2_2_cheyco2;
+% Erfani and Burls (2019)
 CESM1_2_2_cheyctrl;
-tags = ["p05","p10","p15","p20","n05","n10","n15","n20"];
-for t = 1:numel(tags)
-    CESM1_2_2_laystrat(tags(t));
+CESM1_2_2_cheyco2;
+
+runs = parameters.plioceneRuns.Erfani2019;
+runs = runs(:,2);
+runs = runs(~strcmp(runs, "cheyco2"));
+for r = 1:numel(runs)
+    CESM1_2_2_EB19(runs(r));
 end
 
-CESM2_e280;
-CESM2_eoi400;
-CESM2_pi400;
-CESM2_eo400new;
-
-COSMOS_e280;
-COSMOS_eoi400;
-
-EC_Earth3_3_e280;
-EC_Earth3_3_eoi400;
-
-GISS_ModelE2_e280;
-GISS_ModelE2_eoi400;
-
-HadCM3_e280;
-HadCM3_eoi400;
-
-HadGM3_e280;
-HadGM3_eoi400;
-
-IPSL_CM5A_e280;
-IPSL_CM5A_eoi400;
-
-IPSL_CM5A2_e280;
-IPSL_CM5A2_eoi400;
-
-IPSL_CM6A_e280;
-IPSL_CM6A_eoi400;
-
-MIROC4m_e280;
-MIROC4m_eoi400;
-
-NorESM1_F_e280;
-NorESM1_F_eoi400;
-
-NorESM_L_e280;
-NorESM_L_eoi400;
+% Burls and Fedorov (2014)
+runs = parameters.plioceneRuns.Burls2014;
+runs = replace(runs(:,2), '-', '_');
+for r = 1:numel(runs)
+    CESM1_0_4_BF14(runs(r));
+end
 
 end
