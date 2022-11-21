@@ -13,8 +13,8 @@ function[runs] = cesm122
 %           (column 1) and the experiment ID (column 2) for each run
 
 runs = [
-    "CESM1.2.2", "Plio"
-    "CESM1.2.2", "PlioB17"
+    "CESM1.2.2", "plio"
+    "CESM1.2.2", "pliob17"
     parameters.plioceneRuns.Erfani2019
     ];
 
