@@ -17,8 +17,16 @@ function[] = buildProxyGridfile(folder)
 %   Outputs:
 %      Creates a gridfile named "proxies.nc" in the current directory.
 
-% Get the proxy NetCDF
+% Error check
+if ~((isstring(folder)&&isscalar(folder)) || (ischar(folder)&&isrow(folder)))
+    error('folder must be a string scalar');
+end
+folder = string(folder);
+assert(isfolder(folder), 'Could not locate folder: %s', folder);
+
+% Get the proxy NetCDF file and check it exists
 file = fullfile(folder, 'proxies.nc');
+assert(isfile(file), 'Could not locate "proxies.nc" within the folder');
 
 % Read metadata from file
 IDs = ncread(file, 'site');

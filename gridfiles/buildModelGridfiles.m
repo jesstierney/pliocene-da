@@ -29,6 +29,13 @@ function[] = buildModelGridfiles(folder)
 %       Creates 5 gridfiles: "pr.grid", "tas.grid", "tos.grid", "sos.grid",
 %       and "siconc.grid" in the current directory.
 
+% Error check
+if ~((isstring(folder)&&isscalar(folder)) || (ischar(folder)&&isrow(folder)))
+    error('folder must be a string scalar');
+end
+folder = string(folder);
+assert(isfolder(folder), 'Could not locate folder: %s', folder);
+
 % Get the NetCDF files in the folder
 contents = dir(folder);
 files = string({contents.name})';
