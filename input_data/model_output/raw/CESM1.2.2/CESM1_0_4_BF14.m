@@ -1,8 +1,27 @@
-function[] = CESM1_2_2_burls_erfani(run)
+function[] = CESM1_0_4_BF14(run)
+%% CESM1_0_4_BF14  Pre-process data for the Burls and Fedorov (2014) runs with perturbed cloud physics
+% ----------
+%   CESM1_0_4_BF14(tag)
+%   Loads variables from the raw output data files, computes climatologies,
+%   and regrids variables to 1x1 resolution. Exports pre-processed
+%   variables to NetCDF.
+% ----------
+%   Inputs:
+%       tag (string scalar): Indicates the experimental settings for the
+%           run. The tag for each experiment is derived from the output
+%           files for the run. Specifically, the tag is the first part of
+%           the output file names - the part of the file name that preceeds
+%           ".cam2" or ".pop". For example:
+%           "20p_ILWP_1590deg_tropx2_T31_gx3v7"
+%
+%   Outputs:
+%       Creates a NetCDF file named "CESM1.0.4_<tag>.nc" in the current
+%       directory. All underscores in the tag are converted to hyphens for
+%       the file name.
 
 % Get exported NetCDF file
 run = string(run);
-exportFile = strcat('CESM1.2.2_', replace(run,'_','-'), ".nc");
+exportFile = strcat('CESM1.0.4_', replace(run,'_','-'), ".nc");
 
 % Note characteristics of raw output
 names = ["PRECC","PRECL","TREFHT","TEMP","SALT","ICEFRAC"];
