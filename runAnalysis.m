@@ -2,15 +2,20 @@
 %% Build the gridfiles
 %
 % These functions build the gridfile catalogues for the climate model
-% output and the proxy records. The inputs to these scripts are the folders
-% that contain the NetCDF files holding the required data. The folder file
-% paths should be expressed *relative* to the "runAnalysis.m" file.
-%
-% These functions will create a gridfile for the proxies "proxies.grid",
+% output and the proxy records. 
+% % These functions will create a gridfile for the proxies "proxies.grid",
 % and a gridfile for each climate model output variable: "pr.grid",
 % "tas.grid", "tos.grid", "sos.grid", and "siconc.grid"
-modelFolder = '../../data/model_output/preprocessed'; 
-proxyFolder = '../../data/proxy_records';            
+% 
+% The inputs to these scripts are the folders
+% that contain the NetCDF files holding the required data. The folder file
+% paths should be expressed *relative* to the current directory. If you are
+% running these lines from the same folder as "runAnalysis.m", then these
+% paths should be correct. If you run these lines from within the
+% "gridfiles" folder, then you should add "../" to the beginning of each
+% folder path.
+modelFolder = 'input_data/model_output/preprocessed'; 
+proxyFolder = 'input_data/proxy_records';            
 buildModelGridfiles(modelFolder);
 buildProxyGridfile(proxyFolder);
 
@@ -27,8 +32,8 @@ buildProxyGridfile(proxyFolder);
 % "parameters.preindustrialRuns" and "parameters.plioceneRuns"
 % respectively. A list of model run tags can be found in
 % "data/model_output/Contents.md"
-piRuns = parameters.preindustrialRuns;
-plioRuns = parameters.plioceneRuns;
+piRuns = parameters.preindustrialRuns.all;
+plioRuns = parameters.plioceneRuns.all;
 buildEnsemble('preindustrial', piRuns);
 buildEnsemble('pliocene', plioRuns);
 
@@ -74,9 +79,13 @@ calculateR;
 %      of the ages in the time metadata of "proxies.grid"
 %   3. The label/file name of the proxy estimates to use for this assimilation
 %   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
-assimilate('preindustrial-Rc', 0, 'preindustrial', 'conservative');
-assimilate('mid-pliocene-Rc', 3.25, 'mid-pliocene', 'conservative');
-assimilate('early-pliocene-Rc', 4.75, 'early-pliocene', 'conservative');
+assimilate('pi_R-conservative', 0, 'preindustrial', 'conservative');
+assimilate('mid-pliocene_R-conservative', 3.25, 'mid-pliocene', 'conservative');
+assimilate('early-pliocene_R-conservative', 4.75, 'early-pliocene', 'conservative');
+
+assimilate('preindustrial_R-osman', 0, 'preindustrial', 'osman');
+assimilate('mid-pliocene_R-osman', 3.25, 'mid-pliocene', 'osman');
+assimilate('early-pliocene_R-osman', 4.75, 'early-pliocene', 'osman');
 
 %% Export the assimilations to NetCDF
 % 
@@ -87,5 +96,8 @@ assimilate('early-pliocene-Rc', 4.75, 'early-pliocene', 'conservative');
 %   2. The label of the preindustrial assimilation
 %   3. The label of the mid-Pliocene assimilation
 %   4. The label of the early-Pliocene assimilation
-exportReconstruction('prelim-recon', 'preindustrial-Rc', 'mid-pliocene-Rc', 'early-pliocene-Rc');
-
+timeSlices = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
+files = strcat(timeSlices, "_R-conservative");
+exportReconstruction('all-models_R-conservative', files(1), files(2), files(3));
+files = strcat(timeSlices, "_R-osman");
+exportReconstruction('all-models_R-osman', files(1), files(2), files(3));
