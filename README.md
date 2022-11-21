@@ -15,6 +15,7 @@ The contents of the repository are as follows:
 * [R-error-variances](#r-error-variances)
 * [assimilate](#assimilate)
 * [reconstructions](#reconstructions)
+* [dGMST.m](#dgmstm)
 
 and details on each item are provided below. Many of these items are folders containing Matlab functions. You can use the Matlab `help` command to see the documentation of these functions. Additionally, any folders that begin with a plus `+` symbol are Matlab packages. You can read about the contents of these packages using the `help` command, or by reading the package's `Contents.m` page.
 
@@ -91,3 +92,6 @@ The folder may also hold `.mat` files, which contain pre-computed Kalman filter 
 
 ### reconstructions
 This folder holds the function `exportReconstruction`. This function exports assimilation outputs from the DASH toolbox to NetCDF. It regrids assimilated state vector variables back onto spatial grids, and combines outputs from preindustrial, mid-Pliocene, and early-Pliocene time slices. The folder may also hold NetCDF `.nc` files with pre-built reconstructions.
+
+### dGMST.m
+This function allows you to calculate delta GMST between two pre-processed climate model runs. GMST is computed from the tas (near surface air temperature) field using a latitude-weighted spatial mean.
