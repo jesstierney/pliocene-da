@@ -1,5 +1,9 @@
 CMIP6 Variable, File, Experiment, Variable Name In File, Lat Name, Lon Name, Grid Type, Time Step, Layer, Units
 
+=================
+Ford et al., 2022
+=================
+
 pr,     Plio_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, Plio,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
         to                                                       + PRECL
         Plio_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
@@ -63,8 +67,10 @@ siconc, PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._01_climo.nc, PreInd,   ICEFRAC, 
         PreInd_ciso_T31_gx3v7.cam.h0.2901-3000._12_climo.nc
 
 
-Erfani and Burls
-================
+======================
+Erfani and Burls, 2019
+======================
+
 pr,     chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, cheyco2,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
         to                                                                       + PRECL
         chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
@@ -77,10 +83,66 @@ tos,    chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.01.mavg_1701-1800.nc,  cheyco2,
         to 
         chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.12.mavg_1701-1800.nc
 ----------
-tos,    chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.01.mavg_1701-1800.nc,  cheyco2,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+sos,    chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.01.mavg_1701-1800.nc,  cheyco2,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
         to 
         chey_co2_2_rhminl_PreInd_T31_gx3v7.pop.h.12.mavg_1701-1800.nc
 ----------
 siconc, chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, cheyco2,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
         to                                                             
         chey_co2_2_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
+
+
+pr,     chey_ctrl_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_0401-0500.nc, cheyctrl,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
+        to                                                                       + PRECL
+        chey_ctrl_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_0401-0500.nc
+----------
+tas,    chey_ctrl_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_0401-0500.nc, cheyctrl,   TREFHT,  lat,  lon,   curvilinear, climatology, NA, K
+        to                                                                    
+        chey_ctrl_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_0401-0500.nc
+----------
+tos,    chey_ctrl_rhminl_PreInd_T31_gx3v7.pop.h.01.mavg_0401-0500.nc,  cheyctrl,   TEMP,    TLAT, TLONG, tripolar,    climatology, 1,  C
+        to 
+        chey_ctrl_rhminl_PreInd_T31_gx3v7.pop.h.12.mavg_0401-0500.nc
+----------
+tos,    chey_ctrl_rhminl_PreInd_T31_gx3v7.pop.h.01.mavg_0401-0500.nc,  cheyctrl,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+        to 
+        chey_ctrl_rhminl_PreInd_T31_gx3v7.pop.h.12.mavg_0401-0500.nc
+----------
+siconc, chey_ctrl_rhminl_PreInd_T31_gx3v7.cam.h0.01.mavg_0401-0500.nc, cheyctrl,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
+        to                                                             
+        chey_ctrl_rhminl_PreInd_T31_gx3v7.cam.h0.12.mavg_0401-0500.nc
+
+
+The remaining cloud forcing runs are described using the following tags:
+
+File header, Tag
+
+neg_lay_strat_0_05, n05 
+neg_lay_strat_0_1,  n10 
+neg_lay_strat_0_15, n15 
+neg_lay_strat_0_2,  n20 
+lay_strat_0_05,     p05 
+lay_strat_0_1,      p10 
+lay_strat_0_15,     p15 
+lay_strat_0_2,      p20 
+
+
+pr,     <header>_co2_2_CHEY_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, <tag>,   PRECC,   lat,  lon,   curvilinear, climatology, NA, m/s
+        to                                                                       + PRECL
+        <header>_co2_2_CHEY_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
+----------
+tas,    <header>_co2_2_CHEY_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, <tag>,   TREFHT,  lat,  lon,   curvilinear, climatology, NA, K
+        to                                                                    
+        <header>_co2_2_CHEY_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
+----------
+tos,    <header>_co2_2_CHEY_PreInd_T31_gx3v7.pop.h.01.mavg_1701-1800.nc,  <tag>,   TEMP,    TLAT, TLONG, tripolar,    climatology, 1,  C
+        to 
+        <header>_co2_2_CHEY_PreInd_T31_gx3v7.pop.h.12.mavg_1701-1800.nc
+----------
+sos,    <header>_co2_2_CHEY_PreInd_T31_gx3v7.pop.h.01.mavg_1701-1800.nc,  <tag>,   SALT,    TLAT, TLONG, tripolar,    climatology, 1,  g/kg
+        to 
+        <header>_co2_2_CHEY_PreInd_T31_gx3v7.pop.h.12.mavg_1701-1800.nc
+----------
+siconc, <header>_co2_2_CHEY_PreInd_T31_gx3v7.cam.h0.01.mavg_1701-1800.nc, <tag>,   ICEFRAC, lat,  lon,   curvilinear, climatology, NA, fraction
+        to                                                             
+        <header>_co2_2_CHEY_PreInd_T31_gx3v7.cam.h0.12.mavg_1701-1800.nc
