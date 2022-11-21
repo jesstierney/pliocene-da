@@ -88,29 +88,31 @@ for t = 1:nTime
     V(:,:,t) = griddata(tlon, tlat, X(:,t), qlon, qlat); %#ok<*GRIDD> 
 end
 
-% Check for longitudes that are all NaN (points along the edge of the 0-360 grid)
+% Check for longitudes that are all NaN (points along the edge of the 0-360
+% grid). Regrid any NaN longitudes, and any longitudes within 10 degrees of
+% the edge of the grid
 allnans = all(isnan(V), [2 3]);
-nanLons = lon(allnans);
+nearEdge = lon<10 | lon>350;
+regridRows = allnans | nearEdge;
+regridLons = lon(regridRows);
 
-% If there are missing longitudes, convert the input variable and query
-% points to a -180 to 180 longitude coordinate system
-if any(allnans)
-    lon180 = regrid.longitude(180, nanLons);
-    [qlon, qlat] = ndgrid(lon180, lat);
-    tlon = regrid.longitude(180, tlon);
+% Convert the input variable and query points to a -180 to 180 longitude 
+% coordinate system
+lon180 = regrid.longitude(180, regridLons);
+[qlon, qlat] = ndgrid(lon180, lat);
+tlon = regrid.longitude(180, tlon);
 
-    % Re-query the missing longitudes on -180:180 (they should be near the
-    % center of the grid now, rather than the edge)
-    for v = 1:nTime
-        V(allnans,:,t) = griddata(tlon, tlat, X(:,t), qlon, qlat);
-    end
+% Re-query the missing longitudes on -180:180 (they should be near the
+% center of the grid now, rather than the edge)
+for t = 1:nTime
+    V(regridRows,:,t) = griddata(tlon, tlat, X(:,t), qlon, qlat);
 end
 
 % Check that no longitudes are clipped
-clipped = all(isnan(V), [2 3]);
+clipped = all(isnan(V), 2);
+clipped = any(clipped, 3);
 if any(clipped)
     error('There are clipped longitudes for which all values are NaN');
 end
-
 
 end
