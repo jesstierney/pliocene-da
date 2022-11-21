@@ -62,7 +62,7 @@ In `model_output`, you will find:
 
 * A [Contents.md](./input_data/model_output/Contents.md) file: This contains information about the climate model datasets used in the assimilation.
 
-* A `raw` folder: This folder includes summaries of the raw climate model output files used for pre-processing. It also includes all the code necessary to re-process the files. See its [Contents.md file](#./input_data/model_output/raw/Contents.md) for details.
+* A `raw` folder: This folder includes summaries of the raw climate model output files used for pre-processing. It also includes all the code necessary to re-process the files. See its [Contents.md file](./input_data/model_output/raw/Contents.md) for details.
 
 * A `preprocessed` folder: This folder holds the pre-processed climate model NetCDF files used as input to the assimilation
 
