@@ -68,7 +68,7 @@ nSite = size(meta.site, 1);
 if ~exist('sites','var') || isempty(sites)
     sites = 1:nSite;
 else
-    assert(islogical(sites) && isvector(sites) && length(sites)==nSites, ...
+    assert(islogical(sites) && isvector(sites) && length(sites)==nSite, ...
         'sites must be a logical vector with %.f elements', nSite);
 end
 
