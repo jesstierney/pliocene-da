@@ -48,7 +48,7 @@ latName = assertStrScalar(latName, 'latName');
 lonName = assertStrScalar(lonName, 'lonName');
 
 % Get the PSM, season, and coordinates for each site
-[models, seasons, coordinates] = buildPSMs(age, latName, lonName);
+[models, coordinates, seasons] = buildPSMs(age, latName, lonName);
 nSite = numel(models);
 
 % Get the ensemble
