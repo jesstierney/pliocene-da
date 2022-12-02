@@ -25,7 +25,7 @@ You can use the `runAnalysis` function to recreate the reconstruction. The funct
 Before running this script, you should first:
 
 1. Download the NetCDF files containing pre-processed climate model output from the Google drive
-2. Place the pre-processed climate model output in the folder `input_data/climate_models/preprocessed/`.
+2. Place the pre-processed climate model output in the folder `input_data/model_output/preprocessed/`.
 3. Add the `pliocene-da` repository, and all its subfolders, to the active Matlab path.
 4. Move the current Matlab directory to the root folder of the `pliocene-da` repository.
 
