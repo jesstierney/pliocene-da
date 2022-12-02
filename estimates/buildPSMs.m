@@ -1,4 +1,27 @@
-function[models, months, coordinates] = buildPSMs(age, latName, lonName)
+function[models, coordinates, months] = buildPSMs(age, latName, lonName)
+%% buildPSMs  Builds the DASH PSMs for the proxy sites in a particular time slice
+% ----------
+%   [models, coordinates, months] = buildPSMs(age, latName, lonName)
+%   Builds the forward models for the proxy sites for a particular time
+%   slice. BAYMAG PSMs will use a sea-water correction for the given age.
+%   All PSMs will use the indicated paleo-coordinates. Also determines the
+%   seasonal window for each site.
+% ----------
+%   Inputs:
+%       age (numeric scalar): The time slice for which to build PSMs. Should
+%           match one of the time slices in "proxies.nc". Units are Ma
+%       latName (string scalar): The name of the column of proxy site
+%           metadata to use as latitude coordinates.
+%       lonName (string scalar): The name of the column of proxy site
+%           metadata to use as longitude coordinates
+%
+%   Outputs:
+%       models (cell vector [nSite] {scalar PSM object}): The PSM object
+%           for each site
+%       coordinates (numeric matrix [nSite x 2]): The coordinates of each
+%           site. First column is latitude, second is longitude.
+%       months (cell vector [nSite] {numeric vector, linear indices}): The
+%           indices of the calendar months associated with each site's season
 
 % Get the proxy metadata, and identify the metadata in each column
 proxies = gridfile('proxies').metadata;
