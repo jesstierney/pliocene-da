@@ -1,7 +1,7 @@
-function[] = assimilate(label, age, estimatesLabel, Rlabel, runs)
+function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %% assimilate  Runs an assimilation for a particular time-slice
 % ----------
-%   assimilate(label, age, estimatesLabel, Rlabel)
+%   assimilate(label, estimatesLabel, Rlabel)
 %   Runs an assimilation for a particular time slice using DASH. Saves the
 %   outputs to a .mat file in the current directory. The name of the file
 %   will match the pattern "<label>_assimilation.mat"
@@ -26,14 +26,14 @@ function[] = assimilate(label, age, estimatesLabel, Rlabel, runs)
 %   variables before they are saved in the .mat files.
 %
 %   assimilate(..., runs)
-%   Runs the assimilation using specific ensemble members
+%   Runs the assimilation using specific ensemble members.
+%
+%   assimilate(..., runs, sites)
+%   Runs the assimilation using specific proxy sites.
 % ----------
 %   Inputs:
 %       label (string scalar): A label for the assimilation. The name of
 %           the saved .mat file will follow the pattern "<label>_assimilation.mat"
-%       age (numeric scalar): The time metadata for the time slice to
-%           assimilate. This should be one of the time metadata values from
-%           "proxies.nc". Units are Ma
 %       estimatesLabel (string scalar): The label of a set of estimates to
 %           use for the assimilation. This is the first part of a proxy
 %           estimates NetCDF file (the part of the file name before
@@ -41,64 +41,42 @@ function[] = assimilate(label, age, estimatesLabel, Rlabel, runs)
 %       Rlabel (string scalar): Indicates the type of R values to use.
 %           Either "conservative" or "osman"
 %       runs (string matrix [nRuns x 2]): Indicates the climate model runs
-%           that should be used a ensemble members in the assimilation.
+%           that should be used as ensemble members in the assimilation.
 %           These values should be from the "run" metadata of the ensemble.
 %           The first column is the climate model associated with each run,
-%           and the second column is the experimental tag.
+%           and the second column is the experimental tag. If not
+%           specified, uses all available runs.
+%       sites (logical vector [nSite]): A logical vector indicating the 
+%           proxy sites that should be included in the assimilation.
+%           If not specified, uses all available sites.
 %
 %   Outputs:
 %       Creates a file named "<label>_assimilation.mat" in the current
 %       directory.
 
-%% Observations
+%% Initial setup
 
-% Load the proxy observations
-proxies = gridfile('proxies');
-meta = proxies.metadata;
-timeSlice = meta.time == age;
-Y = proxies.load(["site","time"], {[],timeSlice});
+% Defaults for optional inputs
+if ~exist('runs','var')
+    runs = [];
+end
+if ~exist('sites','var')
+    sites = [];
+end
 
-% Take natural log of Mg/Ca proxies
-types = meta.site(:,2);
-mg = types=="mg";
-Y(mg,:) = log( Y(mg,:) );
+% Load observations, estimates, and uncertainties
+[Y, Ye, R, members, YeFile] = loadCoreInputs(estimatesLabel, Rlabel, runs, sites);
 
-%% Estimates and R
-
-% Load the estimates
-YeFile = strcat(estimatesLabel, '_estimates.nc');
-Ye = ncread(YeFile, 'Ye');
-
-% Load R
-Rfile = strcat('R-', Rlabel, '.nc');
-R = ncread(Rfile, 'R');
-
-%% Prior
-
-% Get prior
+% Build the ensemble object for the prior.
 ensembleName = ncread(YeFile, 'ensemble_name');
 ens = ensemble(ensembleName);
 
-% By default, use all members
-if ~exist('runs','var') || isempty(runs)
-    members = 1:ens.nMembers;
-
-% Error check user members
-else
-    allRuns = ens.metadata.members('run');
-    missing = ~ismember(runs, allRuns, 'rows');
-    if any(missing)
-        missing = find(missing,1);
-        error('run %.f is not in the ensemble\n\tModel: %s\n\tExperiment: %s', missing, runs(missing,1), runs(missing,2));
-    end
-
-    % Get the ensemble members
-    members = ismember(allRuns, runs, 'rows');
-end
-
-% Limit X and Ye to the selected members
+% Limit the prior and estimates to the indicated ensemble members
 ens = ens.useMembers(members);
 Ye = Ye(:,members);
+
+
+%% Design the prior
 
 % Don't bother assimilating variables that are only used to run the PSMs
 variables = ens.variables;
@@ -137,6 +115,7 @@ for v = 1:numel(variables)
     end
 end
 
+
 %% Assimilate
 
 % Initialize Kalman filter and provide essential parameters
@@ -168,6 +147,7 @@ end
 
 % Save Amean and metadata
 Amean = output.Amean;
+age = ncread(YeFile, 'time');
 file = strcat(label, '_assimilation');
 save(file, 'Amean', 'ensMeta', 'age');
 

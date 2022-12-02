@@ -47,58 +47,17 @@ ensembleName = assertStrScalar(ensembleName, 'ensembleName');
 latName = assertStrScalar(latName, 'latName');
 lonName = assertStrScalar(lonName, 'lonName');
 
-% Get the proxy metadata, and identify the metadata in each column
-proxies = gridfile('proxies').metadata;
-columns = proxies.attributes.site_metadata_columns;
-proxies = proxies.site;
+% Get the PSM, season, and coordinates for each site
+[models, coordinates, seasons] = buildPSMs(age, latName, lonName);
+nSite = numel(models);
 
-% Locate the columns with the coordinate metadata
-latColumn = strcmp(latName, columns);
-lonColumn = strcmp(lonName, columns);
-assert(sum(latColumn)==1, 'Could not locate the latitude column name in the site metadata');
-assert(sum(lonColumn)==1, 'Could not locate the longitude column name in the site metadata');
-
-% Get proxy metadata
-ID = proxies(:,1);
-type = proxies(:,2);
-lat = str2double(proxies(:,latColumn));
-lon = str2double(proxies(:,lonColumn));
-depth = str2double(proxies(:,9));
-cleaning = str2double(proxies(:,10));
-species = proxies(:,11);
-nSite = numel(ID);
-
-% Validate species strings
-species = validateSpecies(species);
-
-% Locate the different types of records
-uk = type=="uk";
-tex = type=="tex";
-mg = type=="mg";
-
-% Get the seasonal window for each proxy
-months = cell(nSite, 1);
-monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-for s = 1:nSite
-    if uk(s)
-        months(s) = checkSeasonality(lat(s), lon(s));
-    elseif tex(s)
-        months(s) = {1:12};
-    elseif mg(s)
-        [~,~,season] = get_sea(lat(s), lon(s), species(s));
-        season = season{1};
-        [~, months{s}] = ismember(season, monthNames);
-    end
-end
-
-% Get omega and pH values for Mg/Ca
-omega = NaN(nSite, 1);
-pH = NaN(nSite, 1);
-[omega(mg), pH(mg)] = omgph(lat(mg), lon(mg), depth(mg));
-
-% Get the ensemble and preallocate metadata.
+% Get the ensemble
 ens = ensemble(ensembleName);
+
+% Preallocate estimates, the seasonal TOS and SOS inputs
 Ye = NaN(nSite, ens.nMembers);
+tosSeasonal = NaN(nSite, ens.nMembers);
+sosSeasonal = NaN(nSite, ens.nMembers);
 
 % Load the monthly TOS and SOS variables. Locate NaN values
 tos = ens.useVariables("tos_monthly");
@@ -114,34 +73,36 @@ message = sprintf('Estimating %s proxies', label);
 h = waitbar(0, message);
 deleteBar = onCleanup( @()delete(h) );
 
-% Create a forward model for each proxy site
+% Iterate through sites. Note whether the site is for Mg/Ca
 for s = 1:nSite
-    if uk(s)
-        model = PSM.bayspline;
-    elseif tex(s)
-        model = PSM.bayspar(lat(s), lon(s));
-    elseif mg(s)
-        model = PSM.baymag(age, cleaning(s), species(s), 'omega', omega(s), 'pH', pH(s));
-    end    
+    mg = isa(models{s}, 'PSM.baymag');
 
     % Get seasonal TOS for each site. Also get SOS for Mg/Ca
-    coordinates = [lat(s), lon(s)];
-    siteTOS = getSiteVariable(tos, tosMeta, tosNAN, coordinates, months{s});
-    if mg(s)
-        siteSOS = getSiteVariable(sos, sosMeta, sosNAN, coordinates, months{s});
+    tosSeasonal(s,:) = getSiteVariable(tos, tosMeta, tosNAN, coordinates(s,:), seasons{s});
+    if mg
+        sosSeasonal(s,:) = getSiteVariable(sos, sosMeta, sosNAN, coordinates(s,:), seasons{s});
     end
 
     % Run model using appropriate inputs
-    if mg(s)
-        X = [siteTOS; siteSOS];
+    if mg
+        X = [tosSeasonal(s,:); sosSeasonal(s,:)];
     else
-        X = siteTOS;
+        X = tosSeasonal(s,:);
     end
-    Ye(s,:) = model.estimate(X);
+    Ye(s,:) = models{s}.estimate(X);
     
     % Update progress
     waitbar(s/nSite, h);
+
+    % Convert seasons to string
+    seasons{s} = join(string(seasons{s}), ',');
 end
+seasons = string(seasons);
+
+% Load proxy metadata
+proxies = gridfile('proxies').metadata;
+columns = proxies.attributes.site_metadata_columns;
+proxies = proxies.site;
 
 % Export to NetCDF
 [nSite,nMembers] = size(Ye);
@@ -154,6 +115,9 @@ nccreate(file, 'members_columns', 'Dimensions', {'members_columns',nMemberCols},
 nccreate(file, 'sites', 'Dimensions', {'sites',nSite,'sites_columns',nSiteCols}, 'Datatype', 'string');
 nccreate(file, 'members', 'Dimensions', {'members',nMembers, 'members_columns',nMemberCols}, 'Datatype', 'string');
 nccreate(file, 'Ye', 'Dimensions', {'sites',nSite,'members',nMembers}, 'Datatype', 'double');
+nccreate(file, 'tos_seasonal', 'Dimensions', {'sites',nSite,'members',nMembers}, 'Datatype', 'double');
+nccreate(file, 'sos_seasonal', 'Dimensions', {'sites',nSite,'members',nMembers}, 'Datatype', 'double');
+nccreate(file, 'seasons', 'Dimensions', {'sites',nSite}, 'Datatype', 'string');
 nccreate(file, 'ensemble_name', 'datatype', 'string');
 nccreate(file, 'time', 'datatype', 'double');
 nccreate(file, 'latColumn', 'datatype', 'string');
@@ -164,6 +128,12 @@ ncwriteatt(file, 'members_columns', 'Description', 'The type of metadata stored 
 ncwriteatt(file, 'sites', 'Description', 'The proxy sites (and associated metadata)');
 ncwriteatt(file, 'members', 'Description', 'The ensemble members');
 ncwriteatt(file, 'Ye', 'Description', 'Proxy Estimates');
+ncwriteatt(file, 'tos_seasonal', 'Description', 'The seasonal TOS (sea surface temperature) values used to run the PSMs');
+ncwriteatt(file, 'tos_seasonal', 'Units', 'Celsius');
+ncwriteatt(file, 'sos_seasonal', 'Description', 'The seasonal SOS (sea surface salinity) values used to run the PSMs');
+ncwriteatt(file, 'sos_seasonal', 'Units', 'g/kg');
+ncwriteatt(file, 'sos_seasonal', 'Units_Equivalent', 'psu');
+ncwriteatt(file, 'seasons', 'Description', 'The calendar months used to compute the seasonal values for each site');
 ncwriteatt(file, 'ensemble_name', 'Description', 'The name of the ensemble used to generate the estimates');
 ncwriteatt(file, 'time', 'Description', 'The time value used to implement the BayMAG seawater correction');
 ncwriteatt(file, 'time', 'Units', 'Ma');
@@ -175,6 +145,9 @@ ncwrite(file, 'members_columns', ["Model","Experiment"]);
 ncwrite(file, 'sites', proxies);
 ncwrite(file, 'members', tosMeta.members("run"));
 ncwrite(file, 'Ye', Ye);
+ncwrite(file, 'tos_seasonal', tosSeasonal);
+ncwrite(file, 'sos_seasonal', sosSeasonal);
+ncwrite(file, 'seasons', seasons);
 ncwrite(file, 'ensemble_name', string(ensembleName));
 ncwrite(file, 'time', age);
 ncwrite(file, 'latColumn', string(latName));
@@ -183,32 +156,6 @@ ncwrite(file, 'lonColumn', string(lonName));
 end
 
 %% Utilities
-function[species] = validateSpecies(species)
-
-% Locate species indicator strings
-sacculifer = contains(species, "sacculifer");
-bulloides = contains(species, "bulloides");
-sinistral = contains(species, "sinistral");
-none = strcmp(species, "");
-
-% Require a single label for everything
-nLabel = sacculifer + bulloides + sinistral + none;
-missing = nLabel==0;
-multiple = nLabel>1;
-if any(missing)
-    s = find(missing, 1);
-    error('Proxy %.f does not have a valid species string', s);
-elseif any(multiple)
-    s = find(multiple, 1);
-    error('Proxy %.f matches multiple species strings', s);
-end
-
-% Replace with valid strings
-species(sacculifer) = "sacculifer";
-species(bulloides) = "bulloides";
-species(sinistral) = "incompta";
-
-end
 function[Y] = getSiteVariable(X, Xmeta, Xnan, coordinates, months)
 
 % Preallocate

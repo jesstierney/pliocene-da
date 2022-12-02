@@ -17,6 +17,10 @@ BAYMAG
 BAYSPAR
 BAYSPLINE
 
+# Working folder
+working
+
 # Allow various pre-computed values
+!input_data/proxy_records/proxies.nc
 !estimates/**.nc
 !R-error-variances/**.nc

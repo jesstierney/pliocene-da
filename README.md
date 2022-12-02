@@ -15,6 +15,7 @@ The contents of the repository are as follows:
 * [R-error-variances](#r-error-variances)
 * [assimilate](#assimilate)
 * [reconstructions](#reconstructions)
+* [localization](#localization)
 * [dGMST.m](#dgmstm)
 
 and details on each item are provided below. Many of these items are folders containing Matlab functions. You can use the Matlab `help` command to see the documentation of these functions. Additionally, any folders that begin with a plus `+` symbol are Matlab packages. You can read about the contents of these packages using the `help` command, or by reading the package's `Contents.m` page.
@@ -25,7 +26,7 @@ You can use the `runAnalysis` function to recreate the reconstruction. The funct
 Before running this script, you should first:
 
 1. Download the NetCDF files containing pre-processed climate model output from the Google drive
-2. Place the pre-processed climate model output in the folder `input_data/climate_models/preprocessed/`.
+2. Place the pre-processed climate model output in the folder `input_data/model_output/preprocessed/`.
 3. Add the `pliocene-da` repository, and all its subfolders, to the active Matlab path.
 4. Move the current Matlab directory to the root folder of the `pliocene-da` repository.
 
@@ -75,7 +76,12 @@ This folder holds the functions `buildProxyGridfile` and `buildModelGridfiles`, 
 This folder holds the function `buildEnsemble`. This function builds state vector ensembles for assimilation. The function allows you to build ensembles from different sets of climate model runs. The folder may also hold `.ens` files, which are pre-built state vector ensembles for the analysis.
 
 ### estimates
-This folder holds the function `estimateProxies`. This function allows you to estimate proxy records for given time slice, ensemble, and set of paleo(coordinates). The folder may also hold pre-computed proxy estimates, stored in various NetCDF `.nc` files.
+This folder holds:
+
+* `estimateProxies`: This function allows you to estimate proxy records for given time slice, ensemble, and set of (paleo)coordinates.
+* `buildPSMs`: This is a utility function that builds the PSMs used to estimate proxies. It is called by `estimateProxies`, but you do not need to call this function directly.
+* Pre-computed proxy estimates, stored in various NetCDF `.nc` files.
+
 
 ### R-error-variances
 This folder holds the function `calculateR`. This function computes R values (error-variances) for the proxy records using:
@@ -88,10 +94,15 @@ The folder may also hold the NetCDF files `R-conservative.nc` and `R-osman.nc`, 
 ### assimilate
 This folder holds the function `assimilate`. This function uses the DASH toolbox to implement a Kalman Filter for a time step of the reconstruction. The function allows you to specify the time slice, ensemble/set of estimates, R values, and climate model runs to use as ensemble members.
 
+The folder also holds the function `loadCoreInputs`. This is a utility function used by various functions in the repository (e.g. `assimilate` and `testLocalization`). You do not need to call this function directly.
+
 The folder may also hold `.mat` files, which contain pre-computed Kalman filter outputs from DASH.
 
 ### reconstructions
 This folder holds the function `exportReconstruction`. This function exports assimilation outputs from the DASH toolbox to NetCDF. It regrids assimilated state vector variables back onto spatial grids, and combines outputs from preindustrial, mid-Pliocene, and early-Pliocene time slices. The folder may also hold NetCDF `.nc` files with pre-built reconstructions.
+
+### localization
+This folder holds the function `testLocalization`. This function performs a series of single-proxy knockout validation experiments for a set of localization radii in a particular time slice. Proxy validation values are exported to a NetCDF file. The folder may also hold NetCDF `.nc` files with pre-computed localization tests.
 
 ### dGMST.m
 This function allows you to calculate delta GMST between two pre-processed climate model runs. GMST is computed from the tas (near surface air temperature) field using a latitude-weighted spatial mean.

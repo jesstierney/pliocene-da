@@ -76,20 +76,28 @@ calculateR;
 % ensemble mean in a MAT-file. The inputs are:
 %   1. A label for the assimilation. The name of the MAT-file will match
 %      this label
-%   2. The age of the assimilated time step (in Ma). This should match one
-%      of the ages in the time metadata of "proxies.grid"
-%   3. The label/file name of the proxy estimates to use for this assimilation
-%   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
-%
-% You can optionally use a fifth input to indicate that the ensemble should
-% only use specified climate model runs as ensemble members.
-assimilate('preindustrial_R-conservative', 0, 'preindustrial', 'conservative');
-assimilate('mid-pliocene_R-conservative', 3.25, 'mid-pliocene', 'conservative');
-assimilate('early-pliocene_R-conservative', 4.75, 'early-pliocene', 'conservative');
+%   2. The label/file name of the proxy estimates to use for this assimilation
+%   3. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
+%   4. (optional) Used to select the climate model runs that should be
+%      used as ensemble members. If not specified, uses all runs in the ensemble
+%   5. (optional) Used to select the proxy sites that should be used in the
+%      DA. If not specified, uses all available proxy records.
 
-assimilate('preindustrial_R-osman', 0, 'preindustrial', 'osman');
-assimilate('mid-pliocene_R-osman', 3.25, 'mid-pliocene', 'osman');
-assimilate('early-pliocene_R-osman', 4.75, 'early-pliocene', 'osman');
+% An example using CESM-only and UK-only
+piCESM = parameters.preindustrialRuns.cesm;
+plioCESM = parameters.plioceneRuns.cesm;
+ukSites = gridfile('proxies').metadata.site(:,2) == "uk";
+
+% Get the labels for the saved files
+tag = 'UK-only_CESM-only';
+timeSliceNames = ["preindustrial","mid-pliocene","early-pliocene"];
+labels = strcat(timeSliceNames, "_", tag, "_R-conservative");
+
+% Run the assimilation for each time slice
+assimilate(labels(1), 'preindustrial', 'conservative', piCESM, ukSites);
+assimilate(labels(2), 'mid-pliocene', 'conservative', plioCESM, ukSites);
+assimilate(labels(3), 'early-pliocene', 'conservative', plioCESM, ukSites);
+
 
 %% Export the assimilations to NetCDF
 % 
@@ -100,8 +108,25 @@ assimilate('early-pliocene_R-osman', 4.75, 'early-pliocene', 'osman');
 %   2. The label of the preindustrial assimilation
 %   3. The label of the mid-Pliocene assimilation
 %   4. The label of the early-Pliocene assimilation
-timeSlices = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
-files = strcat(timeSlices, "_R-conservative");
-exportReconstruction('all-models_R-conservative', files(1), files(2), files(3));
-files = strcat(timeSlices, "_R-osman");
-exportReconstruction('all-models_R-osman', files(1), files(2), files(3));
+
+newFile = strcat(tag, "_R-conservative");
+exportReconstruction(newFile, labels(1), labels(2), labels(3));
+
+%% Test localization radii
+%
+% This performs a series of single-proxy knockout validation experiments
+% for a set of localization radii in a given timeslice. Each knockout
+% experiment assimilates the PSM inputs for the excluded proxy record. 
+% Then, it estimates the knockout proxy by running its PSM over the posterior. 
+% Exports the validation values to a NetCDF file. 
+%
+% The inputs are:
+%   1. A label for the tests. The name of the NetCDF file will be <label>_loctests.nc
+%   2. The localization radii to test
+%   3. The label/file name of the proxy estimates to use for this assimilation
+%   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
+%   5. (optional) Used to select the climate model runs that should be
+%      used as ensemble members. If not specified, uses all runs in the ensemble
+
+radii = [1000:2000, Inf];
+testLocalization('preindustrial', radii, 'preindustrial', 'conservative');
