@@ -41,7 +41,7 @@ function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %       Rlabel (string scalar): Indicates the type of R values to use.
 %           Either "conservative" or "osman"
 %       runs (string matrix [nRuns x 2]): Indicates the climate model runs
-%           that should be used a ensemble members in the assimilation.
+%           that should be used as ensemble members in the assimilation.
 %           These values should be from the "run" metadata of the ensemble.
 %           The first column is the climate model associated with each run,
 %           and the second column is the experimental tag. If not
@@ -54,22 +54,7 @@ function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %       Creates a file named "<label>_assimilation.mat" in the current
 %       directory.
 
-%% Estimates and uncertainties
-
-% Load the estimates
-YeFile = strcat(estimatesLabel, '_estimates.nc');
-Ye = ncread(YeFile, 'Ye');
-Ye = Ye(sites, :);
-
-% Load R
-Rfile = strcat('R-', Rlabel, '.nc');
-R = ncread(Rfile, 'R');
-R = R(sites);
-
-% Assimilate the time-slice associated with the estimates
-age = ncread(YeFile, 'time');
-
-%% Observations
+%% Observations, Estimates and uncertainties
 
 % Get proxy gridfile and metadata
 proxies = gridfile('proxies');
@@ -84,11 +69,22 @@ else
         'sites must be a logical vector with %.f elements', nSite);
 end
 
+% Load the estimates and associated time slice
+YeFile = strcat(estimatesLabel, '_estimates.nc');
+age = ncread(YeFile, 'age');
+Ye = ncread(YeFile, 'Ye');
+Ye = Ye(sites,:);
+
+% Load R
+Rfile = strcat('R-', Rlabel, '.nc');
+R = ncread(Rfile, 'R');
+R = R(sites);
+
 % Load the proxy observations
 proxies = gridfile('proxies');
 meta = proxies.metadata;
 timeSlice = meta.time == age;
-Y = proxies.load(["site","time"], {[sites],timeSlice});
+Y = proxies.load(["site","time"], {sites,timeSlice});
 
 % Take natural log of Mg/Ca proxies
 types = meta.site(sites,2);
