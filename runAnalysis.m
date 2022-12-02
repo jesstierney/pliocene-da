@@ -111,3 +111,22 @@ assimilate(labels(3), 'early-pliocene', 'conservative', plioCESM, ukSites);
 
 newFile = strcat(tag, "_R-conservative");
 exportReconstruction(newFile, labels(1), labels(2), labels(3));
+
+%% Test localization radii
+%
+% This performs a series of single-proxy knockout validation experiments
+% for a set of localization radii in a given timeslice. Each knockout
+% experiment assimilates the PSM inputs for the excluded proxy record. 
+% Then, it estimates the knockout proxy by running its PSM over the posterior. 
+% Exports the validation values to a NetCDF file. 
+%
+% The inputs are:
+%   1. A label for the tests. The name of the NetCDF file will be <label>_loctests.nc
+%   2. The localization radii to test
+%   3. The label/file name of the proxy estimates to use for this assimilation
+%   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
+%   5. (optional) Used to select the climate model runs that should be
+%      used as ensemble members. If not specified, uses all runs in the ensemble
+
+radii = [1000:2000, Inf];
+testLocalization('preindustrial', radii, 'preindustrial', 'conservative');
