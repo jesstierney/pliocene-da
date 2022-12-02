@@ -80,16 +80,26 @@ calculateR;
 %      of the ages in the time metadata of "proxies.grid"
 %   3. The label/file name of the proxy estimates to use for this assimilation
 %   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
-%
-% You can optionally use a fifth input to indicate that the ensemble should
-% only use specified climate model runs as ensemble members.
-assimilate('preindustrial_R-conservative', 0, 'preindustrial', 'conservative');
-assimilate('mid-pliocene_R-conservative', 3.25, 'mid-pliocene', 'conservative');
-assimilate('early-pliocene_R-conservative', 4.75, 'early-pliocene', 'conservative');
+%   5. (optional) Used to select the climate model runs that should be
+%      used as ensemble members. If not specified, uses all runs in the ensemble
+%   6. (optional) Used to select the proxy sites that should be used in the
+%      DA. If not specified, uses all available proxy records.
 
-assimilate('preindustrial_R-osman', 0, 'preindustrial', 'osman');
-assimilate('mid-pliocene_R-osman', 3.25, 'mid-pliocene', 'osman');
-assimilate('early-pliocene_R-osman', 4.75, 'early-pliocene', 'osman');
+% An example using CESM-only and UK-only
+piCESM = parameters.preindustrialRuns.cesm;
+plioCESM = parameters.plioceneRuns.cesm;
+ukSites = gridfile('proxies').metadata.site(:,2) == "uk";
+
+% Get the labels for the saved files
+tag = 'UK-only_CESM-only';
+timeSliceNames = ["preindustrial","mid-pliocene","early-pliocene"];
+labels = strcat(timeSliceNames, "_", tag, "_R-conservative");
+
+% Run the assimilation for each time slice
+assimilate(labels(1), 0, 'preindustrial', 'conservative', piCESM, ukSites);
+assimilate(labels(2), 3.25, 'mid-pliocene', 'conservative', plioCESM, ukSites);
+assimilate(labels(3), 4.75, 'early-pliocene', 'conservative', plioCESM, ukSites);
+
 
 %% Export the assimilations to NetCDF
 % 
@@ -100,8 +110,6 @@ assimilate('early-pliocene_R-osman', 4.75, 'early-pliocene', 'osman');
 %   2. The label of the preindustrial assimilation
 %   3. The label of the mid-Pliocene assimilation
 %   4. The label of the early-Pliocene assimilation
-timeSlices = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
-files = strcat(timeSlices, "_R-conservative");
-exportReconstruction('all-models_R-conservative', files(1), files(2), files(3));
-files = strcat(timeSlices, "_R-osman");
-exportReconstruction('all-models_R-osman', files(1), files(2), files(3));
+
+newFile = strcat(tag, "_R-conservative");
+exportReconstruction(newFile, labels(1), labels(2), labels(3));
