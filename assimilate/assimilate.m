@@ -54,70 +54,29 @@ function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %       Creates a file named "<label>_assimilation.mat" in the current
 %       directory.
 
-%% Observations, Estimates and uncertainties
+%% Initial setup
 
-% Get proxy gridfile and metadata
-proxies = gridfile('proxies');
-meta = proxies.metadata;
-nSite = size(meta.site, 1);
-
-% Default and error check sites
-if ~exist('sites','var') || isempty(sites)
-    sites = 1:nSite;
-else
-    assert(islogical(sites) && isvector(sites) && length(sites)==nSite, ...
-        'sites must be a logical vector with %.f elements', nSite);
+% Defaults for optional inputs
+if ~exist('runs','var')
+    runs = [];
+end
+if ~exist('sites','var')
+    sites = [];
 end
 
-% Load the estimates and associated time slice
-YeFile = strcat(estimatesLabel, '_estimates.nc');
-age = ncread(YeFile, 'age');
-Ye = ncread(YeFile, 'Ye');
-Ye = Ye(sites,:);
+% Load observations, estimates, and uncertainties
+[Y, Ye, R, members, YeFile] = loadCoreInputs(estimatesLabel, Rlabel, runs, sites);
 
-% Load R
-Rfile = strcat('R-', Rlabel, '.nc');
-R = ncread(Rfile, 'R');
-R = R(sites);
-
-% Load the proxy observations
-proxies = gridfile('proxies');
-meta = proxies.metadata;
-timeSlice = meta.time == age;
-Y = proxies.load(["site","time"], {sites,timeSlice});
-
-% Take natural log of Mg/Ca proxies
-types = meta.site(sites,2);
-mg = types=="mg";
-Y(mg,:) = log( Y(mg,:) );
-
-
-%% Prior
-
-% Get prior
+% Build the ensemble object for the prior.
 ensembleName = ncread(YeFile, 'ensemble_name');
 ens = ensemble(ensembleName);
 
-% By default, use all members
-if ~exist('runs','var') || isempty(runs)
-    members = 1:ens.nMembers;
-
-% Error check user members
-else
-    allRuns = ens.metadata.members('run');
-    missing = ~ismember(runs, allRuns, 'rows');
-    if any(missing)
-        missing = find(missing,1);
-        error('run %.f is not in the ensemble\n\tModel: %s\n\tExperiment: %s', missing, runs(missing,1), runs(missing,2));
-    end
-
-    % Get the ensemble members
-    members = ismember(allRuns, runs, 'rows');
-end
-
-% Limit X and Ye to the selected members
+% Limit the prior and estimates to the indicated ensemble members
 ens = ens.useMembers(members);
 Ye = Ye(:,members);
+
+
+%% Design the prior
 
 % Don't bother assimilating variables that are only used to run the PSMs
 variables = ens.variables;
@@ -156,6 +115,7 @@ for v = 1:numel(variables)
     end
 end
 
+
 %% Assimilate
 
 % Initialize Kalman filter and provide essential parameters
@@ -187,6 +147,7 @@ end
 
 % Save Amean and metadata
 Amean = output.Amean;
+age = ncread(YeFile, 'time');
 file = strcat(label, '_assimilation');
 save(file, 'Amean', 'ensMeta', 'age');
 
