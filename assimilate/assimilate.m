@@ -1,4 +1,4 @@
-function[] = assimilate(label, age, estimatesLabel, Rlabel, runs)
+function[] = assimilate(label, age, estimatesLabel, Rlabel, runs, sites)
 %% assimilate  Runs an assimilation for a particular time-slice
 % ----------
 %   assimilate(label, age, estimatesLabel, Rlabel)
@@ -26,7 +26,10 @@ function[] = assimilate(label, age, estimatesLabel, Rlabel, runs)
 %   variables before they are saved in the .mat files.
 %
 %   assimilate(..., runs)
-%   Runs the assimilation using specific ensemble members
+%   Runs the assimilation using specific ensemble members.
+%
+%   assimilate(..., runs, sites)
+%   Runs the assimilation using specific proxy sites.
 % ----------
 %   Inputs:
 %       label (string scalar): A label for the assimilation. The name of
@@ -44,7 +47,11 @@ function[] = assimilate(label, age, estimatesLabel, Rlabel, runs)
 %           that should be used a ensemble members in the assimilation.
 %           These values should be from the "run" metadata of the ensemble.
 %           The first column is the climate model associated with each run,
-%           and the second column is the experimental tag.
+%           and the second column is the experimental tag. If not
+%           specified, uses all available runs.
+%       sites (logical vector [nSite]): A logical vector indicating the 
+%           proxy sites that should be included in the assimilation.
+%           If not specified, uses all available sites.
 %
 %   Outputs:
 %       Creates a file named "<label>_assimilation.mat" in the current
@@ -52,14 +59,27 @@ function[] = assimilate(label, age, estimatesLabel, Rlabel, runs)
 
 %% Observations
 
+% Get proxy gridfile and metadata
+proxies = gridfile('proxies');
+meta = proxies.metadata;
+nSite = size(meta.site, 1);
+
+% Default and error check sites
+if ~exist('sites','var') || isempty(sites)
+    sites = 1:nSite;
+else
+    assert(islogical(sites) && isvector(sites) && length(sites)==nSites, ...
+        'sites must be a logical vector with %.f elements', nSite);
+end
+
 % Load the proxy observations
 proxies = gridfile('proxies');
 meta = proxies.metadata;
 timeSlice = meta.time == age;
-Y = proxies.load(["site","time"], {[],timeSlice});
+Y = proxies.load(["site","time"], {[sites],timeSlice});
 
 % Take natural log of Mg/Ca proxies
-types = meta.site(:,2);
+types = meta.site(sites,2);
 mg = types=="mg";
 Y(mg,:) = log( Y(mg,:) );
 
@@ -68,10 +88,12 @@ Y(mg,:) = log( Y(mg,:) );
 % Load the estimates
 YeFile = strcat(estimatesLabel, '_estimates.nc');
 Ye = ncread(YeFile, 'Ye');
+Ye = Ye(sites, :);
 
 % Load R
 Rfile = strcat('R-', Rlabel, '.nc');
 R = ncread(Rfile, 'R');
+R = R(sites);
 
 %% Prior
 
