@@ -75,7 +75,12 @@ This folder holds the functions `buildProxyGridfile` and `buildModelGridfiles`, 
 This folder holds the function `buildEnsemble`. This function builds state vector ensembles for assimilation. The function allows you to build ensembles from different sets of climate model runs. The folder may also hold `.ens` files, which are pre-built state vector ensembles for the analysis.
 
 ### estimates
-This folder holds the function `estimateProxies`. This function allows you to estimate proxy records for given time slice, ensemble, and set of paleo(coordinates). The folder may also hold pre-computed proxy estimates, stored in various NetCDF `.nc` files.
+This folder holds:
+
+* `estimateProxies`: This function allows you to estimate proxy records for given time slice, ensemble, and set of (paleo)coordinates.
+* `buildPSMs`: This is a utility function that builds the PSMs used to estimate proxies. It is called by `estimateProxies`, but you do not need to call this function directly.
+* Pre-computed proxy estimates, stored in various NetCDF `.nc` files.
+
 
 ### R-error-variances
 This folder holds the function `calculateR`. This function computes R values (error-variances) for the proxy records using:
