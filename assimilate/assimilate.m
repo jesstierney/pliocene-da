@@ -1,7 +1,7 @@
-function[] = assimilate(label, age, estimatesLabel, Rlabel, runs, sites)
+function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %% assimilate  Runs an assimilation for a particular time-slice
 % ----------
-%   assimilate(label, age, estimatesLabel, Rlabel)
+%   assimilate(label, estimatesLabel, Rlabel)
 %   Runs an assimilation for a particular time slice using DASH. Saves the
 %   outputs to a .mat file in the current directory. The name of the file
 %   will match the pattern "<label>_assimilation.mat"
@@ -34,9 +34,6 @@ function[] = assimilate(label, age, estimatesLabel, Rlabel, runs, sites)
 %   Inputs:
 %       label (string scalar): A label for the assimilation. The name of
 %           the saved .mat file will follow the pattern "<label>_assimilation.mat"
-%       age (numeric scalar): The time metadata for the time slice to
-%           assimilate. This should be one of the time metadata values from
-%           "proxies.nc". Units are Ma
 %       estimatesLabel (string scalar): The label of a set of estimates to
 %           use for the assimilation. This is the first part of a proxy
 %           estimates NetCDF file (the part of the file name before
@@ -56,6 +53,21 @@ function[] = assimilate(label, age, estimatesLabel, Rlabel, runs, sites)
 %   Outputs:
 %       Creates a file named "<label>_assimilation.mat" in the current
 %       directory.
+
+%% Estimates and uncertainties
+
+% Load the estimates
+YeFile = strcat(estimatesLabel, '_estimates.nc');
+Ye = ncread(YeFile, 'Ye');
+Ye = Ye(sites, :);
+
+% Load R
+Rfile = strcat('R-', Rlabel, '.nc');
+R = ncread(Rfile, 'R');
+R = R(sites);
+
+% Assimilate the time-slice associated with the estimates
+age = ncread(YeFile, 'time');
 
 %% Observations
 
@@ -83,17 +95,6 @@ types = meta.site(sites,2);
 mg = types=="mg";
 Y(mg,:) = log( Y(mg,:) );
 
-%% Estimates and R
-
-% Load the estimates
-YeFile = strcat(estimatesLabel, '_estimates.nc');
-Ye = ncread(YeFile, 'Ye');
-Ye = Ye(sites, :);
-
-% Load R
-Rfile = strcat('R-', Rlabel, '.nc');
-R = ncread(Rfile, 'R');
-R = R(sites);
 
 %% Prior
 

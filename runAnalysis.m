@@ -76,13 +76,11 @@ calculateR;
 % ensemble mean in a MAT-file. The inputs are:
 %   1. A label for the assimilation. The name of the MAT-file will match
 %      this label
-%   2. The age of the assimilated time step (in Ma). This should match one
-%      of the ages in the time metadata of "proxies.grid"
-%   3. The label/file name of the proxy estimates to use for this assimilation
-%   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
-%   5. (optional) Used to select the climate model runs that should be
+%   2. The label/file name of the proxy estimates to use for this assimilation
+%   3. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
+%   4. (optional) Used to select the climate model runs that should be
 %      used as ensemble members. If not specified, uses all runs in the ensemble
-%   6. (optional) Used to select the proxy sites that should be used in the
+%   5. (optional) Used to select the proxy sites that should be used in the
 %      DA. If not specified, uses all available proxy records.
 
 % An example using CESM-only and UK-only
@@ -96,9 +94,9 @@ timeSliceNames = ["preindustrial","mid-pliocene","early-pliocene"];
 labels = strcat(timeSliceNames, "_", tag, "_R-conservative");
 
 % Run the assimilation for each time slice
-assimilate(labels(1), 0, 'preindustrial', 'conservative', piCESM, ukSites);
-assimilate(labels(2), 3.25, 'mid-pliocene', 'conservative', plioCESM, ukSites);
-assimilate(labels(3), 4.75, 'early-pliocene', 'conservative', plioCESM, ukSites);
+assimilate(labels(1), 'preindustrial', 'conservative', piCESM, ukSites);
+assimilate(labels(2), 'mid-pliocene', 'conservative', plioCESM, ukSites);
+assimilate(labels(3), 'early-pliocene', 'conservative', plioCESM, ukSites);
 
 
 %% Export the assimilations to NetCDF
