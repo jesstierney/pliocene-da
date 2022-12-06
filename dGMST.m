@@ -1,35 +1,52 @@
-function[delta] = dGMST(piFile, plioFile, seasonMonths)
+function[deltas] = dGMST(piRun, plioRuns, seasonMonths)
 %% dGMST  Computes delta GMST for pre-processed climate model output
 % ----------
-%   delta = dGMST(piFile, plioFile, seasonMonths)
-%   Computes delta GMST between two pre-processed climate model output
+%   deltas = dGMST(piRun, plioRuns, seasonMonths)
+%   Computes delta GMST from two pre-processed climate model output
 %   files. GMST is calculated using a latitude-weighted, global mean over 
 %   the tas (near surface air temperature) field. Calculates GMST over a
 %   specified seasonal mean.
 % ----------
 %   Inputs:
-%       piFile (string scalar): The name of a file holding a pre-processed
-%           output from a preindustrial run
-%       plioFile (string scalar): The name of a file holding pre-processed
-%           output from a pliocene run
+%       piRun (string scalar): The run metadata for the preindustrial run.
+%           Only a single run should be listed. This run will be used as
+%           the background state for all input pliocene runs.
+%       plioRuns (string vector [nRuns]): The run metadata for the Pliocene
+%           runs. Can list metadata for multiple runs. Note that the delta
+%           GMST values for all input Pliocene runs are calculated using
+%           the same preindustrial background state.
 %       seasonMonths (numeric vector): Indicates the months to use for a
 %           seasonal mean.Elements should be integers on the
 %            interval 1:12. For example, use 1:12 for an annual mean,
 %            [12 1 2] for DJF, and [6 7 8] for JJA.
 %
 %   Outputs:
-%       delta (numeric scalar): Delta GMST between the two runs
+%       deltas (numeric vector [nRuns]): Delta GMST values for each
+%           Pliocene run.
 
-% Get GMST values
+% Get the file names
+piFile = runs2files(piRun);
+plioFiles = runs2files(plioRuns);
+
+% Preallocate delta GMST values
+nRuns = numel(plioFiles);
+deltas = NaN(nRuns, 1);
+
+% Get GMST values for each run
 Tpi = gmst(piFile, seasonMonths);
-Tplio = gmst(plioFile, seasonMonths);
+for r = 1:nRuns
+    Tplio = gmst(plioFiles(r), seasonMonths);
 
-% Get the difference
-delta = Tplio - Tpi;
+    % Compute deltas
+    deltas(r) = Tplio - Tpi;
+end
 
 end
 
-%% Utility
+%% Utilities
+function[files] = runs2files(runs)
+files = strcat(runs(:,1), "_", runs(:,2), ".nc");
+end
 function[T] = gmst(file, seasonMonths)
 
 % Load the variable
