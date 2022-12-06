@@ -57,10 +57,17 @@ PSM.download('baymag');
 %   4. The name of the column of "site" metadata holding latitude
 %      coordinates. (IDs of site metadata columns can be found in the metadata
 %      of "proxies.grid")
-%   5. The name of the column holding longitude coordinates 
-estimateProxies('preindustrial', 0, 'preindustrial', 'lat', 'lon');
-estimateProxies('mid-pliocene', 3.25, 'pliocene', 'pLat325', 'pLon325');
-estimateProxies('early-pliocene', 4.75, 'pliocene', 'pLat475', 'pLon475');
+%   5. The name of the column holding longitude coordinates
+
+% Standard seasonal windows
+estimateProxies('preindustrial_uk-med-seasonal', 0, 'preindustrial', 'lat', 'lon');
+estimateProxies('mid-pliocene_uk-med-seasonal', 3.25, 'pliocene', 'pLat325', 'pLon325');
+estimateProxies('early-pliocene_uk-med-seasonal', 4.75, 'pliocene', 'pLat475', 'pLon475');
+
+% Annual UK in the Mediterranean
+estimateProxies('preindustrial_uk-med-annual', 0, 'preindustrial', 'lat', 'lon', true);
+estimateProxies('mid-pliocene_uk-med-annual', 3.25, 'pliocene', 'pLat325', 'pLon325', true);
+estimateProxies('early-pliocene_uk-med-annual', 4.75, 'pliocene', 'pLat475', 'pLon475', true);
 
 %% Compute proxy error-variances
 %
