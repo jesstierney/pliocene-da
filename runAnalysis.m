@@ -58,6 +58,8 @@ PSM.download('baymag');
 %      coordinates. (IDs of site metadata columns can be found in the metadata
 %      of "proxies.grid")
 %   5. The name of the column holding longitude coordinates
+%   6. (optional) Used to indicate whether Mediterranean UK records should
+%      use annual or seasonal values. If unset, uses seasonal.
 
 % Standard seasonal windows
 estimateProxies('preindustrial_uk-med-seasonal', 0, 'preindustrial', 'lat', 'lon');
@@ -80,7 +82,7 @@ calculateR;
 %% Run the assimilations
 %
 % These functions run an assimilation for a time step and save the updated
-% ensemble mean in a MAT-file. The inputs are:
+% ensemble mean in a MAT-file. The inputs to the "assimilate" function are:
 %   1. A label for the assimilation. The name of the MAT-file will match
 %      this label
 %   2. The label/file name of the proxy estimates to use for this assimilation
@@ -90,7 +92,9 @@ calculateR;
 %   5. (optional) Used to select the proxy sites that should be used in the
 %      DA. If not specified, uses all available proxy records.
 
-% An example using CESM-only and UK-only
+%%%% An example using CESM-only and UK-only
+
+% Select the climate model runs and proxy sites
 piCESM = parameters.preindustrialRuns.cesm;
 plioCESM = parameters.plioceneRuns.cesm;
 ukSites = gridfile('proxies').metadata.site(:,2) == "uk";

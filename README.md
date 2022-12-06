@@ -15,8 +15,9 @@ The contents of the repository are as follows:
 * [R-error-variances](#r-error-variances)
 * [assimilate](#assimilate)
 * [reconstructions](#reconstructions)
-* [localization](#localization)
 * [dGMST.m](#dgmstm)
+* [network-experiments](#network-experiments)
+* [localization](#localization)
 
 and details on each item are provided below. Many of these items are folders containing Matlab functions. You can use the Matlab `help` command to see the documentation of these functions. Additionally, any folders that begin with a plus `+` symbol are Matlab packages. You can read about the contents of these packages using the `help` command, or by reading the package's `Contents.m` page.
 
@@ -101,8 +102,17 @@ The folder may also hold `.mat` files, which contain pre-computed Kalman filter 
 ### reconstructions
 This folder holds the function `exportReconstruction`. This function exports assimilation outputs from the DASH toolbox to NetCDF. It regrids assimilated state vector variables back onto spatial grids, and combines outputs from preindustrial, mid-Pliocene, and early-Pliocene time slices. The folder may also hold NetCDF `.nc` files with pre-built reconstructions.
 
-### localization
-This folder holds the function `testLocalization`. This function performs a series of single-proxy knockout validation experiments for a set of localization radii in a particular time slice. Proxy validation values are exported to a NetCDF file. The folder may also hold NetCDF `.nc` files with pre-computed localization tests.
-
 ### dGMST.m
 This function allows you to calculate delta GMST between two pre-processed climate model runs. GMST is computed from the tas (near surface air temperature) field using a latitude-weighted spatial mean.
+
+### network-experiments
+This folder holds functions that quickly produce a number of reconstructions using different experimental configurations. The contents include:
+
+* `runNetworkExperiments.m`: A utility function that generates reconstructions each combination of (1) all proxies / UK-only, and (2) annual / seasonal Mediterranean UK records.
+* `noCOSMOS.m`: Runs the experiments using priors selected from PlioMIP2 runs, excluding COSMOS.
+* `cesmOnly.m`: Runs the experiments using priors selected from CESM runs. Excludes runs with perturbed cloud physics resulting in unrealistic delta GMST values.
+
+To use these functions, you should enter `noCOSMOS` or `cesmOnly` in the MATLAB console. Note that you must first generate the ensembles, estimates, and R error variances detailed in [runAnalysis.m](#runAnalysism) before you will be able to use these functions.
+
+### localization
+This folder holds the function `testLocalization`. This function performs a series of single-proxy knockout validation experiments for a set of localization radii in a particular time slice. Proxy validation values are exported to a NetCDF file. The folder may also hold NetCDF `.nc` files with pre-computed localization tests.
