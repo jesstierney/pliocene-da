@@ -1,4 +1,4 @@
-function[models, coordinates, months] = buildPSMs(age, latName, lonName)
+function[models, coordinates, months] = buildPSMs(age, latName, lonName, annualUKMed)
 %% buildPSMs  Builds the DASH PSMs for the proxy sites in a particular time slice
 % ----------
 %   [models, coordinates, months] = buildPSMs(age, latName, lonName)
@@ -6,6 +6,10 @@ function[models, coordinates, months] = buildPSMs(age, latName, lonName)
 %   slice. BAYMAG PSMs will use a sea-water correction for the given age.
 %   All PSMs will use the indicated paleo-coordinates. Also determines the
 %   seasonal window for each site.
+%
+%   ... = buildPSMs(..., annualUKMed)
+%   Indicate whether UK37 proxies in the Mediterranean should use an annual
+%   season, or the seasonal window from "checkSeasonality.m".
 % ----------
 %   Inputs:
 %       age (numeric scalar): The time slice for which to build PSMs. Should
@@ -14,6 +18,9 @@ function[models, coordinates, months] = buildPSMs(age, latName, lonName)
 %           metadata to use as latitude coordinates.
 %       lonName (string scalar): The name of the column of proxy site
 %           metadata to use as longitude coordinates
+%       annualUKMed (scalar logical): If true, uses annual values for UK37
+%           proxies in the Mediterranean. If false or unspecified, uses the
+%           seasonal window from "checkSeasonality.m".
 %
 %   Outputs:
 %       models (cell vector [nSite] {scalar PSM object}): The PSM object
@@ -22,6 +29,11 @@ function[models, coordinates, months] = buildPSMs(age, latName, lonName)
 %           site. First column is latitude, second is longitude.
 %       months (cell vector [nSite] {numeric vector, linear indices}): The
 %           indices of the calendar months associated with each site's season
+
+% Default
+if ~exist('annualUKMed','var') || isempty(annualUKMed)
+    annualUKMed = false;
+end
 
 % Get the proxy metadata, and identify the metadata in each column
 proxies = gridfile('proxies').metadata;
@@ -71,7 +83,7 @@ end
 
 % Optionally determine the seasonal window for the site. Start by
 % preallocating seasonal windows
-if nargout>1
+if nargout>2
     months = cell(nSite, 1);
     monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
@@ -79,6 +91,9 @@ if nargout>1
     for s = 1:nSite
         if uk(s)
             months(s) = checkSeasonality(lat(s), lon(s));
+            if annualUKMed && isequal(months{s}, [1 2 3 4 5 11 12])
+                months{s} = 1:12;
+            end
         elseif tex(s)
             months(s) = {1:12};
         elseif mg(s)

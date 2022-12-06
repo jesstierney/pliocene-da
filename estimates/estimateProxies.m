@@ -1,4 +1,4 @@
-function[] = estimateProxies(label, age, ensembleName, latName, lonName)
+function[] = estimateProxies(label, age, ensembleName, latName, lonName, annualUKMed)
 %% estimateProxies  Estimates proxy records for a particular time slice and ensemble
 % ----------
 %   estimateProxies(label, age, ensembleName, latName, lonName)
@@ -19,6 +19,10 @@ function[] = estimateProxies(label, age, ensembleName, latName, lonName)
 %   "get_sea.m" function from BayMAG. The Mg/Ca PSMs also use parametrized
 %   omega and pH values, which are calculated using the "omgph.m" function
 %   from BayMAG.
+%
+%   estimateProxies(..., annualUKMed)
+%   Indicate whether UK'37 proxies in the Mediterranean should use annual
+%   values, or the seasonal window output by "checkSeasonality.m"
 % ----------
 %   Inputs:
 %       label (string scalar): A label to use for the estimates. The file
@@ -35,10 +39,18 @@ function[] = estimateProxies(label, age, ensembleName, latName, lonName)
 %       lonName (string scalar): The name of the site metadata to use as
 %           longitude (paleo)coordinates. Specifically, this should be the name of
 %           one of the site metadata columns from "proxies.nc"
+%       annualUKMed (scalar logical): If true, uses annual values for UK37
+%           proxies in the Mediterranean. If false or unspecified, uses the
+%           seasonal window from "checkSeasonality.m".
 %
 %   Outputs:
 %       Creates a NetCDF file named "<label>_estimates.nc" in the current
 %       directory.
+
+% Default
+if ~exist('annualUKMed','var') || isempty(annualUKMed)
+    annualUKMed = false;
+end
 
 % Error check data types of inputs
 label = assertStrScalar(label, 'label');
@@ -46,9 +58,10 @@ assert(isnumeric(age)&&isscalar(age), 'age must be a numeric scalar');
 ensembleName = assertStrScalar(ensembleName, 'ensembleName');
 latName = assertStrScalar(latName, 'latName');
 lonName = assertStrScalar(lonName, 'lonName');
+assert(islogical(annualUKMed)&&isscalar(annualUKMed), 'annualUKMed must be a numeric scalar');
 
 % Get the PSM, season, and coordinates for each site
-[models, coordinates, seasons] = buildPSMs(age, latName, lonName);
+[models, coordinates, seasons] = buildPSMs(age, latName, lonName, annualUKMed);
 nSite = numel(models);
 
 % Get the ensemble
@@ -74,6 +87,7 @@ h = waitbar(0, message);
 deleteBar = onCleanup( @()delete(h) );
 
 % Iterate through sites. Note whether the site is for Mg/Ca
+rng('default');
 for s = 1:nSite
     mg = isa(models{s}, 'PSM.baymag');
 
