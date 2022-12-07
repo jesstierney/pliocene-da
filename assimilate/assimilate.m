@@ -145,10 +145,15 @@ for v = 1:numel(variables)
     end
 end
 
-% Save Amean and metadata
+% Get output fields
 Amean = output.Amean;
 age = ncread(YeFile, 'time');
+if isempty(sites)
+    sites = true(size(Y));
+end
+
+% Save output
 file = strcat(label, '_assimilation');
-save(file, 'Amean', 'ensMeta', 'age');
+save(file, 'Amean', 'ensMeta', 'age', 'estimatesLabel', 'Rlabel', 'sites');
 
 end
