@@ -9,17 +9,12 @@ function[] = cesmOnly
 % ----------
 %   Outputs:
 %       Assimilated time slices: Creates 12 .mat files with the naming
-%           scheme cesm-only_<prior>_<proxy network>_<uk seasonality>.nc
+%           scheme cesm-only_<proxy network>_<uk seasonality>.nc
 %       Reconstructions: Creates 4 NetCDF files with the naming scheme
 %           cesm-only_<proxy network>_<uk seasonality>.nc    
 
 % Tag for the prior
 tag = "cesm-only";
-
-%%%%%%%% Parameters for dGMST calculations
-season = 1:12;      % Change this to calculate dGMST over a different season
-limits = [0 8];     % Change this to use different dGMST limits
-%%%%%%%%%
 
 % Get CESM runs
 piCESM = parameters.preindustrialRuns.cesm;
@@ -29,9 +24,11 @@ plioCESM = parameters.plioceneRuns.cesm;
 cloudRuns = [parameters.plioceneRuns.Erfani2019;
              parameters.plioceneRuns.Burls2014];
 piBackground = ["CESM1.2.2", "cheyctrl"];
+season = parameters.dGMST.season;
 deltas = dGMST(piBackground, cloudRuns, season);
 
 % Remove runs outside of acceptable limits
+limits = parameters.dGMST.limits;
 badDeltas = deltas<limits(1) | deltas>limits(2);
 badRuns = cloudRuns(badDeltas, :);
 remove = ismember(plioCESM, badRuns, 'rows');
