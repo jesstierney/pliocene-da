@@ -123,6 +123,24 @@ assimilate(labels(3), 'early-pliocene', 'conservative', plioCESM, ukSites);
 newFile = strcat(tag, "_R-conservative");
 exportReconstruction(newFile, labels(1), labels(2), labels(3));
 
+%% Reconstruct with different experimental configurations
+%
+% The following two functions run assimilations and export reconstructions
+% for several different experimental configuration. Each function runs
+% reconstructions using a different set of priors. These are:
+%   pliomip2:   PlioMIP2 runs, excluding COSMOS
+%   cesm-only:  All CESM runs, excluding unrealistic cloud runs
+%   beok:       All runs, excluding COSMOS and unrealistic cloud runs
+%   standard:   All runs from CESM2 and PlioMIP2, excluding COSMOS
+% Each function creates reconstructions for each combination of:
+%   A. All proxy sites / UK sites only, and
+%   B. Annual / Seasonal Mediterranean UK sites
+
+pliomip2;
+cesmOnly;
+beok;
+standardPrior;
+
 %% Test localization radii
 %
 % This performs a series of single-proxy knockout validation experiments
