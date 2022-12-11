@@ -131,7 +131,7 @@ exportReconstruction(newFile, labels(1), labels(2), labels(3));
 %   pliomip2:   PlioMIP2 runs, excluding COSMOS
 %   cesm-only:  All CESM runs, excluding unrealistic cloud runs
 %   beok:       All runs, excluding COSMOS and unrealistic cloud runs
-%   standard:   All runs from CESM2 and PlioMIP2, excluding COSMOS
+%   standard:   All available runs, excluding COSMOS and all cloud physics runs
 % Each function creates reconstructions for each combination of:
 %   A. All proxy sites / UK sites only, and
 %   B. Annual / Seasonal Mediterranean UK sites

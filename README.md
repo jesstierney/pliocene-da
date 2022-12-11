@@ -112,7 +112,7 @@ This folder holds functions that quickly produce a number of reconstructions usi
 * `noCOSMOS.m`: Runs the experiments using priors selected from PlioMIP2 runs, excluding COSMOS.
 * `cesmOnly.m`: Runs the experiments using priors selected from CESM runs. Excludes runs with perturbed cloud physics resulting in unrealistic delta GMST values.
 * `beok.m`: Runs experiments using all available runs, excluding COSMOS and cloud physics runs with unrealistic dGMST
-* `standardPrior.m`: Runs experiments using all available runs from CESM2 and PlioMIP2, excluding COSMOS
+* `standardPrior.m`: Runs experiments using available runs, excluding COSMOS and all cloud physics runs
 
 To use these functions, you should enter `noCOSMOS`, `cesmOnly`, `beok`, or `standardPrior` in the MATLAB console. Note that you must first generate the ensembles, estimates, and R error variances detailed in [runAnalysis.m](#runAnalysism) before you will be able to use these functions.
 

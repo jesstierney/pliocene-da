@@ -1,10 +1,10 @@
 function[] = standardPrior
-%% standardPrior  Runs proxy network experiments using all available runs from PlioMIP2 and CESM2, excluding COSMOS
+%% standardPrior  Runs proxy network experiments using all available runs, excluding COSMOS and cloud physics
 % ----------
 %   standardPrior
 %   Runs the current proxy network experiments (detailed in
-%   "runNetworkExperiments.m") using most available runs from PlioMIP2 and
-%   CESM2. Does not include COSMOS runs. Runs
+%   "runNetworkExperiments.m") using most available runs. Does not include
+%   COSMOS or cloud physics runs. Runs
 %   time-slice assmilations for the various experiments and exports
 %   reconstructions to NetCDF.
 % ----------
