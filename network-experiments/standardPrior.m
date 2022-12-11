@@ -1,10 +1,10 @@
 function[] = standardPrior
-%% standardPrior  Runs proxy network experiments using all available runs, excluding COSMOS and unrealistic cloud forcing experiments
+%% standardPrior  Runs proxy network experiments using all available runs from PlioMIP2 and CESM2, excluding COSMOS
 % ----------
 %   standardPrior
 %   Runs the current proxy network experiments (detailed in
-%   "runNetworkExperiments.m") using most available priors. Excludes COSMOS
-%   runs from PlioMIP2, and cloud physics with unreasonable dGMST values. Runs
+%   "runNetworkExperiments.m") using most available runs from PlioMIP2 and
+%   CESM2. Does not include COSMOS runs. Runs
 %   time-slice assmilations for the various experiments and exports
 %   reconstructions to NetCDF.
 % ----------
@@ -21,25 +21,16 @@ tag = "standard-prior";
 piRuns = parameters.preindustrialRuns.all;
 plioRuns = parameters.plioceneRuns.all;
 
-% Remove COSMOS
-badRuns = parameters.excludeRuns;
-remove = ismember(piRuns, badRuns, 'rows');
+% Get metadata for COSMOS and cloud physics runs
+cosmos = parameters.excludeRuns;
+e19 = parameters.plioceneRuns.Erfani2019;
+b14 = parameters.plioceneRuns.Burls2014;
+removeRuns = [cosmos; e19; b14];
+
+% Remove COSMOS and cloud physics runs
+remove = ismember(piRuns, removeRuns, 'rows');
 piRuns(remove,:) = [];
-remove = ismember(plioRuns, badRuns, 'rows');
-plioRuns(remove,:) = [];
-
-% Calculate dGMST values for runs with altered cloud physics
-cloudRuns = [parameters.plioceneRuns.Erfani2019;
-             parameters.plioceneRuns.Burls2014];
-piBackground = ["CESM1.2.2", "cheyctrl"];
-season = parameters.dGMST.season;
-deltas = dGMST(piBackground, cloudRuns, season);
-
-% Removes runs outside of acceptable limits
-limits = parameters.dGMST.limits;
-badDeltas = deltas<limits(1) | deltas>limits(2);
-badRuns = cloudRuns(badDeltas, :);
-remove = ismember(plioRuns, badRuns, 'rows');
+remove = ismember(plioRuns, removeRuns, 'rows');
 plioRuns(remove,:) = [];
 
 % Build reconstructions for different proxy network settings
