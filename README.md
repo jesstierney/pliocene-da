@@ -111,8 +111,10 @@ This folder holds functions that quickly produce a number of reconstructions usi
 * `runNetworkExperiments.m`: A utility function that generates reconstructions each combination of (1) all proxies / UK-only, and (2) annual / seasonal Mediterranean UK records.
 * `noCOSMOS.m`: Runs the experiments using priors selected from PlioMIP2 runs, excluding COSMOS.
 * `cesmOnly.m`: Runs the experiments using priors selected from CESM runs. Excludes runs with perturbed cloud physics resulting in unrealistic delta GMST values.
+* `beok.m`: Runs experiments using all available runs, excluding COSMOS and cloud physics runs with unrealistic dGMST
+* `standardPrior.m`: Runs experiments using all available runs from CESM2 and PlioMIP2, excluding COSMOS
 
-To use these functions, you should enter `noCOSMOS` or `cesmOnly` in the MATLAB console. Note that you must first generate the ensembles, estimates, and R error variances detailed in [runAnalysis.m](#runAnalysism) before you will be able to use these functions.
+To use these functions, you should enter `noCOSMOS`, `cesmOnly`, `beok`, or `standardPrior` in the MATLAB console. Note that you must first generate the ensembles, estimates, and R error variances detailed in [runAnalysis.m](#runAnalysism) before you will be able to use these functions.
 
 ### localization
 This folder holds the function `testLocalization`. This function performs a series of single-proxy knockout validation experiments for a set of localization radii in a particular time slice. Proxy validation values are exported to a NetCDF file. The folder may also hold NetCDF `.nc` files with pre-computed localization tests.
