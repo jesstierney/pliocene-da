@@ -151,7 +151,7 @@ proxies = proxies.site;
 nSiteCols = numel(columns);
 
 % Create variables
-file = strcat(label, "_estimates.nc");
+file = strcat(label, "_parameter-validation.nc");
 nccreate(file, 'sites_columns', 'Dimensions', {'sites_columns', nSiteCols}, 'Format', 'netcdf4', 'Datatype', 'string');
 nccreate(file, 'sites', 'Dimensions', {'sites',nSite,'sites_columns',nSiteCols}, 'Datatype', 'string');
 nccreate(file, 'scalings', 'Dimensions', {'scalings',nScaling}, 'Datatype', 'double');
