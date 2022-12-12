@@ -1,12 +1,11 @@
 function[] = standardPrior
-%% standardPrior  Runs proxy network experiments using all available runs, excluding COSMOS and cloud physics
+%% standardPrior  Runs proxy network experiments using runs from CESM2 and PlioMIP2, excluding COSMOS
 % ----------
 %   standardPrior
 %   Runs the current proxy network experiments (detailed in
-%   "runNetworkExperiments.m") using most available runs. Does not include
-%   COSMOS or cloud physics runs. Runs
-%   time-slice assmilations for the various experiments and exports
-%   reconstructions to NetCDF.
+%   "runNetworkExperiments.m") using runs from CESM2 and PlioMIP2,
+%   excluding COSMOS. Runs time-slice assmilations for the various 
+%   experiments and exports reconstructions to NetCDF.
 % ----------
 %   Outputs:
 %       Assimilated time slices: Creates 12 .mat files with the naming
@@ -17,17 +16,13 @@ function[] = standardPrior
 % Tag for the prior
 tag = "standard-prior";
 
-% Get all runs
-piRuns = parameters.preindustrialRuns.all;
-plioRuns = parameters.plioceneRuns.all;
+% Get CESM2 and PlioMIP2 runs
+piRuns = parameters.preindustrialRuns.pliomip2;
+plioRuns = [parameters.plioceneRuns.pliomip2;
+            parameters.plioceneRuns.Feng2022];
 
-% Get metadata for COSMOS and cloud physics runs
-cosmos = parameters.excludeRuns;
-e19 = parameters.plioceneRuns.Erfani2019;
-b14 = parameters.plioceneRuns.Burls2014;
-removeRuns = [cosmos; e19; b14];
-
-% Remove COSMOS and cloud physics runs
+% Remove COSMOS runs
+removeRuns = parameters.excludeRuns;
 remove = ismember(piRuns, removeRuns, 'rows');
 piRuns(remove,:) = [];
 remove = ismember(plioRuns, removeRuns, 'rows');
