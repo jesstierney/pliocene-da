@@ -40,7 +40,8 @@ siconc = load.monthly(files(5), names(5));
 
 % Process the variables and export to NetCDF
 variables = {pr, tas, tos, sos, siconc};
-variables = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes);
+correctIPSL = true;
+variables = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes, correctIPSL);
 [pr, tas, tos, sos, siconc] = variables{:};
 exportNetCDF(exportFile, pr, tas, tos, sos, siconc);
 

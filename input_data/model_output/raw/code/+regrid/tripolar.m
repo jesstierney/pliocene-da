@@ -1,4 +1,4 @@
-function[V, lon, lat] = tripolar(tlon, tlat, X)
+function[V, lon, lat] = tripolar(tlon, tlat, X, correctIPSL)
 %% regrid.tripolar  Regrids a variable on a tripolar spatial grid
 % ----------
 %   V = regrid.tripolar(tlon, tlat, X)
@@ -11,9 +11,13 @@ function[V, lon, lat] = tripolar(tlon, tlat, X)
 %   input variable may follow either system. The spatial points of the
 %   regridded variable are set by the function "parameters.spatialPoints".
 %
-%   [V, lon, lat] = regrid.curvilinear(tlon, tlat, X)
+%   [V, lon, lat] = regrid.tripolar(tlon, tlat, X)
 %   Also returns the longitude and latitude points of the regridded
 %   variable.
+%
+%   ... = regrid.tripolar(..., correctIPSL)
+%   Indicate whether the method should strip NaN values from funnels in the
+%   IPSL-CM6A tripolar grid.
 % ----------
 %   Inputs:
 %       tlon (numeric matrix [nRows x nCols]): The longitude points of the initial 
@@ -24,6 +28,9 @@ function[V, lon, lat] = tripolar(tlon, tlat, X)
 %       X (numeric 3D array [nRows x nCols x nTime]): The variable to regrid.
 %           Should be a numeric array with 3D dimensions. The order of
 %           dimensions should be (spatial dimension 1 x spatial dimension 2 x time).
+%       correctIPSL (scalar logical): If true, removes NaN values from the
+%           locations of the funnels in the IPSL-CM6A tripolar grid. If
+%           false, does not remove values. Default is false.
 %
 %   Outputs:
 %       V (numeric 3D array [nLon x nLat x nTime]): The regridded
@@ -32,6 +39,11 @@ function[V, lon, lat] = tripolar(tlon, tlat, X)
 %           (curvilinear) regridded variable in decimal degrees.
 %       lat (numeric row vector [nLat]): The latitude points of the
 %           (curvilinear) regridded variable in decimal degrees.
+
+% Default
+if ~exist('correctIPSL', 'var') || isempty(correctIPSL)
+    correctIPSL = false;
+end
 
 % Error check
 if any(tlon<-180,'all') || any(tlon>360,'all')
@@ -44,6 +56,8 @@ elseif size(tlon, 1) ~= size(X, 1)
     error('The number of rows of X must match the number of rows of tlon');
 elseif size(tlon, 2) ~= size(X, 2)
     error('The number of columns of X must match the number of columns of tlon');
+elseif ~isscalar(correctIPSL) || ~islogical(correctIPSL)
+    error('correctIPSL must be a scalar logical');
 end
 
 % Place the longitudes on a 0-360 coordinate system
@@ -61,6 +75,20 @@ nTime = size(X, 3);
 tlon = tlon(:);
 tlat = tlat(:);
 X = reshape(X, [], nTime);
+
+% Locate funnels for the IPSL correction
+if correctIPSL
+    nans = isnan(X(:,1));
+    funnel =   (nans & tlat>84) ...
+             | (nans & tlat>73 & tlon>70 & tlon<76) ...
+             | (nans & tlat>73.5 & tlat<75 & tlon>252 & tlon<254) ...
+             | (nans & tlat>76 & tlon>250 & tlon<256);
+
+    % Remove points in the funnels
+    tlon(funnel) = [];
+    tlat(funnel) = [];
+    X(funnel,:) = [];
+end
 
 % Remove NaN coordinates
 nans = isnan(tlon) | isnan(tlat);
@@ -89,10 +117,10 @@ for t = 1:nTime
 end
 
 % Check for longitudes that are all NaN (points along the edge of the 0-360
-% grid). Regrid any NaN longitudes, and any longitudes within 10 degrees of
-% the edge of the grid
+% grid). Regrid any NaN longitudes, and any longitudes in the outer half of
+% the map
 allnans = all(isnan(V), [2 3]);
-nearEdge = lon<10 | lon>350;
+nearEdge = lon<90 | lon>270;
 regridRows = allnans | nearEdge;
 regridLons = lon(regridRows);
 

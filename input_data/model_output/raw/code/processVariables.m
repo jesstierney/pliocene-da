@@ -1,4 +1,4 @@
-function[variables] = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes)
+function[variables] = processVariables(variables, istripolar, files, lonNames, latNames, conversions, conversionTypes, correctIPSL)
 %% processVariables  Computes climatologies, regrids to a common resolution, and applies unit conversions to a set of raw output variables
 % ----------
 %   variables = processVariables(variables, istripolar, files, lonNames,
@@ -6,6 +6,10 @@ function[variables] = processVariables(variables, istripolar, files, lonNames, l
 %   Processes a set of raw climate model output variables. Each variable is
 %   used to compute monthly climatologies. The climatologies are regridded
 %   to a common resolution, and applies user-specified unit conversions.
+%
+%   ... = processVariables(..., ipslCorrection)
+%   Indicate whether the method should strip NaN values from funnels in the
+%   IPSL-CM6A tripolar grid.
 % ----------
 %   Inputs:
 %       variables (cell vector [nVars]): A cell vector. Each element holds
@@ -28,10 +32,18 @@ function[variables] = processVariables(variables, istripolar, files, lonNames, l
 %           mathematical operation to use for unit conversion for each
 %           variable. Use "*" for multiplication, "+" for addition, and ""
 %           if no unit conversion should be applied.
+%       correctIPSL (scalar logical): If true, removes NaN values from the
+%           locations of the funnels in the IPSL-CM6A tripolar grid. If
+%           false, does not remove values. Default is false.
 %
 %   Outputs:
 %       variables (cell vector [nVars]): A cell vector holding the
 %           processed climate model output variables.
+
+% Default
+if ~exist('correctIPSL', 'var') || isempty(correctIPSL)
+    correctIPSL = false;
+end
 
 % Error check the inputs
 assertVectorTypeN(variables, 'cell', NaN, 'variables');
@@ -42,6 +54,7 @@ assertVectorTypeN(lonNames, 'string', nVars, 'lonNames');
 assertVectorTypeN(latNames, 'string', nVars, 'latNames');
 assertVectorTypeN(conversions, 'numeric', nVars, 'conversions');
 assertVectorTypeN(conversionTypes, 'string', nVars, 'conversionTypes');
+assert(isscalar(correctIPSL)&&islogical(correctIPSL), 'correctIPSL must be a scalar logical');
 
 % Validate conversions
 assert(all(ismember(conversionTypes,["","+","*"])), 'The elements of conversionTypes must be "", "*", or "+"');
@@ -79,7 +92,7 @@ for v = 1:nVars
 
     % Regrid tripolar or curvilinear grids
     if istripolar(v)
-        X = regrid.tripolar(lon, lat, X);    
+        X = regrid.tripolar(lon, lat, X, correctIPSL);    
     else
         X = regrid.curvilinear(lon, lat, X);
     end
