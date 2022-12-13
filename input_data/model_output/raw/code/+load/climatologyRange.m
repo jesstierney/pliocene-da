@@ -67,7 +67,7 @@ X = NaN(siz(1), siz(2), 12);
 
 % Get each file
 for month = 1:12
-    file = sprintf(file, month);
+    file = sprintf(filePattern, month);
 
     % Load
     if hasLayers
