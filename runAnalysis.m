@@ -125,7 +125,7 @@ exportReconstruction(newFile, labels(1), labels(2), labels(3));
 
 %% Reconstruct with different experimental configurations
 %
-% The following two functions run assimilations and export reconstructions
+% The following functions run assimilations and export reconstructions
 % for several different experimental configuration. Each function runs
 % reconstructions using a different set of priors. These are:
 %   pliomip2:   PlioMIP2 runs, excluding COSMOS
@@ -141,21 +141,35 @@ cesmOnly;
 beok;
 standardPrior;
 
-%% Test localization radii
-%
-% This performs a series of single-proxy knockout validation experiments
-% for a set of localization radii in a given timeslice. Each knockout
-% experiment assimilates the PSM inputs for the excluded proxy record. 
-% Then, it estimates the knockout proxy by running its PSM over the posterior. 
-% Exports the validation values to a NetCDF file. 
-%
-% The inputs are:
-%   1. A label for the tests. The name of the NetCDF file will be <label>_loctests.nc
-%   2. The localization radii to test
-%   3. The label/file name of the proxy estimates to use for this assimilation
-%   4. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
-%   5. (optional) Used to select the climate model runs that should be
-%      used as ensemble members. If not specified, uses all runs in the ensemble
 
-radii = [1000:2000, Inf];
-testLocalization('preindustrial', radii, 'preindustrial', 'conservative');
+%% Test assimilation parameters
+%
+% This performs validation testing of the localization radius and R scaling
+% parameters for the assimilation. Given a set of localization radii and R
+% scaling values, the function will run a parameter sweep, testing each
+% possible combination of radius and scaling values.
+%
+% The parameter sweep uses a series of single-proxy knockout experiments to
+% validate each parameter combination. For a given parameter combination,
+% the function removes one proxy record from the network and then
+% assimilates the PSM inputs for that knockout-record using the remaining
+% proxies in the network. It then reruns the PSM on the updated inputs and
+% compares the output proxy value to the real knockout proxy record. This
+% process iterates over every proxy in the network. The differences between
+% the validation proxy values and the real proxy values estimate the error
+% associated with a given parameter combination.
+%
+% The inputs to the "testParameters" function are:
+%   1. A label for the output file
+%   2. The R scaling values to test
+%   3. The localization radii to test
+%   4. The label of the Ye values to use for assimilation
+%   5. The label of the initial R values to scale
+%   6. (Optional) The climate model runs to include in the ensemble
+%
+% You can see examples of how to run the "testParameters" function in the
+% "standardTests" and "beokTests" functions, which are located in the
+% "parameter-validation" folder.
+
+standardTests;
+beokTests;
