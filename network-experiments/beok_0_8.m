@@ -1,21 +1,21 @@
-function[] = beok
+function[] = beok_0_8
 %% beok  Runs proxy network experiments using all available runs, excluding COSMOS and unrealistic cloud forcing experiments
 % ----------
-%   beok
+%   beok_0_8
 %   Runs the current proxy network experiments (detailed in
 %   "runNetworkExperiments.m") using most available priors. Excludes COSMOS
-%   runs from PlioMIP2, and cloud physics with unreasonable dGMST values. Runs
+%   runs from PlioMIP2, and cloud physics with dGMST outside of [0 8]. Runs
 %   time-slice assmilations for the various experiments and exports
 %   reconstructions to NetCDF.
 % ----------
 %   Outputs:
 %       Assimilated time slices: Creates 12 .mat files with the naming
-%           scheme beok_<proxy network>_<uk seasonality>.nc
+%           scheme beok-0-8_<proxy network>_<uk seasonality>.nc
 %       Reconstructions: Creates 4 NetCDF files with the naming scheme
-%           beok_<proxy network>_<uk seasonality>.nc    
+%           beok-0-8_<proxy network>_<uk seasonality>.nc    
 
 % Tag for the prior
-tag = "beok";
+tag = "beok-0-8";
 
 % Get all runs
 piRuns = parameters.preindustrialRuns.all;
