@@ -29,8 +29,8 @@ The sources of the raw climate model output are also [summarized below](#data-so
 
 ----------------------------------------
 
-### CSV Files
-Each CSV file summarizes the raw data files used from the model. The summaries are grouped by experiment, and files within an experiment group are grouped by assimilated climate variable. Each summary includes the following comma separated values:
+### Text Files
+Each text file summarizes the raw data files used from the model. The summaries are grouped by experiment, and files within an experiment group are grouped by assimilated climate variable. Each summary includes the following comma separated values:
 
 * [CMIP6 Name](#cmip6-name)
 * [File](#file)
