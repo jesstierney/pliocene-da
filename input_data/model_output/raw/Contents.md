@@ -160,7 +160,7 @@ The following table summarizes the source of the raw data files for each model:
 |CCSM4-UoT    | PlioMIP2 Data Server (via Globus) |
 |CESM1.0.4    | Sent by Natalie Burls |
 |*CESM1.0.5   | PlioMIP2 Data Server (via Globus) |
-|CESM1.2|     | PlioMIP2 Data Server (via Globus) |
+|CESM1.2      | PlioMIP2 Data Server (via Globus) |
 |CESM1.2.2    | Sent by Natalie Burls |
 |CESM2        | Sent by Ran Feng, also available on PlioMIP2 Data Server and ESGF - CMIP6 Archive |
 |COSMOS       | PlioMIP2 Data Server (via Globus) |
