@@ -45,7 +45,7 @@ The following table summarizes the experiment IDs in the climate model output da
 | Plio         | (CESM1.2.2) A run with mid-Pliocene boundary conditions | [Ford et al., (2022)](https://doi.org/10.1038/s41561-022-00978-3) |
 | cheyco2      | (CESM1.2.2) Similar to cheyctrl, but with 2x CO2 | [Erfani and Burls (2019)](https://doi.org/10.1175/JCLI-D-18-0551.1) |
 | (p/n)(05-20) | (CESM1.2.2) Similar to cheyco2, but with different cloud parameters | [Erfani and Burls (2019)](https://doi.org/10.1175/JCLI-D-18-0551.1) |
-| (
+| (20p-80p) | (CESM1.0.4) altered cloud parameters to produce Pliocene warmth | [Burls and Fedorov (2014)](https://doi.org/10.1175/JCLI-D-13-00255.1) |
 
 
 
@@ -65,6 +65,7 @@ The following table summaries the modeling institution associated with each clim
 | -----        | ----------- |
 | CCSM4-NCAR   | National Center for Atmospheric Research (NCAR) |
 | CCSM4-UoT    | University of Toronto, Canada |
+| CESM1.0.4    | National Center for Atmospheric Research (NCAR) |
 | CESM1.0.5    | IMAU, Utrecht University, Netherlands |
 | CESM1.2      | National Center for Atmospheric Research (NCAR) |
 | CESM1.2.2    | National Center for Atmospheric Research (NCAR) |

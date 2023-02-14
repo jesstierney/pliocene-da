@@ -29,3 +29,6 @@ working
 parameter-validation/working
 parameter-validation/results
 parameter-validation/plots
+
+# preprocessed model output folder
+input_data/model_output/preprocessed/
