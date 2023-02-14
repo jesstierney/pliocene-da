@@ -60,6 +60,8 @@ PSM.download('baymag');
 %   5. The name of the column holding longitude coordinates
 %   6. (optional) Used to indicate whether Mediterranean UK records should
 %      use annual or seasonal values. If unset, uses seasonal.
+% run estimateProxies in the estimates folder to ensure files are saved
+% there.
 
 % Standard seasonal windows
 estimateProxies('preindustrial_uk-med-seasonal', 0, 'preindustrial', 'lat', 'lon');
@@ -75,8 +77,10 @@ estimateProxies('early-pliocene_uk-med-annual', 4.75, 'pliocene', 'pLat475', 'pL
 %
 % This function calculates conservative global, and Osman-scaled R error variances
 % for the proxies. It creates two NetCDFs named "R-conservative.nc" and
-% "R-osman.nc". The R variances are built using the values in "parameters.globalR",
-%  and "parameters.osmanScaling". 
+% "R-plio.nc". The R variances are built using the values in "parameters.globalR",
+%  and "parameters.plioScaling". 
+% run this function in the R-error-variances folder to ensure files are
+% saved there.
 calculateR;
 
 %% Run the assimilations
@@ -93,21 +97,21 @@ calculateR;
 %      DA. If not specified, uses all available proxy records.
 
 %%%% An example using CESM-only and UK-only
-
-% Select the climate model runs and proxy sites
-piCESM = parameters.preindustrialRuns.cesm;
-plioCESM = parameters.plioceneRuns.cesm;
-ukSites = gridfile('proxies').metadata.site(:,2) == "uk";
-
-% Get the labels for the saved files
-tag = 'UK-only_CESM-only';
-timeSliceNames = ["preindustrial","mid-pliocene","early-pliocene"];
-labels = strcat(timeSliceNames, "_", tag, "_R-conservative");
-
-% Run the assimilation for each time slice
-assimilate(labels(1), 'preindustrial', 'conservative', piCESM, ukSites);
-assimilate(labels(2), 'mid-pliocene', 'conservative', plioCESM, ukSites);
-assimilate(labels(3), 'early-pliocene', 'conservative', plioCESM, ukSites);
+% 
+% % Select the climate model runs and proxy sites
+% piCESM = parameters.preindustrialRuns.cesm;
+% plioCESM = parameters.plioceneRuns.cesm;
+% ukSites = gridfile('proxies').metadata.site(:,2) == "uk";
+% 
+% % Get the labels for the saved files
+% tag = 'UK-only_CESM-only';
+% timeSliceNames = ["preindustrial","mid-pliocene","early-pliocene"];
+% labels = strcat(timeSliceNames, "_", tag, "_R-conservative");
+% 
+% % Run the assimilation for each time slice
+% assimilate(labels(1), 'preindustrial', 'conservative', piCESM, ukSites);
+% assimilate(labels(2), 'mid-pliocene', 'conservative', plioCESM, ukSites);
+% assimilate(labels(3), 'early-pliocene', 'conservative', plioCESM, ukSites);
 
 
 %% Export the assimilations to NetCDF

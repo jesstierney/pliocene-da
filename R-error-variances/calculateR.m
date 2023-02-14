@@ -51,8 +51,8 @@ ncwrite(file, 'sites_columns', ["IDs","types"]);
 ncwrite(file, 'sites', [IDs, types]);
 ncwrite(file, 'R', R);
 
-% Also compute R values via the Osman scaling
-[ukScaling, texScaling, mgScaling] = parameters.osmanScaling;
+% Also compute R values with the scaling results from our LOO testing.
+[ukScaling, texScaling, mgScaling] = parameters.plioScaling;
 Ruk = Ruk / ukScaling;
 Rtex = Rtex / texScaling;
 Rmg = Rmg / mgScaling;
@@ -63,7 +63,7 @@ R(tex) = Rtex;
 R(mg) = Rmg;
 
 % Export to NetCDF
-file = "R-osman.nc";
+file = "R-plio.nc";
 nSiteCols = 2;
 nccreate(file, 'sites_columns', 'Dimensions', {'sites_columns',nSiteCols}, 'datatype', 'string', 'format', 'netcdf4');
 nccreate(file, 'sites', 'Dimensions', {'sites',nSite,'sites_columns',nSiteCols}, 'datatype', 'string');

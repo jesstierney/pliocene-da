@@ -29,7 +29,7 @@ function[] = runNetworkExperiments(tag, piRuns, plioRuns)
 % Parameters / labels for the assimilation
 timeSliceTags = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
 ukSeasonTags = ["uk-med-seasonal", "uk-med-annual"];
-Rtag = "conservative";
+Rtag = "plio";
 
 % Either assimilate all proxies or UK-only
 proxyTypes = gridfile('proxies').metadata.site(:,2);
