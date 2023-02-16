@@ -93,7 +93,7 @@ This folder holds the function `calculateR`. This function computes R values (er
 The folder may also hold the NetCDF files `R-conservative.nc` and `R-osman.nc`, which hold pre-computed R variances for the proxy records.
 
 ### assimilate
-This folder holds the function `assimilate`. This function uses the DASH toolbox to implement a Kalman Filter for a time step of the reconstruction. The function allows you to specify the time slice, ensemble/set of estimates, R values, and climate model runs to use as ensemble members.
+This folder holds the function `assimilate`. This function uses the DASH toolbox to implement a Kalman Filter for a time step of the reconstruction. The function allows you to specify the time slice, ensemble/set of estimates, R values, and climate model runs to use as ensemble members. The folder also holds the function `assimilateWithLoc`. This is a variation of `assimilate` that includes covariance localization.
 
 The folder also holds the function `loadCoreInputs`. This is a utility function used by various functions in the repository (e.g. `assimilate` and `testLocalization`). You do not need to call this function directly.
 
