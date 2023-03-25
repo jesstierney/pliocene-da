@@ -74,7 +74,7 @@ classdef proxyData
         % for the time slice (listed in the "times" property).
         timeBounds = [0    0
                       3    3.5
-                      4.5  5.5];
+                      4.5  5.0]; % JET: changed old bound to 5.0
 
         % Indicates the amount of rounding to apply to the ages in the raw
         % proxy data files. The property lists the number of digits after

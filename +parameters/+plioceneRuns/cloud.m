@@ -1,4 +1,4 @@
-function[runs] = cesmCloud
+function[runs] = cloud
 %% parameters.plioceneRuns.cesm  Returns the metadata for all Pliocene-like runs generated using CESM
 % ----------
 %   [runs] = parameters.plioceneRuns.cesm

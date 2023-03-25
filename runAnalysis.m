@@ -96,7 +96,7 @@ calculateR;
 %   5. (optional) Used to select the proxy sites that should be used in the
 %      DA. If not specified, uses all available proxy records.
 
-%%%% An example using CESM-only and UK-only
+% %%% An example using CESM-only and UK-only
 % 
 % % Select the climate model runs and proxy sites
 % piCESM = parameters.preindustrialRuns.cesm;
