@@ -1,13 +1,13 @@
 % Get all runs
-piRuns = parameters.preindustrialRuns.all;
-plioRuns = parameters.plioceneRuns.all;
+piRuns = parameters.preindustrialRuns.cesm;
+plioRuns = parameters.plioceneRuns.cloud;
 
 % Remove COSMOS
-badRuns = parameters.excludeRuns;
-remove = ismember(piRuns, badRuns, 'rows');
-piRuns(remove,:) = [];
-remove = ismember(plioRuns, badRuns, 'rows');
-plioRuns(remove,:) = [];
+% badRuns = parameters.excludeRuns;
+% remove = ismember(piRuns, badRuns, 'rows');
+% piRuns(remove,:) = [];
+% remove = ismember(plioRuns, badRuns, 'rows');
+% plioRuns(remove,:) = [];
 
 % Calculate dGMST values for runs with altered cloud physics
 cloudRuns = [parameters.plioceneRuns.Erfani2019;
@@ -27,6 +27,6 @@ plioRuns(remove,:) = [];
 scaling = 0.2:0.2:1;
 radii = [6000:6000:30000, Inf];
 
-testParameters("preindustrial_beok",  scaling, radii, "preindustrial_uk-med-annual",  'conservative', piRuns);
-testParameters('mid-pliocene_beok',   scaling, radii, "mid-pliocene_uk-med-annual",   'conservative', plioRuns);
-testParameters('early-pliocene_beok', scaling, radii, "early-pliocene_uk-med-annual", 'conservative', plioRuns);
+testParameters("preindustrial_cloud",  scaling, radii, "preindustrial_uk-med-annual",  'conservative', piRuns);
+testParameters('mid-pliocene_cloud',   scaling, radii, "mid-pliocene_uk-med-annual",   'conservative', plioRuns);
+testParameters('early-pliocene_cloud', scaling, radii, "early-pliocene_uk-med-annual", 'conservative', plioRuns);

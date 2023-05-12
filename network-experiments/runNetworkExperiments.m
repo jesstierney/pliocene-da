@@ -28,7 +28,7 @@ function[] = runNetworkExperiments(tag, piRuns, plioRuns)
 
 % Parameters / labels for the assimilation
 timeSliceTags = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
-ukSeasonTags = ["uk-med-seasonal", "uk-med-annual"];
+ukSeasonTags = ["uk-med-annual"];%uk-med-seasonal
 Rtag = "conservative";
 
 % Either assimilate all proxies or UK-only
@@ -37,7 +37,7 @@ ukSites = proxyTypes=="uk";
 allSites = true(size(ukSites));
 
 networks = [allSites, ukSites];
-networkTags = ["all-proxies", "uk-only"];
+networkTags = ["all-proxies"];%uk-only
 
 % Loop through the different proxy-network settings
 for n = 1:numel(networkTags)

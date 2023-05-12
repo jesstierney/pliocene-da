@@ -51,7 +51,7 @@ for n = 1:numel(networkTags)
         labels = strcat( timeSliceTags, "_", reconLabel );
 
         % Assimilate each time slice
-        LocRadius = 30000;
+        LocRadius = 18000;
         assimilateWithLoc(labels(1), estimates(1), Rtag, LocRadius, piRuns, networks(:,n));
         assimilateWithLoc(labels(2), estimates(2), Rtag, LocRadius, plioRuns, networks(:,n));
         assimilateWithLoc(labels(3), estimates(3), Rtag, LocRadius, plioRuns, networks(:,n));
