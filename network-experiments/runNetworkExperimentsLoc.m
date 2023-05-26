@@ -28,7 +28,7 @@ function[] = runNetworkExperimentsLoc(tag, piRuns, plioRuns)
 
 % Parameters / labels for the assimilation
 timeSliceTags = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
-ukSeasonTags = ["uk-med-annual"];
+ukSeasonTags = ["uk-med-seasonal"];
 Rtag = "conservative";
 
 % Either assimilate all proxies or UK-only

@@ -15,6 +15,8 @@ function[runs] = cesm
 runs = [
     "CESM1.2",    "e280"
     "CESM2",      "e280"
+    "CCSM4-NCAR",  "e280"
+    "CCSM4-UoT",   "e280"
     parameters.preindustrialRuns.cesm122;
     ];
 %%%%%%%%%%

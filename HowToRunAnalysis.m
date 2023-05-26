@@ -132,18 +132,15 @@ exportReconstruction(newFile, labels(1), labels(2), labels(3));
 % The following functions run assimilations and export reconstructions
 % for several different experimental configuration. Each function runs
 % reconstructions using a different set of priors. These are:
-%   pliomip2:   PlioMIP2 runs, excluding COSMOS
+%   pliomip:   PlioMIP2 runs + Ran Feng's runs, excluding COSMOS
+%   pliomipCloud:       All runs, excluding COSMOS and unrealistic cloud runs
 %   cesm-only:  All CESM runs, excluding unrealistic cloud runs
-%   beok:       All runs, excluding COSMOS and unrealistic cloud runs
-%   standard:   All available runs, excluding COSMOS and all cloud physics runs
-% Each function creates reconstructions for each combination of:
+% The functions can be use to test combination of:
 %   A. All proxy sites / UK sites only, and
 %   B. Annual / Seasonal Mediterranean UK sites
 
-pliomip2;
-cesmOnly;
-beok;
-standardPrior;
+%example: this will run the tests for the PlioMIP group:
+pliomip;
 
 
 %% Test assimilation parameters
@@ -175,5 +172,5 @@ standardPrior;
 % "standardTests" and "beokTests" functions, which are located in the
 % "parameter-validation" folder.
 
-standardTests;
-beokTests;
+% example:
+pliomipTests;

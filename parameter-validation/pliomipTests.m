@@ -14,8 +14,8 @@ plioRuns(remove,:) = [];
 scaling = 0.2:0.2:1;
 radii = [6000:6000:30000, Inf];
 
-testParameters("preindustrial_standard",  scaling, radii, "preindustrial_uk-med-annual",  'conservative', piRuns);
-testParameters('mid-pliocene_standard',   scaling, radii, "mid-pliocene_uk-med-annual",   'conservative', plioRuns);
-testParameters('early-pliocene_standard', scaling, radii, "early-pliocene_uk-med-annual", 'conservative', plioRuns);
+testParameters("preindustrial_standard",  scaling, radii, "preindustrial_uk-med-seasonal",  'conservative', piRuns);
+%testParameters('mid-pliocene_standard',   scaling, radii, "mid-pliocene_uk-med-annual",   'conservative', plioRuns);
+%testParameters('early-pliocene_standard', scaling, radii, "early-pliocene_uk-med-annual", 'conservative', plioRuns);
 
 

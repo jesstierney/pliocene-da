@@ -1,5 +1,5 @@
 function[] = cesmCloud
-%% cesmOnly  Runs proxy network experiments using CESM runs, excluding cloud runs with unrealistic dGMST
+%% cesmCloud  Runs proxy network experiments using CESM cloud runs, excluding cloud runs with unrealistic dGMST
 % ----------
 %   Runs the current proxy network experiments (detailed in
 %   "runNetworkExperiments.m") for priors selected from CESM runs. Cloud
@@ -17,8 +17,14 @@ function[] = cesmCloud
 tag = "cesm-cloud";
 
 % Get CESM runs
-piCESM = parameters.preindustrialRuns.cesm;
-plioCESM = parameters.plioceneRuns.cloud;
+piRuns = parameters.preindustrialRuns.cesm;
+% Remove COSMOS
+%badRuns = parameters.excludeRuns;
+%remove = ismember(piRuns, badRuns, 'rows');
+%piRuns(remove,:) = [];
+
+%piRuns = piRuns([1;3;4],:); %only cesm1
+plioRuns = parameters.plioceneRuns.cloud;
 
 % Calculate dGMST values for runs with altered cloud physics
 cloudRuns = [parameters.plioceneRuns.Erfani2019;
@@ -31,10 +37,10 @@ deltas = dGMST(piBackground, cloudRuns, season);
 limits = parameters.dGMST.limits;
 badDeltas = deltas<limits(1) | deltas>limits(2);
 badRuns = cloudRuns(badDeltas, :);
-remove = ismember(plioCESM, badRuns, 'rows');
-plioCESM(remove,:) = [];
+remove = ismember(plioRuns, badRuns, 'rows');
+plioRuns(remove,:) = [];
 
-% Build reconstructions for different proxy network settings
-runNetworkExperimentsLoc(tag, piCESM, plioCESM);
+% Run DA
+runDAnoLoc(tag, piRuns, plioRuns);
 
 end

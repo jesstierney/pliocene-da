@@ -1,7 +1,7 @@
-function[] = standardPrior
-%% standardPrior  Runs proxy network experiments using runs from CESM2 and PlioMIP2, excluding COSMOS
+function[] = pliomip
+%% pliomip  Runs proxy network experiments using runs from CESM2 and PlioMIP2, excluding COSMOS
 % ----------
-%   standardPrior
+%   pliomip
 %   Runs the current proxy network experiments (detailed in
 %   "runNetworkExperiments.m") using runs from CESM2 and PlioMIP2,
 %   excluding COSMOS. Runs time-slice assmilations for the various 
@@ -14,7 +14,7 @@ function[] = standardPrior
 %           standard-prior_<proxy network>_<uk seasonality>.nc    
 
 % Tag for the prior
-tag = "standard-prior";
+tag = "pliomip";
 
 % Get CESM2 and PlioMIP2 runs
 piRuns = parameters.preindustrialRuns.pliomip2;
@@ -29,6 +29,6 @@ remove = ismember(plioRuns, removeRuns, 'rows');
 plioRuns(remove,:) = [];
 
 % Build reconstructions for different proxy network settings
-runNetworkExperimentsLoc(tag, piRuns, plioRuns);
+runDALoc(tag, piRuns, plioRuns, 24000);
 
 end
