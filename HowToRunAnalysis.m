@@ -63,7 +63,7 @@ PSM.download('baymag');
 % run estimateProxies in the estimates folder to ensure files are saved
 % there.
 
-% Standard seasonal windows
+% Standard seasonal windows based on modern seasonality
 estimateProxies('preindustrial_uk-med-seasonal', 0, 'preindustrial', 'lat', 'lon');
 estimateProxies('mid-pliocene_uk-med-seasonal', 3.25, 'pliocene', 'pLat325', 'pLon325');
 estimateProxies('early-pliocene_uk-med-seasonal', 4.75, 'pliocene', 'pLat475', 'pLon475');
@@ -73,6 +73,15 @@ estimateProxies('preindustrial_uk-med-annual', 0, 'preindustrial', 'lat', 'lon',
 estimateProxies('mid-pliocene_uk-med-annual', 3.25, 'pliocene', 'pLat325', 'pLon325', true);
 estimateProxies('early-pliocene_uk-med-annual', 4.75, 'pliocene', 'pLat475', 'pLon475', true);
 
+% Annual UK everywhere
+estimateProxies('preindustrial_uk-all-annual', 0, 'preindustrial', 'lat', 'lon', false, true); 
+estimateProxies('mid-pliocene_uk-all-annual', 3.25, 'pliocene', 'pLat325', 'pLon325', false, true);
+estimateProxies('early-pliocene_uk-all-annual', 4.75, 'pliocene', 'pLat475', 'pLon475', false, true);
+
+%Dynamic Mg/Ca seasonality (changes w/ prior)
+estimateProxies('preindustrial_uk-med_seasonal_mgDynamic', 0, 'preindustrial', 'lat', 'lon', false, false ,true); 
+estimateProxies('mid-pliocene_uk-med-annual_mgDynamic', 3.25, 'pliocene', 'pLat325', 'pLon325', true, false, true);
+estimateProxies('early-pliocene_uk-med-annual_mgDynamic', 4.75, 'pliocene', 'pLat475', 'pLon475', true, false, true);
 %% Compute proxy error-variances
 %
 % This function calculates conservative global, and Osman-scaled R error variances

@@ -1,6 +1,5 @@
 ﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-ODP1239,,-0.672,-82.08083,,,,,1415,,,0,0.8788,uk,,,Shaari,2013,https://doi.org/10.1016/j.palaeo.2013.03.022,https://doi.org/10.1594/PANGAEA.861251,used uppermost value
-ODP1239,,-0.672,-82.08083,-1.280868425,-84.13488562,-1.531331122,-85.08526193,1415,,,0.00043,0.8788,uk,,,Shaari,2013,https://doi.org/10.1016/j.palaeo.2013.03.022,https://doi.org/10.1594/PANGAEA.861251,
+ODP1239,,-0.672,-82.08083,-1.280868425,-84.13488562,-1.531331122,-85.08526193,1415,,,0,0.8788,uk,,,Shaari,2013,https://doi.org/10.1016/j.palaeo.2013.03.022,https://doi.org/10.1594/PANGAEA.861251,used uppermost value
 ODP1239,,-0.672,-82.08083,-1.280868425,-84.13488562,-1.531331122,-85.08526193,1415,,,0.00087,0.8822,uk,,,Shaari,2013,https://doi.org/10.1016/j.palaeo.2013.03.022,https://doi.org/10.1594/PANGAEA.861251,
 ODP1239,,-0.672,-82.08083,-1.280868425,-84.13488562,-1.531331122,-85.08526193,1415,,,0.00173,0.872,uk,,,Shaari,2013,https://doi.org/10.1016/j.palaeo.2013.03.022,https://doi.org/10.1594/PANGAEA.861251,
 ODP1239,,-0.672,-82.08083,-1.280868425,-84.13488562,-1.531331122,-85.08526193,1415,,,0.00216,0.8822,uk,,,Shaari,2013,https://doi.org/10.1016/j.palaeo.2013.03.022,https://doi.org/10.1594/PANGAEA.861251,

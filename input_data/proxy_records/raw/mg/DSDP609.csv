@@ -1,5 +1,5 @@
 ﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-HadiSST,,49.5,-23.5,,,,,3883,,,0,1.99,mg,1,Globigerina bulloides,,,,,Preindustrial estimate from HadiSST 1870 to 1900
+HadiSST,,49.5,-24.5,,,,,3883,,,0,2,mg,1,Globigerina bulloides,,,,,Preindustrial estimate from HadiSST 1870 to 1900
 DSDP609,B,49.8778,-24.2381,49.42258896,-24.95432443,49.2118763,-25.28401237,3883,170.61,,2.5845,2.13,mg,1,Globigerina bulloides,Bartoli,2005,https://doi.org/10.1016/j.epsl.2005.06.020,https://doi.org/10.1594/PANGAEA.271535,
 DSDP609,B,49.8778,-24.2381,49.42258896,-24.95432443,49.2118763,-25.28401237,3883,171.06,,2.5916,3.24,mg,1,Globigerina bulloides,Bartoli,2005,https://doi.org/10.1016/j.epsl.2005.06.020,https://doi.org/10.1594/PANGAEA.271535,
 DSDP609,B,49.8778,-24.2381,49.42258896,-24.95432443,49.2118763,-25.28401237,3883,171.44,,2.606,1.81,mg,1,Globigerina bulloides,Bartoli,2005,https://doi.org/10.1016/j.epsl.2005.06.020,https://doi.org/10.1594/PANGAEA.271535,

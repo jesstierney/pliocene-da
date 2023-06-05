@@ -1,4 +1,4 @@
-function[] = estimateProxies(label, age, ensembleName, latName, lonName, annualUKMed)
+function[] = estimateProxies(label, age, ensembleName, latName, lonName, annualUKMed, annualUKAll, dynamicMg)
 %% estimateProxies  Estimates proxy records for a particular time slice and ensemble
 % ----------
 %   estimateProxies(label, age, ensembleName, latName, lonName)
@@ -42,6 +42,12 @@ function[] = estimateProxies(label, age, ensembleName, latName, lonName, annualU
 %       annualUKMed (scalar logical): If true, uses annual values for UK37
 %           proxies in the Mediterranean. If false or unspecified, uses the
 %           seasonal window from "checkSeasonality.m".
+%       annualUKAll (scalar logical): If true, uses annual values for UK37
+%           proxies in all regions. If false or unspecified, uses the
+%           seasonal window from "checkSeasonality.m".
+%       dynamicMg (scalar logical): If true, estimates Mg/Ca seasonality
+%       using model prior SST. If false or unspecified, estimates Mg/Ca
+%       seasonality based on modern WOA13 SST (standard for BAYMAG).
 %
 %   Outputs:
 %       Creates a NetCDF file named "<label>_estimates.nc" in the current
@@ -52,6 +58,14 @@ if ~exist('annualUKMed','var') || isempty(annualUKMed)
     annualUKMed = false;
 end
 
+if ~exist('annualUKAll','var') || isempty(annualUKAll)
+    annualUKAll = false;
+end
+
+if ~exist('dynamicMg','var') || isempty(dynamicMg)
+    dynamicMg = false;
+end
+
 % Error check data types of inputs
 label = assertStrScalar(label, 'label');
 assert(isnumeric(age)&&isscalar(age), 'age must be a numeric scalar');
@@ -59,9 +73,10 @@ ensembleName = assertStrScalar(ensembleName, 'ensembleName');
 latName = assertStrScalar(latName, 'latName');
 lonName = assertStrScalar(lonName, 'lonName');
 assert(islogical(annualUKMed)&&isscalar(annualUKMed), 'annualUKMed must be a numeric scalar');
+assert(islogical(annualUKAll)&&isscalar(annualUKAll), 'annualUKMed must be a numeric scalar');
 
 % Get the PSM, season, and coordinates for each site
-[models, coordinates, seasons] = buildPSMs(age, latName, lonName, annualUKMed);
+[models, coordinates, seasons, species] = buildPSMs(age, latName, lonName, annualUKMed, annualUKAll);
 nSite = numel(models);
 
 % Get the ensemble
@@ -92,9 +107,17 @@ for s = 1:nSite
     mg = isa(models{s}, 'PSM.baymag');
 
     % Get seasonal TOS for each site. Also get SOS for Mg/Ca
-    tosSeasonal(s,:) = getSiteVariable(tos, tosMeta, tosNAN, coordinates(s,:), seasons{s});
+    if ~mg
+        tosSeasonal(s,:) = getSiteVariable(tos, tosMeta, tosNAN, coordinates(s,:), seasons{s});
+    end
     if mg
-        sosSeasonal(s,:) = getSiteVariable(sos, sosMeta, sosNAN, coordinates(s,:), seasons{s});
+        if dynamicMg
+            [tosSeasonal(s,:), months] = getSiteDynamicMg(tos, tosMeta, tosNAN, coordinates(s,:), species(s));
+            sosSeasonal(s,:) = getSiteVariable(sos, sosMeta, sosNAN, coordinates(s,:), months);
+        else
+            tosSeasonal(s,:) = getSiteVariable(tos, tosMeta, tosNAN, coordinates(s,:), seasons{s});
+            sosSeasonal(s,:) = getSiteVariable(sos, sosMeta, sosNAN, coordinates(s,:), seasons{s});
+        end
     end
 
     % Run model using appropriate inputs
@@ -184,6 +207,35 @@ for m = 1:nMembers
     rows = Xmeta.closestLatLon(variable, coordinates, 'exclude', Xnan(:,m));
     Y(:,m) = X(rows, m);
 end
+
+% Get the seasonal mean
+Y = Y(months, :);
+Y = mean(Y, 1);
+
+end
+
+%% Utilities
+function[Y, months] = getSiteDynamicMg(X, Xmeta, Xnan, coordinates, spp)
+
+% Preallocate
+nMembers = Xmeta.nMembers;
+Y = NaN(12, nMembers);
+
+% Get the 12 monthly values for each ensemble member
+% (different experiments may use different spatial grids, so need to search
+% each ensemble member individually to avoid NaNs)
+variable = Xmeta.variables;
+for m = 1:nMembers
+    rows = Xmeta.closestLatLon(variable, coordinates, 'exclude', Xnan(:,m));
+    Y(:,m) = X(rows, m);
+end
+
+% Now find the months that are in the forams growth range using the model
+% prior average
+read_foramseason;
+idx = foramseason.foram == spp;
+Ymean = mean(Y,2); %average values from model prior
+months = Ymean >= foramseason.min(idx) & Ymean <= foramseason.max(idx);
 
 % Get the seasonal mean
 Y = Y(months, :);

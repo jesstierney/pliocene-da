@@ -121,7 +121,7 @@ end
 
 % Get proxy and ensemble coordinates
 proxies = gridfile('proxies').metadata;
-siteCoords = str2double(proxies.site(:,3:4));
+siteCoords = str2double(proxies.site(sites,3:4));
 ensCoords = ensMeta.latlon;
 
 % Get the weights

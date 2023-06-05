@@ -1,4 +1,4 @@
-function[] = beok_0_8
+function[] = pliomipCloud
 %% beok  Runs proxy network experiments using all available runs, excluding COSMOS and unrealistic cloud forcing experiments
 % ----------
 %   beok_0_8
@@ -15,7 +15,7 @@ function[] = beok_0_8
 %           beok-0-8_<proxy network>_<uk seasonality>.nc    
 
 % Tag for the prior
-tag = "beok-0-8";
+tag = "pliomip-cloud";
 
 % Get all runs
 piRuns = parameters.preindustrialRuns.all;
@@ -42,7 +42,11 @@ badRuns = cloudRuns(badDeltas, :);
 remove = ismember(plioRuns, badRuns, 'rows');
 plioRuns(remove,:) = [];
 
+%choose to omit certain sites if you want
+sites = gridfile('proxies').metadata.site(:,1);
+sitestoDA = ~contains(sites,"ODP849") & ~contains(sites,"ODP984");
+
 % Build reconstructions for different proxy network settings
-runDALoc(tag, piRuns, plioRuns);
+runDALoc(tag, piRuns, plioRuns, 18000, sitestoDA);
 
 end

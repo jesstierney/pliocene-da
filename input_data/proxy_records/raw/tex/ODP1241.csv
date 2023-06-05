@@ -1,5 +1,5 @@
 SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,notes,BIT,MI,deltaRI,QualityFlag
-HadiSST,,5.5,-85.5,,,,,,,,0,0.631,tex,,,,,,,Preindustrial estimate from HadiSST 1870 to 1900,,,,0
+HadiSST,,5.5,-86.5,,,,,,,,0,0.628,tex,,,,,,,Preindustrial estimate from HadiSST 1870 to 1900,,,,0
 ODP1241,NaN,5.842833,-86.444683,3.678552638,-88.29798069,2.7673658,-89.1860831,2027,NaN,NaN,0.093658537,0.580945559,tex,NaN,NaN,Seki,2012,https://doi.org/10.1029/2011PA002158,https://doi.org/10.1594/PANGAEA.825259,,0.141,NaN,NaN,0
 ODP1241,NaN,5.842833,-86.444683,3.678552638,-88.29798069,2.7673658,-89.1860831,2027,NaN,NaN,0.229846154,0.574766581,tex,NaN,NaN,Seki,2012,https://doi.org/10.1029/2011PA002158,https://doi.org/10.1594/PANGAEA.825259,,0.0436,NaN,NaN,0
 ODP1241,NaN,5.842833,-86.444683,3.678552638,-88.29798069,2.7673658,-89.1860831,2027,NaN,NaN,0.464416404,0.559766764,tex,NaN,NaN,Seki,2012,https://doi.org/10.1029/2011PA002158,https://doi.org/10.1594/PANGAEA.825259,,0.0184,NaN,NaN,0

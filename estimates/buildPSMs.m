@@ -1,4 +1,4 @@
-function[models, coordinates, months] = buildPSMs(age, latName, lonName, annualUKMed)
+function[models, coordinates, months, species] = buildPSMs(age, latName, lonName, annualUKMed, annualUKAll)
 %% buildPSMs  Builds the DASH PSMs for the proxy sites in a particular time slice
 % ----------
 %   [models, coordinates, months] = buildPSMs(age, latName, lonName)
@@ -21,6 +21,9 @@ function[models, coordinates, months] = buildPSMs(age, latName, lonName, annualU
 %       annualUKMed (scalar logical): If true, uses annual values for UK37
 %           proxies in the Mediterranean. If false or unspecified, uses the
 %           seasonal window from "checkSeasonality.m".
+%       annualUKAll (scalar logical): If true, uses annual values for UK37
+%           proxies in all regions. If false or unspecified, uses the
+%           seasonal window from "checkSeasonality.m".
 %
 %   Outputs:
 %       models (cell vector [nSite] {scalar PSM object}): The PSM object
@@ -33,6 +36,10 @@ function[models, coordinates, months] = buildPSMs(age, latName, lonName, annualU
 % Default
 if ~exist('annualUKMed','var') || isempty(annualUKMed)
     annualUKMed = false;
+end
+
+if ~exist('annualUKAll','var') || isempty(annualUKAll)
+    annualUKAll = false;
 end
 
 % Get the proxy metadata, and identify the metadata in each column
@@ -92,6 +99,9 @@ if nargout>2
         if uk(s)
             months(s) = checkSeasonality(lat(s), lon(s));
             if annualUKMed && isequal(months{s}, [1 2 3 4 5 11 12])
+                months{s} = 1:12;
+            end
+            if annualUKAll
                 months{s} = 1:12;
             end
         elseif tex(s)

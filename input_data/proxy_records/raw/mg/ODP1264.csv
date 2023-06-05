@@ -1,5 +1,4 @@
 SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-ODP1264,NaN,-28.532,2.845,,,,,2505,NaN,0,0,2.68,mg,0,Trilobatus sacculifer,Wojcieszek,2010,https://doi.org/10.25921/ynap-nd59,https://doi.org/10.25921/ynap-nd59,used uppermost value
 ODP1264,NaN,-28.532,2.845,-29.11681027,2.055875983,-29.38631618,1.689763059,2505,NaN,0,0,2.68,mg,0,Trilobatus sacculifer,Wojcieszek,2010,https://doi.org/10.25921/ynap-nd59,https://doi.org/10.25921/ynap-nd59,
 ODP1264,NaN,-28.532,2.845,-29.11681027,2.055875983,-29.38631618,1.689763059,2505,NaN,0.05,0.0099,2.65,mg,0,Trilobatus sacculifer,Wojcieszek,2010,https://doi.org/10.25921/ynap-nd59,https://doi.org/10.25921/ynap-nd59,
 ODP1264,NaN,-28.532,2.845,-29.11681027,2.055875983,-29.38631618,1.689763059,2505,NaN,0.1,0.0198,2.77,mg,0,Trilobatus sacculifer,Wojcieszek,2010,https://doi.org/10.25921/ynap-nd59,https://doi.org/10.25921/ynap-nd59,

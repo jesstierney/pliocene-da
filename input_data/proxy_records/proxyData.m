@@ -385,10 +385,15 @@ classdef proxyData
                 for t = 1:proxyData.nTime
                     lower = proxyData.timeBounds(t,1);
                     upper = proxyData.timeBounds(t,2);
-                
+         
                     % Record the mean of values within the time slice
                     use = obj(k).ages>=lower & obj(k).ages<=upper;
-                    meanValues(t) = mean(obj(k).values(use));
+                    % JET: edit to ensure PI slice only grabs the coretop!
+                    if t == 1
+                        meanValues(t) = mean(obj(k).values(1));
+                    else
+                        meanValues(t) = mean(obj(k).values(use));
+                    end
                 end
 
                 % Upate values and ages

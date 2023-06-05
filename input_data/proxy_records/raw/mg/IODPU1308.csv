@@ -1,5 +1,5 @@
 ﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-HadiSST,,49.5,-23.5,,,,,3873,,,0,2.23,mg,0,Globigerina bulloides,,,,,Preindustrial estimate from HadiSST 1870 to 1900
+HadiSST,,49.5,-24.5,,,,,3873,,,0,2.25,mg,0,Globigerina bulloides,,,,,Preindustrial estimate from HadiSST 1870 to 1900
 IODPU1308,A,49.878067,-24.238117,49.42285594,-24.95434195,49.21214328,-25.28403011,3873,150.34,167.64,2.193,2.608,mg,0,Globigerina bulloides,De Schepper,2013,https://doi.org/10.1371/journal.pone.0081508,https://doi.org/10.1594/PANGAEA.758710,
 IODPU1308,A,49.878067,-24.238117,49.42285594,-24.95434195,49.21214328,-25.28403011,3873,153.99,171.41,2.237,2.862,mg,0,Globigerina bulloides,De Schepper,2013,https://doi.org/10.1371/journal.pone.0081508,https://doi.org/10.1594/PANGAEA.758710,
 IODPU1308,A,49.878067,-24.238117,49.42285594,-24.95434195,49.21214328,-25.28403011,3873,158.24,175.66,2.286,2.911,mg,0,Globigerina bulloides,De Schepper,2013,https://doi.org/10.1371/journal.pone.0081508,https://doi.org/10.1594/PANGAEA.758710,

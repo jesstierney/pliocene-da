@@ -1,5 +1,5 @@
 ﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-HadiSST,,3.5,-122.5,,,,,,,,0,0.923,uk,,,,,,,Preindustrial SST estimate of uk from HadiSST 1870 to 1900
+HadiSST,,3.5,-123.5,,,,,,,,0,0.921,uk,,,,,,,Preindustrial SST estimate of uk from HadiSST 1870 to 1900
 IODPU1337,B,3.8334,-123.206,3.137330344,-121.2478047,2.819275729,-120.34517,4472,0.05,,0.001,0.929,uk,,,Liu,2019,https://doi.org/10.1126/sciadv.aau6060,,
 IODPU1337,B,3.8334,-123.206,3.137330344,-121.2478047,2.819275729,-120.34517,4472,0.64,,0.04,0.897,uk,,,Liu,2019,https://doi.org/10.1126/sciadv.aau6060,,
 IODPU1337,B,3.8334,-123.206,3.137330344,-121.2478047,2.819275729,-120.34517,4472,1.24,,0.08,0.922,uk,,,Liu,2019,https://doi.org/10.1126/sciadv.aau6060,,

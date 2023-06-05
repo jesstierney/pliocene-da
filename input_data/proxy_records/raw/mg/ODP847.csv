@@ -1,6 +1,6 @@
 SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
 HadiSST,,0.5,-95.5,,,,,3335,,,0,2.45,mg,1,Trilobatus sacculifer,,,,,Preindustrial estimate from HadiSST 1870 to 1900
-ODP847,B,0.193117,-95.320167,-0.041504791,-97.34534346,-0.117460929,-98.27874796,3335,NaN,0,0,3.11,mg,1,Trilobatus sacculifer,Wara,2005,https://doi.org/10.1126/science.1112596,https://doi.org/10.1594/PANGAEA.772019,
+ODP847,B,0.193117,-95.320167,-0.041504791,-97.34534346,-0.117460929,-98.27874796,3335,NaN,0,0.001,3.11,mg,1,Trilobatus sacculifer,Wara,2005,https://doi.org/10.1126/science.1112596,https://doi.org/10.1594/PANGAEA.772019,
 ODP847,B,0.193117,-95.320167,-0.041504791,-97.34534346,-0.117460929,-98.27874796,3335,NaN,0.45,0.01,1.87,mg,1,Trilobatus sacculifer,Wara,2005,https://doi.org/10.1126/science.1112596,https://doi.org/10.1594/PANGAEA.772019,
 ODP847,B,0.193117,-95.320167,-0.041504791,-97.34534346,-0.117460929,-98.27874796,3335,NaN,0.9,0.02,1.93,mg,1,Trilobatus sacculifer,Wara,2005,https://doi.org/10.1126/science.1112596,https://doi.org/10.1594/PANGAEA.772019,
 ODP847,B,0.193117,-95.320167,-0.041504791,-97.34534346,-0.117460929,-98.27874796,3335,NaN,1.5,0.033,1.89,mg,1,Trilobatus sacculifer,Wara,2005,https://doi.org/10.1126/science.1112596,https://doi.org/10.1594/PANGAEA.772019,

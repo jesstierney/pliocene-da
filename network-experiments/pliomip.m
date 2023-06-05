@@ -29,6 +29,6 @@ remove = ismember(plioRuns, removeRuns, 'rows');
 plioRuns(remove,:) = [];
 
 % Build reconstructions for different proxy network settings
-runDALoc(tag, piRuns, plioRuns, 24000);
+runDAnoLoc(tag, piRuns, plioRuns);
 
 end

@@ -1,5 +1,5 @@
 SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-HadiSST,,5.5,-85.5,,,,,2027,,,0,3.46,mg,0,Trilobatus sacculifer,,,,,Preindustrial estimate from HadiSST 1870 to 1900
+HadiSST,,5.5,-85.5,,,,,2027,,,0,3.41,mg,0,Trilobatus sacculifer,,,,,Preindustrial estimate from HadiSST 1870 to 1900
 ODP1241,A,5.842833,-86.444683,3.678552638,-88.29798069,2.7673658,-89.1860831,2027,43,49.2,2.116,3.15,mg,0,Trilobatus sacculifer,Groeneveld,2005,https://nbn-resolving.org/urn:nbn:de:gbv:8-diss-15166,https://doi.org/10.1594/PANGAEA.315654,
 ODP1241,A,5.842833,-86.444683,3.678552638,-88.29798069,2.7673658,-89.1860831,2027,43.2,49.4,2.125,3.08,mg,0,Trilobatus sacculifer,Groeneveld,2005,https://nbn-resolving.org/urn:nbn:de:gbv:8-diss-15166,https://doi.org/10.1594/PANGAEA.315654,
 ODP1241,A,5.842833,-86.444683,3.678552638,-88.29798069,2.7673658,-89.1860831,2027,43.41,49.6,2.1345,3.43,mg,0,Trilobatus sacculifer,Groeneveld,2005,https://nbn-resolving.org/urn:nbn:de:gbv:8-diss-15166,https://doi.org/10.1594/PANGAEA.315654,

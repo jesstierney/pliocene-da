@@ -1,5 +1,5 @@
 ﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-HadiSST,,-30.5,-34.5,,,,,1313,,,0,3.03,mg,0,Trilobatus sacculifer,,,,,Preindustrial estimate from HadiSST 1870 to 1900 Dec-Jun
+HadiSST,,-30.5,-35.5,,,,,1313,,,0,2.82,mg,0,Trilobatus sacculifer,,,,,Preindustrial estimate from HadiSST 1870 to 1900 Dec-Jun
 DSDP516,A,-30.2765,-35.2853,-30.64632177,-35.00554983,-30.81689215,-34.87567452,1313,9.92,,2.786,3.6,mg,0,Trilobatus sacculifer,Karas,2017,https://doi.org/10.1038/srep39842,https://doi.org/10.25921/95ba-jz28,
 DSDP516,A,-30.2765,-35.2853,-30.64632177,-35.00554983,-30.81689215,-34.87567452,1313,10.05,,2.796,3.36,mg,0,Trilobatus sacculifer,Karas,2017,https://doi.org/10.1038/srep39842,https://doi.org/10.25921/95ba-jz28,
 DSDP516,A,-30.2765,-35.2853,-30.64632177,-35.00554983,-30.81689215,-34.87567452,1313,10.16,,2.806,3.43,mg,0,Trilobatus sacculifer,Karas,2017,https://doi.org/10.1038/srep39842,https://doi.org/10.25921/95ba-jz28,
