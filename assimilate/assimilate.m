@@ -80,7 +80,7 @@ Ye = Ye(:,members);
 
 % Don't bother assimilating variables that are only used to run the PSMs
 variables = ens.variables;
-remove = ismember(variables, ["tos_monthly","sos_monthly"]);
+remove = ismember(variables, "sos_monthly"); %only remove sos monthly, keep tos monthly
 variables(remove) = [];
 ens = ens.useVariables(variables);
 

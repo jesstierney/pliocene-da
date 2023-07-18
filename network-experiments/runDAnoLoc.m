@@ -2,7 +2,7 @@ function[] = runDAnoLoc(tag, piRuns, plioRuns)
 
 %set tags
 timeSliceTags = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
-ukSeasonTags = ["uk-med-seasonal";"uk-med-annual";"uk-med-annual"];
+ukSeasonTags = ["uk-med-seasonal";"uk-all-annual";"uk-all-annual"];
 Rtag = "conservative";
 
 % Either assimilate all proxies or UK-only

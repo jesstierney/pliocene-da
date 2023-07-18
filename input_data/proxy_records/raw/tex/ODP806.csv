@@ -1,5 +1,5 @@
 SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,notes,BIT,MI,deltaRI,QualityFlag
-MW91-9GGC-15 MW91-9GGC-38 MW91-9GGC-29,,0,159.067,,,,,,,,0,0.698,,,,Tierney,2015,https://doi.org/10.1038/sdata.2015.29,https://www.ncei.noaa.gov/access/paleo-search/study/18615,3 coretops 62 km,,,,0
+MW91-9GGC-15 MW91-9GGC-38 MW91-9GGC-29,,0.0138,159.067,,,,,,,,0,0.698,,,,Tierney,2015,https://doi.org/10.1038/sdata.2015.29,https://www.ncei.noaa.gov/access/paleo-search/study/18615,3 coretops 62 km,,,,0
 ODP806,NaN,0.318667,159.361,-0.210013808,161.3432916,-0.465933219,162.2542871,2520,NaN,1.82,0.09557,0.661633855,tex,NaN,NaN,Zhang,2014,https://doi.org/10.1126/science.1246172,https://doi.org/10.1594/PANGAEA.861262,,NaN,0.226489392,0.005060661,0
 ODP806,NaN,0.318667,159.361,-0.210013808,161.3432916,-0.465933219,162.2542871,2520,NaN,4.1,0.21529,0.695260486,tex,NaN,NaN,Zhang,2014,https://doi.org/10.1126/science.1246172,https://doi.org/10.1594/PANGAEA.861262,,NaN,0.201156759,0.12864837,0
 ODP806,NaN,0.318667,159.361,-0.210013808,161.3432916,-0.465933219,162.2542871,2520,NaN,4.55,0.23892,0.656640418,tex,NaN,NaN,Zhang,2014,https://doi.org/10.1126/science.1246172,https://doi.org/10.1594/PANGAEA.861262,,NaN,0.20203086,0.124956762,0

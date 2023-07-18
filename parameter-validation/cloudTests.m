@@ -28,5 +28,5 @@ scaling = 0.2:0.2:1;
 radii = [6000:6000:30000, Inf];
 
 testParameters("preindustrial_cloud",  scaling, radii, "preindustrial_uk-med-seasonal",  'conservative', piRuns);
-%testParameters('mid-pliocene_cloud',   scaling, radii, "mid-pliocene_uk-med-annual",   'conservative', plioRuns);
-%testParameters('early-pliocene_cloud', scaling, radii, "early-pliocene_uk-med-annual", 'conservative', plioRuns);
+testParameters('mid-pliocene_cloud',   scaling, radii, "mid-pliocene_uk-med-annual",   'conservative', plioRuns);
+testParameters('early-pliocene_cloud', scaling, radii, "early-pliocene_uk-med-annual", 'conservative', plioRuns);

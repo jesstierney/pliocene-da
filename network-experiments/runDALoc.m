@@ -2,7 +2,7 @@ function[] = runDALoc(tag, piRuns, plioRuns, LocRadius, networks)
 
 %set tags for timeslices and UK seasonality
 timeSliceTags = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
-ukSeasonTags = ["uk-med-seasonal";"uk-med-annual";"uk-med-annual"];
+ukSeasonTags = ["uk-med-seasonal";"uk-all-annual";"uk-all-annual"];
 Rtag = "conservative";
 
 % default: assimilate all proxies

@@ -70,8 +70,8 @@ end
 sv = stateVector(label);
 
 % Add variables for reconstruction targets
-grids = [pr, tas, tos, siconc];
-variables = ["pr","tas","tos","siconc"];
+grids = [pr, tas, siconc];
+variables = ["pr","tas","siconc"];
 seasons = ["annual","DJF","JJA"];
 stateIndices = {1:12, [12 1 2], 6:8};
 
@@ -90,6 +90,14 @@ end
 % Also add monthly SST and SSS for the PSMs
 sv = sv.add("tos_monthly", tos);
 sv = sv.add("sos_monthly", sos);
+% Add annual tos and sos for export
+sv = sv.add("tos_annual",tos);
+sv = sv.design("tos_annual", 'time', 'state', 1:12);
+sv = sv.mean("tos_annual", 'time');
+%
+sv = sv.add("sos_annual",sos);
+sv = sv.design("sos_annual", 'time', 'state', 1:12);
+sv = sv.mean("sos_annual", 'time');
 
 % Select from pre-industrial runs
 use = ismember(allRuns, runs, 'rows');

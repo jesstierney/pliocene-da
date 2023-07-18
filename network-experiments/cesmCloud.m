@@ -41,6 +41,6 @@ remove = ismember(plioRuns, badRuns, 'rows');
 plioRuns(remove,:) = [];
 
 % Run DA
-runDAnoLoc(tag, piRuns, plioRuns);
+runDALoc(tag, piRuns, plioRuns, 12000);
 
 end

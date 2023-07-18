@@ -308,12 +308,12 @@ classdef proxyData
 
                     % Record metadata
                     obj(f).name = string(T.SiteName(2));
-                    obj(f).lat = T.Lat(2);
-                    obj(f).lon = T.Lon(2);
-                    obj(f).pLat325 = T.pLat325(2);
-                    obj(f).pLon325 = T.pLon325(2);
-                    obj(f).pLat475 = T.pLat475(2);
-                    obj(f).pLon475 = T.pLon475(2);
+                    obj(f).lat = T.Lat(1); %modern estimate lat/lon
+                    obj(f).lon = T.Lon(1); %modern estimate lat/lon
+                    obj(f).pLat325 = T.pLat325(2); %midPlio estimate lat/lon
+                    obj(f).pLon325 = T.pLon325(2); %midPlio estimate lat/lon
+                    obj(f).pLat475 = T.pLat475(2); %earlyPlio estimate lat/lon
+                    obj(f).pLon475 = T.pLon475(2); %earlyPlio estimate lat/lon
                     obj(f).depth = T.WaterDepth(2);
                     obj(f).type = string(T.ProxyType(2));
                     obj(f).cleaning = string(T.CleaningMethod(2));

@@ -43,10 +43,10 @@ remove = ismember(plioRuns, badRuns, 'rows');
 plioRuns(remove,:) = [];
 
 %choose to omit certain sites if you want
-sites = gridfile('proxies').metadata.site(:,1);
-sitestoDA = ~contains(sites,"ODP849") & ~contains(sites,"ODP984");
+%sites = gridfile('proxies').metadata.site(:,1);
+%sitestoDA = ~contains(sites,"ODP849") & ~contains(sites,"ODP984");
 
 % Build reconstructions for different proxy network settings
-runDALoc(tag, piRuns, plioRuns, 18000, sitestoDA);
+runDALoc(tag, piRuns, plioRuns,3000);
 
 end

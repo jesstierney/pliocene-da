@@ -41,12 +41,18 @@ lat = Xmeta.lat;
 
 % Create NetCDF variables
 nTime = 3;
+nMonth = 12;
 file = strcat(label, '.nc');
 nccreate(file, 'lon', 'Dimensions', {'lon',nLon});
 nccreate(file, 'lat', 'Dimensions', {'lat',nLat});
 nccreate(file, 'time', 'Dimensions', {'time', nTime});
+nccreate(file, 'month', 'Dimensions', {'month', nMonth});
 for v = 1:numel(variables)
-    nccreate(file, variables(v), 'Dimensions', {'lon',nLon,'lat',nLat,'time',nTime});
+    if contains(variables(v),"monthly")
+        nccreate(file, variables(v), 'Dimensions', {'lon',nLon,'lat',nLat,'month',nMonth,'time',nTime});
+    else
+        nccreate(file, variables(v), 'Dimensions', {'lon',nLon,'lat',nLat,'time',nTime});
+    end
 end
 
 % Write dimension attributes
@@ -54,6 +60,7 @@ ncwriteatt(file, 'lon', 'Units', 'Decimal degrees east')
 ncwriteatt(file, 'lon', 'Range', '0-360');
 ncwriteatt(file, 'lat', 'Units', 'Decimal degrees north');
 ncwriteatt(file, 'time', 'Units', 'Ma');
+ncwriteatt(file, 'month', 'Units', 'Month of year');
 
 % Get the variable name and season of each reconstruction target
 for v = 1:numel(variables)
@@ -62,7 +69,7 @@ for v = 1:numel(variables)
     var = varSeason(1);
     season = varSeason(2);
     assert(ismember(var, ["pr","tas","tos","sos","siconc"]), 'Unrecognized variable: %s', var);
-    assert(ismember(season, ["annual","DJF","JJA"]), 'Unrecognized season: %s', season);
+    assert(ismember(season, ["annual","DJF","JJA","monthly"]), 'Unrecognized season: %s', season);
 
     % Get a string to identify the season
     if season=="annual"
@@ -71,6 +78,8 @@ for v = 1:numel(variables)
         season = "Winter (DJF)";
     elseif season=="JJA"
         season = "Summer (JJA)";
+    elseif season=="monthly"
+        season = "Monthly";
     end
 
     % Get an ID string and units for the variable
@@ -102,14 +111,18 @@ time = [pi.age; midPlio.age; earlyPlio.age];
 ncwrite(file, 'lon', lon);
 ncwrite(file, 'lat', lat);
 ncwrite(file, 'time', time);
+ncwrite(file, 'month', 1:12);
 
 % Write variables
 for v = 1:numel(variables)
     Xpi = ensMeta.regrid(variables(v), pi.Amean);
     Xmid = ensMeta.regrid(variables(v), midPlio.Amean);
     Xearly = ensMeta.regrid(variables(v), earlyPlio.Amean);
-    X = cat(3, Xpi, Xmid, Xearly);
-    
+    if contains(variables(v),"monthly")
+        X = cat(4, Xpi, Xmid, Xearly);
+    else
+        X = cat(3, Xpi, Xmid, Xearly);
+    end    
     ncwrite(file, variables(v), X);
 end
 
