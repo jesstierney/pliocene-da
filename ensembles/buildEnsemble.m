@@ -13,6 +13,7 @@ function[] = buildEnsemble(label, runs)
 %
 %   As a reminder, variables are as follows:
 %       pr - Total precipitation
+%       ev - Evaporation
 %       tas - Near surface air temperature
 %       tos - Sea surface temperature
 %       sos - Sea surface salinity
@@ -25,7 +26,7 @@ function[] = buildEnsemble(label, runs)
 %
 %   The state vector also includes monthly "tos" and "sos" variables, which
 %   are used to run the PSMs. These variables are named "tos_monthly" and
-%   "sos_monthly".
+%   "sos_monthly". We also need monthly sea ice for pattern effect work.
 %
 %   The ensemble will contain one ensemble member per indicated run. This
 %   method will throw an error if a run is not in the gridfile, or if the
@@ -53,6 +54,7 @@ assert(size(uniqueRuns,1)==size(runs,1), 'runs cannot contain duplicate rows');
 
 % Get gridfiles
 pr = gridfile("pr");
+ev = gridfile("ev");
 tas = gridfile("tas");
 tos = gridfile("tos");
 sos = gridfile("sos");
@@ -70,8 +72,8 @@ end
 sv = stateVector(label);
 
 % Add variables for reconstruction targets
-grids = [pr, tas, siconc];
-variables = ["pr","tas","siconc"];
+grids = [pr, ev, tas, siconc];
+variables = ["pr","ev","tas","siconc"];
 seasons = ["annual","DJF","JJA"];
 stateIndices = {1:12, [12 1 2], 6:8};
 
@@ -87,9 +89,10 @@ for v = 1:numel(variables)
     end
 end
 
-% Also add monthly SST and SSS for the PSMs
+% Also add monthly SST and SSS for the PSMs and monthly sea ice
 sv = sv.add("tos_monthly", tos);
 sv = sv.add("sos_monthly", sos);
+sv = sv.add("siconc_monthly", siconc);
 % Add annual tos and sos for export
 sv = sv.add("tos_annual",tos);
 sv = sv.design("tos_annual", 'time', 'state', 1:12);

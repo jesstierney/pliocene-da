@@ -3,7 +3,7 @@ function[] = buildModelGridfiles(folder)
 % ----------
 %   buildModelGridfiles(folder)
 %   Builds gridfiles for each of the climate model output variables: pr,
-%   tas, tos, sos, and siconc. Each gridfile is named <variable name>.grid.
+%   ev,tas, tos, sos, and siconc. Each gridfile is named <variable name>.grid.
 %   For example: "tas.grid". 
 %
 %   The first input lists a folder that contains NetCDF files holding 
@@ -52,7 +52,7 @@ run(:,2) = erase(run(:,2), ".nc");
 metadata = gridMetadata('lon',lon,'lat',lat,'time',time,'run',run);
 
 % Preallocate variable units and descriptions
-variables = ["pr","tas","tos","sos","siconc"];
+variables = ["pr","ev","tas","tos","sos","siconc"];
 nVars = numel(variables);
 units = strings(nVars, 1);
 descriptions = strings(nVars, 1);
@@ -60,7 +60,11 @@ descriptions = strings(nVars, 1);
 % Read units and descriptions from first NetCDF file
 file = filepaths(1);
 for v = 1:nVars
-    units(v) = ncreadatt(file, variables(v), 'Units');
+    if variables(v) == "ev"
+        units(v) = ncreadatt(file, variables(v), 'units');
+    else
+        units(v) = ncreadatt(file, variables(v), 'Units');
+    end
     descriptions(v) = ncreadatt(file, variables(v), 'Description');
 end
 

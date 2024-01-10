@@ -1,5 +1,5 @@
-function[] = exportReconstruction(label, piFile, midPlioFile, earlyPlioFile)
-%% exportReconstruction  Exports reconstruction outputs to NetCDF
+function[] = exportReconstructionDev(label, piFile, midPlioFile, earlyPlioFile)
+%% exportReconstruction  Exports reconstruction outputs to NetCDF with deviations
 % ----------
 %   exportReconstruction(label, piFile, midPlioFile, earlyPlioFile)
 %   Exports a reconstruction to NetCDF. Takes saved outputs from DASH
@@ -38,15 +38,24 @@ variables = ensMeta.variables;
 [nLon, nLat] = size(X);
 lon = Xmeta.lon;
 lat = Xmeta.lat;
+% get deviation size
+X = ensMeta.regrid(variables(1), pi.Adev);
+piEns = size(X,3);
+X = ensMeta.regrid(variables(1), midPlio.Adev);
+plioEns = size(X,3);
 
 % Create NetCDF variables
 nTime = 3;
 nMonth = 12;
+
 file = strcat(label, '.nc');
 nccreate(file, 'lon', 'Dimensions', {'lon',nLon});
 nccreate(file, 'lat', 'Dimensions', {'lat',nLat});
 nccreate(file, 'time', 'Dimensions', {'time', nTime});
 nccreate(file, 'month', 'Dimensions', {'month', nMonth});
+nccreate(file, 'piEns', 'Dimensions', {'piEns', piEns});
+nccreate(file, 'plioEns', 'Dimensions', {'plioEns', plioEns});
+
 for v = 1:numel(variables)
     if contains(variables(v),"monthly")
         nccreate(file, variables(v), 'Dimensions', {'lon',nLon,'lat',nLat,'month',nMonth,'time',nTime});

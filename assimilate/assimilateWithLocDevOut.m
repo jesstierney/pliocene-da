@@ -1,7 +1,7 @@
-function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
-%% assimilate  Runs an assimilation for a particular time-slice
+function[] = assimilateWithLocDevOut(label, estimatesLabel, Rlabel, radius, runs, sites)
+%% assimilate  Runs an assimilation for a particular time-slice with localization, saves deviations
 % ----------
-%   assimilate(label, estimatesLabel, Rlabel)
+%   assimilateWithLoc(label, estimatesLabel, Rlabel, radius)
 %   Runs an assimilation for a particular time slice using DASH. Saves the
 %   outputs to a .mat file in the current directory. The name of the file
 %   will match the pattern "<label>_assimilation.mat"
@@ -12,9 +12,10 @@ function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %   Proxy observations are compared to the estimates indicated by the
 %   third input. Estimates will be loaded from the NetCDF file with the
 %   matching label. The ensemble for the assimilation is determined using
-%   the metadata in the proxy estimates NetCDF file. Uses the R values 
+%   the metadata in the proxy estimates NetCDF file. Uses the R values
 %   (error variances) indicated by the fourth input. R values are read from
-%   the R-values NetCDF file matching this label.
+%   the R-values NetCDF file matching this label. Also applies covariance
+%   localization to the assimilation as per the input localization radius.
 %
 %   Before running the Kalman filter, the method applies a (natural) log
 %   transform to the Mg/Ca proxies so that they match the log-estimates
@@ -23,12 +24,12 @@ function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %   they more closely resemble a Gaussian distribution. The function
 %   applies a natural log transform to precipitation, and a logit transform
 %   to sea ice. The reverse transformations are applied to the assimilated
-%   variables before they are saved in the .mat files.
+%   variables before they are saved in the .mat files.%
 %
-%   assimilate(..., runs)
+%   assimilateWithLoc(..., runs)
 %   Runs the assimilation using specific ensemble members.
 %
-%   assimilate(..., runs, sites)
+%   assimilateWithLoc(..., runs, sites)
 %   Runs the assimilation using specific proxy sites.
 % ----------
 %   Inputs:
@@ -40,13 +41,14 @@ function[] = assimilate(label, estimatesLabel, Rlabel, runs, sites)
 %           "_estimates.nc")
 %       Rlabel (string scalar): Indicates the type of R values to use.
 %           Either "conservative" or "osman"
+%       radius (numeric scalar): A localization radius (in km) for the assimilation
 %       runs (string matrix [nRuns x 2]): Indicates the climate model runs
 %           that should be used as ensemble members in the assimilation.
 %           These values should be from the "run" metadata of the ensemble.
 %           The first column is the climate model associated with each run,
 %           and the second column is the experimental tag. If not
 %           specified, uses all available runs.
-%       sites (logical vector [nSite]): A logical vector indicating the 
+%       sites (logical vector [nSite]): A logical vector indicating the
 %           proxy sites that should be included in the assimilation.
 %           If not specified, uses all available sites.
 %
@@ -78,10 +80,12 @@ Ye = Ye(:,members);
 
 %% Design the prior
 
-% Don't bother assimilating variables that are only used to run the PSMs
-variables = ens.variables;
-remove = ismember(variables, ["sos_monthly","siconc_monthly","tos_monthly"]); %keep tos monthly
-variables(remove) = [];
+% Only assimilate annual fields to save on file size
+variables = ["tas_annual", "tos_annual"];
+% variables = ens.variables;
+% remove = ismember(variables, ["sos_monthly", "siconc_monthly", ...
+%     "tos_monthly","ev_JJA","ev_DJF","pr_JJA","pr_DJF","siconc_JJA","siconc_DJF","tas_JJA","tas_DJF"]);
+% variables(remove) = [];
 ens = ens.useVariables(variables);
 
 % Load reconstruction targets
@@ -115,6 +119,16 @@ for v = 1:numel(variables)
     end
 end
 
+%% Localization weights
+
+% Get proxy and ensemble coordinates
+proxies = gridfile('proxies').metadata;
+siteCoords = str2double(proxies.site(sites,3:4));
+ensCoords = ensMeta.latlon;
+
+% Get the weights
+[wloc, yloc] = dash.localize.gc2d(ensCoords, siteCoords, radius);
+
 
 %% Assimilate
 
@@ -124,6 +138,8 @@ kf = kf.observations(Y);
 kf = kf.prior(X);
 kf = kf.estimates(Ye);
 kf = kf.uncertainties(R);
+kf = kf.localize(wloc, yloc);
+kf = kf.deviations(true);
 
 % Run the filter
 output = kf.run;
@@ -134,19 +150,24 @@ for v = 1:numel(variables)
     if startsWith(variable, ["pr","siconc"])
         rows = ensMeta.find(variable);
         Av = output.Amean(rows,:);
+        Ad = output.Adev(rows,:);
 
         % Apply reverse transformations from Gaussian
         Av = exp(Av);
+        Ad = exp(Ad);
         if startsWith(variable, "pr")
             output.Amean(rows,:) = Av;
-        else           
+            output.Adev(rows,:) = Ad;
+        else
             output.Amean(rows,:) = 100 * (Av ./ (1+Av));
+            output.Adev(rows,:) = 100 * (Ad ./ (1+Ad));
         end
     end
 end
 
 % Get output fields
 Amean = output.Amean;
+Adev = output.Adev;
 age = ncread(YeFile, 'time');
 if isempty(sites)
     sites = true(size(Y));
@@ -154,6 +175,6 @@ end
 
 % Save output
 file = strcat(label, '_assimilation');
-save(file, 'Amean', 'ensMeta', 'age', 'estimatesLabel', 'Rlabel', 'sites');
+save(file, 'Amean', 'Adev', 'ensMeta', 'age', 'estimatesLabel', 'Rlabel', 'sites');
 
 end

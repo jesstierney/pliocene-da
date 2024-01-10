@@ -1,6 +1,6 @@
 ﻿SiteName,SiteHole,Lat,Lon,pLat325,pLon325,pLat475,pLon475,WaterDepth,MBSF,MCD,Age,ProxyValue,ProxyType,CleaningMethod,Species,LeadAuthor,Year,pubDOI,dataDOI,Notes
-PS2489-4,,-42.883,8.968,,,,,,,,,0.432,uk,,,Tierney,2018,https://doi.org/10.1002/2017PA003201,https://doi.org/10.25921/k1a1-8c59,1 coretop 6 km
-ODP1090,,-42.913617,8.899817,-43.504107,8.136242084,-43.77652826,7.781140749,3702,,0,0,0.390804596,uk,,,Martínez-Garcia,2010,https://doi.org/10.1126/science.1184480,https://doi.org/10.1594/PANGAEA.771706,
+PS2489-4,,-42.883,8.968,,,,,,,,0,0.432,uk,,,Tierney,2018,https://doi.org/10.1002/2017PA003201,https://doi.org/10.25921/k1a1-8c59,1 coretop 6 km
+ODP1090,,-42.913617,8.899817,-43.504107,8.136242084,-43.77652826,7.781140749,3702,,0,0.00001,0.390804596,uk,,,Martínez-Garcia,2010,https://doi.org/10.1126/science.1184480,https://doi.org/10.1594/PANGAEA.771706,
 ODP1090,,-42.913617,8.899817,-43.504107,8.136242084,-43.77652826,7.781140749,3702,,0.01,0.001,0.425010408,uk,,,Martínez-Garcia,2010,https://doi.org/10.1126/science.1184480,https://doi.org/10.1594/PANGAEA.771706,
 ODP1090,,-42.913617,8.899817,-43.504107,8.136242084,-43.77652826,7.781140749,3702,,0.02,0.002,0.432823578,uk,,,Martínez-Garcia,2010,https://doi.org/10.1126/science.1184480,https://doi.org/10.1594/PANGAEA.771706,
 ODP1090,,-42.913617,8.899817,-43.504107,8.136242084,-43.77652826,7.781140749,3702,,0.07,0.0058,0.470318926,uk,,,Martínez-Garcia,2010,https://doi.org/10.1126/science.1184480,https://doi.org/10.1594/PANGAEA.771706,

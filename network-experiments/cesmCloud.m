@@ -27,20 +27,23 @@ piRuns = parameters.preindustrialRuns.cesm;
 plioRuns = parameters.plioceneRuns.cloud;
 
 % Calculate dGMST values for runs with altered cloud physics
-cloudRuns = [parameters.plioceneRuns.Erfani2019;
-             parameters.plioceneRuns.Burls2014];
-piBackground = ["CESM1.2.2", "cheyctrl"];
+cloudRuns1 = parameters.plioceneRuns.Erfani2019;
+cloudRuns2 = parameters.plioceneRuns.Burls2014;
+piBackground1 = ["CESM1.2.2", "cheyctrl"];
+piBackground2 = ["CESM1.0.4", "piControl"];
 season = parameters.dGMST.season;
-deltas = dGMST(piBackground, cloudRuns, season);
+deltas1 = dGMST(piBackground1, cloudRuns1, season);
+deltas2 = dGMST(piBackground2, cloudRuns2, season);
 
-% Remove runs outside of acceptable limits
+% Removes runs outside of acceptable limits
 limits = parameters.dGMST.limits;
-badDeltas = deltas<limits(1) | deltas>limits(2);
-badRuns = cloudRuns(badDeltas, :);
+badDeltas1 = deltas1<limits(1) | deltas1>limits(2);
+badDeltas2 = deltas2<limits(1) | deltas2>limits(2);
+badRuns = [cloudRuns1(badDeltas1, :); cloudRuns2(badDeltas2, :)];
 remove = ismember(plioRuns, badRuns, 'rows');
 plioRuns(remove,:) = [];
 
 % Run DA
-runDALoc(tag, piRuns, plioRuns, 12000);
+runDALoc(tag, piRuns, plioRuns, 6000);
 
 end

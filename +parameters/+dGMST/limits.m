@@ -10,6 +10,6 @@ function[limits] = limits
 %           climate model rounds. First element is the lower bound, second
 %           element is the upper bound
 
-limits = [0 8];
+limits = [1 8];
 
 end

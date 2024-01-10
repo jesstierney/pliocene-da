@@ -84,7 +84,7 @@ for s = 1:nSite
     elseif tex(s)
         models{s} = PSM.bayspar(lat(s), lon(s));
     elseif mg(s)
-        models{s} = PSM.baymag(age, cleaning(s), species(s), 'omega', omega(s), 'pH', pH(s), 'options', {1});
+        models{s} = PSM.baymag(age, cleaning(s), species(s), 'omega', omega(s), 'pH', pH(s), 'options', {2,.74});
     end     
 end
 

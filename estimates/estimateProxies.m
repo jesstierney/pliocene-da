@@ -205,7 +205,14 @@ Y = NaN(12, nMembers);
 variable = Xmeta.variables;
 for m = 1:nMembers
     rows = Xmeta.closestLatLon(variable, coordinates, 'exclude', Xnan(:,m));
-    Y(:,m) = X(rows, m);
+    datsNow = X(rows, m);
+    %catch for weird situation w/ HadCM3 Plio which has a NaN for one month for
+    %Site ODP 999
+    if length(datsNow) < 12
+        datsNow = [datsNow; mean(datsNow)];
+    else
+    end
+    Y(:,m) = datsNow;
 end
 
 % Get the seasonal mean

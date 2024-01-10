@@ -1,4 +1,4 @@
-%% runAnalysis  - Implements the analysis used to assimilate the Pliocene reconstruction
+%% Instructions to implement the analysis used to create the Pliocene reconstruction
 
 %% Build the gridfiles
 %
@@ -41,10 +41,11 @@ buildEnsemble('pliocene', plioRuns);
 %% Download the PSMs
 %
 % These functions use the PSM interface in DASH to download the necessary
-% PSMs. The inputs are the names given to each PSM within DASH.
-PSM.download('bayspar');
-PSM.download('bayspline');
-PSM.download('baymag');
+% PSMs. The inputs are the names given to each PSM within DASH. useLatest
+% will download the latest versions of the PSMs.
+PSM.download('bayspar', 'latest', true);
+PSM.download('bayspline', 'latest', true);
+PSM.download('baymag', 'latest', true);
 
 %% Generate the proxy estimates
 %
@@ -64,24 +65,24 @@ PSM.download('baymag');
 % there.
 
 % Standard seasonal windows based on modern seasonality
-estimateProxies('preindustrial_uk-med-seasonal', 0, 'preindustrial', 'lat', 'lon');
-estimateProxies('mid-pliocene_uk-med-seasonal', 3.25, 'pliocene', 'pLat325', 'pLon325');
-estimateProxies('early-pliocene_uk-med-seasonal', 4.75, 'pliocene', 'pLat475', 'pLon475');
+estimateProxies('preindustrial_uk-med-seasonal_mgcaH', 0, 'preindustrial', 'lat', 'lon');
+estimateProxies('mid-pliocene_uk-med-seasonal_mgcaH', 3.25, 'pliocene', 'pLat325', 'pLon325');
+estimateProxies('early-pliocene_uk-med-seasonal_mgcaH', 4.75, 'pliocene', 'pLat475', 'pLon475');
 
 % Annual UK in the Mediterranean
-estimateProxies('preindustrial_uk-med-annual', 0, 'preindustrial', 'lat', 'lon', true);
-estimateProxies('mid-pliocene_uk-med-annual', 3.25, 'pliocene', 'pLat325', 'pLon325', true);
-estimateProxies('early-pliocene_uk-med-annual', 4.75, 'pliocene', 'pLat475', 'pLon475', true);
+%estimateProxies('preindustrial_uk-med-annual', 0, 'preindustrial', 'lat', 'lon', true);
+%estimateProxies('mid-pliocene_uk-med-annual', 3.25, 'pliocene', 'pLat325', 'pLon325', true);
+%estimateProxies('early-pliocene_uk-med-annual', 4.75, 'pliocene', 'pLat475', 'pLon475', true);
 
 % Annual UK everywhere
-estimateProxies('preindustrial_uk-all-annual', 0, 'preindustrial', 'lat', 'lon', false, true); 
-estimateProxies('mid-pliocene_uk-all-annual', 3.25, 'pliocene', 'pLat325', 'pLon325', false, true);
-estimateProxies('early-pliocene_uk-all-annual', 4.75, 'pliocene', 'pLat475', 'pLon475', false, true);
+estimateProxies('preindustrial_uk-all-annual_mgcaH', 0, 'preindustrial', 'lat', 'lon', false, true); 
+estimateProxies('mid-pliocene_uk-all-annual_mgcaH', 3.25, 'pliocene', 'pLat325', 'pLon325', false, true);
+estimateProxies('early-pliocene_uk-all-annual_mgcaH', 4.75, 'pliocene', 'pLat475', 'pLon475', false, true);
 
 %Dynamic Mg/Ca seasonality (changes w/ prior)
-estimateProxies('preindustrial_uk-med_seasonal_mgDynamic', 0, 'preindustrial', 'lat', 'lon', false, false ,true); 
-estimateProxies('mid-pliocene_uk-med-annual_mgDynamic', 3.25, 'pliocene', 'pLat325', 'pLon325', true, false, true);
-estimateProxies('early-pliocene_uk-med-annual_mgDynamic', 4.75, 'pliocene', 'pLat475', 'pLon475', true, false, true);
+estimateProxies('preindustrial_uk-med_seasonal_mgDynamic_mgcaH', 0, 'preindustrial', 'lat', 'lon', false, false ,true); 
+estimateProxies('mid-pliocene_uk-all-annual_mgDynamic_mgcaH', 3.25, 'pliocene', 'pLat325', 'pLon325', false, true, true);
+estimateProxies('early-pliocene_uk-all-annual_mgDynamic_mgcaH', 4.75, 'pliocene', 'pLat475', 'pLon475', false, true, true);
 %% Compute proxy error-variances
 %
 % This function calculates conservative global, and Osman-scaled R error variances

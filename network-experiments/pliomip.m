@@ -16,10 +16,10 @@ function[] = pliomip
 % Tag for the prior
 tag = "pliomip";
 
-% Get CESM2 and PlioMIP2 runs
+% Get PlioMIP2 runs
 piRuns = parameters.preindustrialRuns.pliomip2;
-plioRuns = [parameters.plioceneRuns.pliomip2;
-            parameters.plioceneRuns.Feng2022];
+plioRuns = parameters.plioceneRuns.pliomip2;
+            %parameters.plioceneRuns.Feng2022];
 
 % Remove COSMOS runs
 removeRuns = parameters.excludeRuns;
@@ -29,6 +29,6 @@ remove = ismember(plioRuns, removeRuns, 'rows');
 plioRuns(remove,:) = [];
 
 % Build reconstructions for different proxy network settings
-runDALoc(tag, piRuns, plioRuns, 3000);
+runDALoc(tag, piRuns, plioRuns, 6000);
 
 end

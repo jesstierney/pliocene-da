@@ -15,6 +15,7 @@ function[runs] = cesm122
 runs = [
     "CESM1.2.2",  "preind"
     "CESM1.2.2",  "cheyctrl"
+    "CESM1.0.4",  "piControl"
     ];
 %%%%%%%%%%
 

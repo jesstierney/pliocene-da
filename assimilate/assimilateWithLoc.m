@@ -80,9 +80,9 @@ Ye = Ye(:,members);
 
 %% Design the prior
 
-% Don't bother assimilating variables that are only used to run the PSMs
+% Don't bother assimilating variables that aren't going to be investigated
 variables = ens.variables;
-remove = ismember(variables, ["tos_monthly","sos_monthly"]);
+remove = ismember(variables, ["sos_monthly", "siconc_monthly", "tos_monthly"]); %keep tos_monthly
 variables(remove) = [];
 ens = ens.useVariables(variables);
 
