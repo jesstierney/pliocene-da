@@ -101,14 +101,12 @@ This folder holds the function `exportReconstruction`. This function exports ass
 ### dGMST.m
 This function allows you to calculate delta GMST between two pre-processed climate model runs. GMST is computed from the tas (near surface air temperature) field using a latitude-weighted spatial mean.
 
-### network-experiments
-This folder holds functions that quickly produce a number of reconstructions using different experimental configurations. The contents include:
+### da-experiments
+This folder holds functions that produce the DA reconstructions presented in the paper using different experimental configurations. The contents include:
 
-* `runNetworkExperiments.m` and `runNetworkExperimentsLoc`: Functions that generate reconstructions for a combination of (1) all proxies / UK-only, and (2) annual / seasonal Mediterranean UK records. `Loc` applies covariance localization.
-* `pliomip.m`: Runs experiments using all PlioMIP runs, excluding COSMOS and all cloud physics runs
-* `pliomipCloud.m`: Runs experiments using all PlioMIP runs, excluding COSMOS and cloud physics runs with unrealistic dGMST (outside of 0 and 8 degrees difference from preindustrial).
+* `pliomip.m`: Runs experiments using only PlioMIP2 runs, excluding COSMOS and all cloud physics runs
+* `pliomipCloud.m`: Runs experiments using the full prior, which includes PlioMIP 2 runs (excluding COSMOS) and cloud runs (excluding those with unrealistic dGMST, i.e. outside of 1 and 8 degrees difference from preindustrial).
 * `cesmCloud.m`: Runs experiments using all CESM-family (CCSM and CESM) runs for the PI timeslice, and then only the perturbed cloud runs for the Pliocene slices (excluding unrealistic dGMST as above).
-* `cesmOnly.m`: Runs the experiments using priors selected from CCSM and CESM runs. Excludes runs with perturbed cloud physics resulting in unrealistic delta GMST values.
 
 
 To use these functions, you should enter `pliomip` etc in the MATLAB console. Note that you must first generate the ensembles, estimates, and R error variances detailed in [HowToRunAnalysis.m](#HowToRunAnalysism) before you will be able to use these functions.
