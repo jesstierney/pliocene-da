@@ -1,6 +1,6 @@
 %% Instructions to implement the analysis used to create the Pliocene reconstruction
 
-%% Build the gridfiles
+%% Step 1: Build the gridfiles
 %
 % These functions build the gridfile catalogues for the climate model
 % output and the proxy records. 
@@ -11,16 +11,22 @@
 % The inputs to these scripts are the folders
 % that contain the NetCDF files holding the required data. The folder file
 % paths should be expressed *relative* to the current directory. If you are
-% running these lines from the same folder as "runAnalysis.m", then these
+% running these lines from the same folder as "HowToRunAnalysis.m", then these
 % paths should be correct. If you run these lines from within the
 % "gridfiles" folder, then you should add "../" to the beginning of each
 % folder path.
+%
+% Note that the NetCDF model data files are not in the Github repository
+% because they are too large. So, you need to download them from the Zenodo
+% repository here: https://zenodo.org/doi/10.5281/zenodo.11646735
+% You can put these model files in the preprocessed folder:
 modelFolder = 'input_data/model_output/preprocessed'; 
+% The proxy record files are small so are in the Github repository.
 proxyFolder = 'input_data/proxy_records';            
 buildModelGridfiles(modelFolder);
 buildProxyGridfile(proxyFolder);
 
-%% Build the state vector ensembles
+%% Step 2: Build the state vector ensembles
 %
 % These functions build the state vector ensembles for the preindustrial
 % and pliocene runs. Each function will create a ".ens" file holding the
@@ -38,7 +44,7 @@ plioRuns = parameters.plioceneRuns.all;
 buildEnsemble('preindustrial', piRuns);
 buildEnsemble('pliocene', plioRuns);
 
-%% Download the PSMs
+%% Step 3: Download the PSMs
 %
 % These functions use the PSM interface in DASH to download the necessary
 % PSMs. The inputs are the names given to each PSM within DASH. useLatest
@@ -47,7 +53,7 @@ PSM.download('bayspar', 'latest', true);
 PSM.download('bayspline', 'latest', true);
 PSM.download('baymag', 'latest', true);
 
-%% Generate the proxy estimates
+%% Step 4: Generate the proxy estimates
 %
 % These functions generate the proxy estimates. Each creates a NetCDF file
 % holding the proxy estimates for a particular assimilation time period.
@@ -69,11 +75,6 @@ estimateProxies('preindustrial_uk-med-seasonal_mgcaH', 0, 'preindustrial', 'lat'
 estimateProxies('mid-pliocene_uk-med-seasonal_mgcaH', 3.25, 'pliocene', 'pLat325', 'pLon325');
 estimateProxies('early-pliocene_uk-med-seasonal_mgcaH', 4.75, 'pliocene', 'pLat475', 'pLon475');
 
-% Annual UK in the Mediterranean
-%estimateProxies('preindustrial_uk-med-annual', 0, 'preindustrial', 'lat', 'lon', true);
-%estimateProxies('mid-pliocene_uk-med-annual', 3.25, 'pliocene', 'pLat325', 'pLon325', true);
-%estimateProxies('early-pliocene_uk-med-annual', 4.75, 'pliocene', 'pLat475', 'pLon475', true);
-
 % Annual UK everywhere
 estimateProxies('preindustrial_uk-all-annual_mgcaH', 0, 'preindustrial', 'lat', 'lon', false, true); 
 estimateProxies('mid-pliocene_uk-all-annual_mgcaH', 3.25, 'pliocene', 'pLat325', 'pLon325', false, true);
@@ -83,77 +84,59 @@ estimateProxies('early-pliocene_uk-all-annual_mgcaH', 4.75, 'pliocene', 'pLat475
 estimateProxies('preindustrial_uk-med_seasonal_mgDynamic_mgcaH', 0, 'preindustrial', 'lat', 'lon', false, false ,true); 
 estimateProxies('mid-pliocene_uk-all-annual_mgDynamic_mgcaH', 3.25, 'pliocene', 'pLat325', 'pLon325', false, true, true);
 estimateProxies('early-pliocene_uk-all-annual_mgDynamic_mgcaH', 4.75, 'pliocene', 'pLat475', 'pLon475', false, true, true);
-%% Compute proxy error-variances
+%% Step 5: Compute proxy error-variances
 %
-% This function calculates conservative global, and Osman-scaled R error variances
-% for the proxies. It creates two NetCDFs named "R-conservative.nc" and
-% "R-plio.nc". The R variances are built using the values in "parameters.globalR",
-%  and "parameters.plioScaling". 
+% This function calculates conservative global, R error variances
+% for the proxies. It creates a NetCDF named "R-conservative.nc"
+% The R variances are built using the values in "parameters.globalR".
+% There is an existing file in the repository that matches the uploaded
+% proxy data. If you add proxy data you would need to re-create this file.
 % run this function in the R-error-variances folder to ensure files are
 % saved there.
 calculateR;
 
-%% Run the assimilations
+%% Step 6: Run assimilations
 %
-% These functions run an assimilation for a time step and save the updated
-% ensemble mean in a MAT-file. The inputs to the "assimilate" function are:
+% To repeat the experiments in the paper, go into the da-experiments
+% folder, where you will find pliomip.m, pliomipCloud.m, and cesmCloud.m,
+% scripts that set up the assimilate call to run PlioMIP2-only, full prior,
+% and Cloud-only experiments.
+%
+% You can also design your own experiment by calling assimilate or
+% assimilate or assimilateWithLoc (the function to do a DA with
+% localization) directly, but it is easier to modify the set-ups in the
+% da-experiments folder
+%
+% The inputs to the assimilate/assimilateWithLoc functions are:
 %   1. A label for the assimilation. The name of the MAT-file will match
 %      this label
 %   2. The label/file name of the proxy estimates to use for this assimilation
-%   3. Used to select the R-variances to use. Should either be 'conservative' or 'osman'
-%   4. (optional) Used to select the climate model runs that should be
+%   3. Used to select the R-variances to use. Should be 'conservative'
+%   4. assimilateWithLoc Only: the localization radius
+%   5. (optional) Used to select the climate model runs that should be
 %      used as ensemble members. If not specified, uses all runs in the ensemble
-%   5. (optional) Used to select the proxy sites that should be used in the
+%   6. (optional) Used to select the proxy sites that should be used in the
 %      DA. If not specified, uses all available proxy records.
 
-% %%% An example using CESM-only and UK-only
-% 
-% % Select the climate model runs and proxy sites
-% piCESM = parameters.preindustrialRuns.cesm;
-% plioCESM = parameters.plioceneRuns.cesm;
-% ukSites = gridfile('proxies').metadata.site(:,2) == "uk";
-% 
-% % Get the labels for the saved files
-% tag = 'UK-only_CESM-only';
-% timeSliceNames = ["preindustrial","mid-pliocene","early-pliocene"];
-% labels = strcat(timeSliceNames, "_", tag, "_R-conservative");
-% 
-% % Run the assimilation for each time slice
-% assimilate(labels(1), 'preindustrial', 'conservative', piCESM, ukSites);
-% assimilate(labels(2), 'mid-pliocene', 'conservative', plioCESM, ukSites);
-% assimilate(labels(3), 'early-pliocene', 'conservative', plioCESM, ukSites);
-
-
-%% Export the assimilations to NetCDF
+%% Step 7: Export the assimilations to NetCDF
 % 
 % This combines the assimilations for the three time slices and exports
-% them to a NetCDF file. The inputs are:
+% them to a NetCDF file. This is already called by the pliomip.m, 
+% pliomipCloud.m, and cesmCloud.m scripts so you don't need to run it
+% separately.
+%
+% The inputs are:
 %   1. A label for the exported reconstruction. The name of the NetCDF file
 %      will match this label
 %   2. The label of the preindustrial assimilation
 %   3. The label of the mid-Pliocene assimilation
 %   4. The label of the early-Pliocene assimilation
-
-newFile = strcat(tag, "_R-conservative");
-exportReconstruction(newFile, labels(1), labels(2), labels(3));
-
-%% Reconstruct with different experimental configurations
 %
-% The following functions run assimilations and export reconstructions
-% for several different experimental configuration. Each function runs
-% reconstructions using a different set of priors. These are:
-%   pliomip:   PlioMIP2 runs + Ran Feng's runs, excluding COSMOS
-%   pliomipCloud:       All runs, excluding COSMOS and unrealistic cloud runs
-%   cesm-only:  All CESM runs, excluding unrealistic cloud runs
-% The functions can be use to test combination of:
-%   A. All proxy sites / UK sites only, and
-%   B. Annual / Seasonal Mediterranean UK sites
+% here is a simple example:
+% newFile = "myDAoutput";
+% exportReconstruction(newFile, labels(1), labels(2), labels(3));
 
-%example: this will run the tests for the PlioMIP group:
-pliomip;
-
-
-%% Test assimilation parameters
+%% Extra: test assimilation parameters
 %
 % This performs validation testing of the localization radius and R scaling
 % parameters for the assimilation. Given a set of localization radii and R
@@ -179,8 +162,7 @@ pliomip;
 %   6. (Optional) The climate model runs to include in the ensemble
 %
 % You can see examples of how to run the "testParameters" function in the
-% "standardTests" and "beokTests" functions, which are located in the
 % "parameter-validation" folder.
 
 % example:
-pliomipTests;
+% pliomipTests;

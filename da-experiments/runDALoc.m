@@ -22,14 +22,14 @@ reconTags = [repmat(tag,3,1), repmat(networkTags,3,1), ukSeasonTags];
 reconLabel = join(reconTags, "_");
 estimates = strcat( timeSliceTags, "_", ukSeasonTags);
 labels = strcat( timeSliceTags, "_", reconLabel );
-ncLabel = strcat(tag,"_Loc",string(LocRadius/1000));%,"_",networkTags);
+ncLabel = strcat(tag,"_Loc",string(LocRadius/1000));
 
 % Assimilate each time slice
-assimilateWithLocDevOut(labels(1), estimates(1), Rtag, LocRadius, piRuns, networks);
-assimilateWithLocDevOut(labels(2), estimates(2), Rtag, LocRadius, plioRuns, networks);
-assimilateWithLocDevOut(labels(3), estimates(3), Rtag, LocRadius, plioRuns, networks);
+assimilateWithLoc(labels(1), estimates(1), Rtag, LocRadius, piRuns, networks);
+assimilateWithLoc(labels(2), estimates(2), Rtag, LocRadius, plioRuns, networks);
+assimilateWithLoc(labels(3), estimates(3), Rtag, LocRadius, plioRuns, networks);
 
 % Export to NetCDF
-%exportReconstruction(ncLabel, labels(1), labels(2), labels(3));
+exportReconstruction(ncLabel, labels(1), labels(2), labels(3));
 
 end

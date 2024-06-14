@@ -2,8 +2,7 @@
 A project to implement paleoclimate data assimilation for the Pliocene.
 
 ## Contents
-This repository contains code and small data files required to implement the Pliocene DA reconstruction. Larger required data files are located on the project's Google drive: [Google Drive](https://drive.google.com/drive/folders/1pvsxnG-OX3qoHVjYu2p9AKGhyeVtKgsR?usp=sharing)
-
+This repository contains code and small data files (proxy data) required to implement the Pliocene DA reconstruction. Larger required data files (climate model output) can be found on [Zenodo] (https://zenodo.org/doi/10.5281/zenodo.11646735)
 The contents of the repository are as follows:
 
 * [HowToRunAnalysis.m](#HowToRunAnalysism)
@@ -16,8 +15,8 @@ The contents of the repository are as follows:
 * [assimilate](#assimilate)
 * [reconstructions](#reconstructions)
 * [dGMST.m](#dgmstm)
-* [network-experiments](#network-experiments)
-* [localization](#localization)
+* [da-experiments](#da-experiments)
+* [parameter-validation](#parameter-validation)
 
 and details on each item are provided below. Many of these items are folders containing Matlab functions. You can use the Matlab `help` command to see the documentation of these functions. Additionally, any folders that begin with a plus `+` symbol are Matlab packages. You can read about the contents of these packages using the `help` command, or by reading the package's `Contents.m` page.
 
@@ -26,7 +25,7 @@ This function describes how to recreate the reconstruction step-by-step. The fun
 
 Before running this script, you should first:
 
-1. Download the NetCDF files containing pre-processed climate model output from the Google drive
+1. Download the NetCDF files containing pre-processed climate model output from [Zenodo] (https://zenodo.org/doi/10.5281/zenodo.11646735)
 2. Place the pre-processed climate model output in the folder `input_data/model_output/preprocessed/`.
 3. Add the `pliocene-da` repository, and all its subfolders, to the active Matlab path.
 4. Move the current Matlab directory to the root folder of the `pliocene-da` repository.
@@ -67,7 +66,7 @@ In `model_output`, you will find:
 
 * A `raw` folder: This folder includes summaries of the raw climate model output files used for pre-processing. It also includes all the code necessary to re-process the files. See its [Contents.md file](./input_data/model_output/raw/Contents.md) for details.
 
-* A `preprocessed` folder: This folder holds the pre-processed climate model NetCDF files used as input to the assimilation
+* A `preprocessed` folder: This folder holds the pre-processed climate model NetCDF files used as input to the assimilation. You will need to download these from Zenodo and then put those files here.
 
 
 ### gridfiles

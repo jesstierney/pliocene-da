@@ -1,18 +1,15 @@
 function[] = pliomipCloud
-%% beok  Runs proxy network experiments using all available runs, excluding COSMOS and unrealistic cloud forcing experiments
+%% Runs the data assimilation the full model prior, excluding COSMOS and unrealistic cloud forcing experiments
 % ----------
-%   beok_0_8
-%   Runs the current proxy network experiments (detailed in
-%   "runNetworkExperiments.m") using most available priors. Excludes COSMOS
-%   runs from PlioMIP2, and cloud physics with dGMST outside of [0 8]. Runs
-%   time-slice assmilations for the various experiments and exports
+%   Runs the DA with the full model prior as described in the paper. Excludes COSMOS
+%   runs from PlioMIP2, and cloud runs with dGMST outside of [1 8]. Exports
 %   reconstructions to NetCDF.
 % ----------
 %   Outputs:
-%       Assimilated time slices: Creates 12 .mat files with the naming
-%           scheme beok-0-8_<proxy network>_<uk seasonality>.nc
-%       Reconstructions: Creates 4 NetCDF files with the naming scheme
-%           beok-0-8_<proxy network>_<uk seasonality>.nc    
+%       Assimilated time slices: Creates .mat files with the naming
+%           scheme pliomip-cloud_<proxy network>_<uk seasonality>.mat
+%       Reconstructions: Creates NetCDF files with the naming scheme
+%           pliomip-cloud_<proxy network>_<uk seasonality>.nc    
 
 % Tag for the prior
 tag = "pliomip-cloud";
@@ -45,11 +42,14 @@ badRuns = [cloudRuns1(badDeltas1, :); cloudRuns2(badDeltas2, :)];
 remove = ismember(plioRuns, badRuns, 'rows');
 plioRuns(remove,:) = [];
 
-%choose to omit certain sites if you want
-%sites = gridfile('proxies').metadata.site(:,1);
-%sitestoDA = ~contains(sites,"ODP849") & ~contains(sites,"ODP984");
-
-% Build reconstructions for different proxy network settings
+% Run the DA with 24000 km localization
 runDALoc(tag, piRuns, plioRuns, 24000);
+
+% if you want to run the DA w/o localization you would need this command:
+% runDAnoLoc(tag, piRuns, plioRuns);
+
+% if you want to save deviations, use this, but note that this ONLY outputs
+% .mat files and not NetCDF:
+% runDALocDev(tag, piRuns, plioRuns, 24000);
 
 end

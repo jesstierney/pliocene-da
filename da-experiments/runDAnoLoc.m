@@ -5,7 +5,7 @@ timeSliceTags = ["preindustrial"; "mid-pliocene"; "early-pliocene"];
 ukSeasonTags = ["uk-med-seasonal_mgcaH";"uk-all-annual_mgcaH";"uk-all-annual_mgcaH"];
 Rtag = "conservative";
 
-% Either assimilate all proxies or UK-only
+% default: assimilate all proxies
 proxyTypes = gridfile('proxies').metadata.site(:,2);
 allSites = true(size(proxyTypes,1),1);
 

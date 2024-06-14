@@ -82,7 +82,7 @@ Ye = Ye(:,members);
 
 % Don't bother assimilating variables that aren't going to be investigated
 variables = ens.variables;
-remove = ismember(variables, ["sos_monthly", "siconc_monthly", "tos_monthly"]); %keep tos_monthly
+remove = ismember(variables, ["sos_monthly", "siconc_monthly", "tos_monthly"]);
 variables(remove) = [];
 ens = ens.useVariables(variables);
 

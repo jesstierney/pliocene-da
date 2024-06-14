@@ -30,6 +30,6 @@ plioRuns(remove,:) = [];
 scaling = 0.2:0.2:1.2;
 radii = [3000:6000:30000, Inf];
 
-testParameters("preindustrial_beok",  scaling, radii, "preindustrial_uk-med-seasonal_mgcaH",  'conservative', piRuns);
-testParameters('mid-pliocene_beok',   scaling, radii, "mid-pliocene_uk-all-annual_mgcaH",   'conservative', plioRuns);
-testParameters('early-pliocene_beok', scaling, radii, "early-pliocene_uk-all-annual_mgcaH", 'conservative', plioRuns);
+testParameters("preindustrial_pliomipCloud",  scaling, radii, "preindustrial_uk-med-seasonal_mgcaH",  'conservative', piRuns);
+testParameters('mid-pliocene_pliomipCloud',   scaling, radii, "mid-pliocene_uk-all-annual_mgcaH",   'conservative', plioRuns);
+testParameters('early-pliocene_pliomipCloud', scaling, radii, "early-pliocene_uk-all-annual_mgcaH", 'conservative', plioRuns);

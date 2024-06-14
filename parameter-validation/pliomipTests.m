@@ -1,7 +1,6 @@
 % Get PlioMIP2 runs
 piRuns = parameters.preindustrialRuns.pliomip2;
 plioRuns = parameters.plioceneRuns.pliomip2;
-            %parameters.plioceneRuns.Feng2022];
 
 % Remove COSMOS
 badRuns = parameters.excludeRuns;
