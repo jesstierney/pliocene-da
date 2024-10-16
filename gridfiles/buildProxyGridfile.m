@@ -25,7 +25,9 @@ folder = string(folder);
 assert(isfolder(folder), 'Could not locate folder: %s', folder);
 
 % Get the proxy NetCDF file and check it exists
-file = fullfile(folder, 'proxies.nc');
+% file = fullfile(folder, 'proxies.nc');
+% PlioVar option:
+file = fullfile(folder, 'proxiesPlioVar.nc');
 assert(isfile(file), 'Could not locate "proxies.nc" within the folder');
 
 % Read metadata from file
@@ -54,7 +56,7 @@ metadata = metadata.addAttributes(...
     'timeBounds', timeBounds);
 
 % Create gridfile. Add source file
-proxies = gridfile.new('proxies', metadata, 'overwrite');
+proxies = gridfile.new('proxiesPlioVar', metadata, 'overwrite');
 proxies.add('netcdf', file, 'data', ["site","time"], metadata);
 
 end

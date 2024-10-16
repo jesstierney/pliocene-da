@@ -74,7 +74,11 @@ classdef proxyData
         % for the time slice (listed in the "times" property).
         timeBounds = [0    0
                       3    3.5
-                      4.5  5.0]; % JET: changed old bound to 5.0
+                      4.5  5.0];
+        % Select only PlioVar interval for mid-Pliocene:
+        % timeBounds = [0    0
+        %               3.195    3.215
+        %               4.5  5.0];
 
         % Indicates the amount of rounding to apply to the ages in the raw
         % proxy data files. The property lists the number of digits after
@@ -82,6 +86,8 @@ classdef proxyData
         % integer. Alternatively, you can set this value to NaN to disable
         % rounding.
         nRound = 1;
+        % for PlioVar use 3:
+        % nRound = 3;
     end
 
 
@@ -442,6 +448,8 @@ classdef proxyData
             
             % Create the NetCDF data variable, as well as dimension variables
             file = 'proxies.nc';
+            % PlioVar file:
+            % file = 'proxiesPlioVar.nc';
             nccreate(file, 'data', 'Format', 'netcdf4', 'Dimensions', {'site', nSite, 'time', nTime});
             nccreate(file, 'time', 'Dimensions', {'time', nTime});
             nccreate(file, 'site', 'Dimensions', {'site', nSite}, 'Datatype', 'string');
