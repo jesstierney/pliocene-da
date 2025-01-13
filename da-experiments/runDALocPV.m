@@ -23,11 +23,10 @@ labels = strcat( timeSliceTags, "_", reconLabel );
 ncLabel = strcat(tag,"_Loc",string(LocRadius/1000));
 
 % Assimilate each time slice
-assimilateWithLocPV(labels(1), estimates(1), Rtag, LocRadius, piRuns, networks);
-assimilateWithLocPV(labels(2), estimates(2), Rtag, LocRadius, plioRuns, networks);
-assimilateWithLocPV(labels(3), estimates(3), Rtag, LocRadius, plioRuns, networks);
+assimilateWithLocPV(labels(1), timeSliceTags(1), estimates(1), Rtag, LocRadius, piRuns, networks);
+assimilateWithLocPV(labels(2), timeSliceTags(2), estimates(2), Rtag, LocRadius, plioRuns, networks);
 
 % Export to NetCDF
-exportReconstruction(ncLabel, labels(1), labels(2), labels(3));
+exportReconstructionPlioVar(ncLabel, labels(1), labels(2));
 
 end

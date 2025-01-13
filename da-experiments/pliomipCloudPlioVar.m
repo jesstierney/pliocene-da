@@ -49,10 +49,10 @@ sites = gridfile('proxies').metadata.site(:,1);
 SiteList = ~contains(sites,excludedSites);
 
 % Run the DA with 24000 km localization
-%runDALocPV(tag, piRuns, plioRuns, 24000, SiteList);
+runDALocPV(tag, piRuns, plioRuns, 24000, SiteList);
 
 % if you want to save deviations, use this, but note that this ONLY outputs
 % .mat files and not NetCDF:
-runDALocDevPV(tag, piRuns, plioRuns, 24000, SiteList);
+%runDALocDevPV(tag, piRuns, plioRuns, 24000, SiteList);
 
 end

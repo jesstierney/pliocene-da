@@ -46,7 +46,7 @@ plioRuns(remove,:) = [];
 runDALoc(tag, piRuns, plioRuns, 24000);
 
 % if you want to run the DA w/o localization you would need this command:
-% runDAnoLoc(tag, piRuns, plioRuns);
+%runDAnoLoc(tag, piRuns, plioRuns);
 
 % if you want to save deviations, use this, but note that this ONLY outputs
 % .mat files and not NetCDF:

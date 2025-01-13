@@ -22,8 +22,8 @@ estimates = strcat( timeSliceTags, "_", ukSeasonTags);
 labels = strcat( timeSliceTags, "_", reconLabel );
 
 % Assimilate each time slice and save deviations
-assimilateWithLocDevOutPV(labels(1), estimates(1), Rtag, LocRadius, piRuns, networks);
-assimilateWithLocDevOutPV(labels(2), estimates(2), Rtag, LocRadius, plioRuns, networks);
-assimilateWithLocDevOutPV(labels(3), estimates(3), Rtag, LocRadius, plioRuns, networks);
+assimilateWithLocDevOutPV(labels(1), timeSliceTags(1), estimates(1), Rtag, LocRadius, piRuns, networks);
+assimilateWithLocDevOutPV(labels(2), timeSliceTags(2), estimates(2), Rtag, LocRadius, plioRuns, networks);
+assimilateWithLocDevOutPV(labels(3), timeSliceTags(3), estimates(3), Rtag, LocRadius, plioRuns, networks);
 
 end

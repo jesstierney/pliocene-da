@@ -1,4 +1,4 @@
-function[] = assimilateWithLoc(label, estimatesLabel, Rlabel, radius, runs, sites)
+function[] = assimilateWithLoc(label, timeSlice, estimatesLabel, Rlabel, radius, runs, sites)
 %% assimilate  Runs an assimilation for a particular time-slice with localization
 % ----------
 %   assimilateWithLoc(label, estimatesLabel, Rlabel, radius)
@@ -82,8 +82,8 @@ Ye = Ye(:,members);
 
 % Don't bother assimilating variables that aren't going to be investigated
 variables = ens.variables;
-remove = ismember(variables, ["sos_monthly", "siconc_monthly", "tos_monthly"]);
-variables(remove) = [];
+%remove = ismember(variables, ["sos_monthly", "siconc_monthly", "tos_monthly"]);
+%variables(remove) = [];
 ens = ens.useVariables(variables);
 
 % Load reconstruction targets
@@ -121,7 +121,15 @@ end
 
 % Get proxy and ensemble coordinates
 proxies = gridfile('proxies').metadata;
-siteCoords = str2double(proxies.site(sites,3:4));
+if timeSlice == "preindustrial"
+    siteCoords = str2double(proxies.site(sites,3:4));
+elseif timeSlice == "mid-pliocene"
+    siteCoords = str2double(proxies.site(sites,5:6));
+elseif timeSlice == "early-pliocene"
+    siteCoords = str2double(proxies.site(sites,7:8));
+else
+    error("timeslice doesn't match one of the three options (PI, midPlio, earlyPlio)")
+end
 ensCoords = ensMeta.latlon;
 
 % Get the weights

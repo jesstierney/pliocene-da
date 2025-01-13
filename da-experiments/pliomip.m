@@ -33,6 +33,6 @@ runDALoc(tag, piRuns, plioRuns, 24000);
 
 % if you want to save deviations, use this, but note that this ONLY outputs
 % .mat files and not NetCDF:
-% runDALocDev(tag, piRuns, plioRuns, 24000);
+%runDALocDev(tag, piRuns, plioRuns, 24000);
 
 end

@@ -10,5 +10,9 @@ Contains raw proxy records and code used to format the records in preparation fo
 * proxyData.m
     This class contains the code used to format the raw proxy records in preparation for assimilation. The main task involved is time-averaging the raw proxy data in the assimilation time slices. You can edit the class properties to change the time-averaging used for the assimilation. See the class help text for more details. To format the proxy data, run the `proxyData.organize` method. See its help section for additional details.
 
-* formatted_proxies.nc
-    This NetCDF file contains the formatted proxy data. The proxy data has been time averaged to the time slices used for assimilation. This is the data file used as input to the DASH toolbox
+* proxies.nc
+    This NetCDF file contains the formatted proxy data. The proxy data has been time averaged to the time slices used for assimilation.
+    
+* proxiesPlioVar.nc
+    This NetCDF file contains formatted proxy data for sites that meet the PlioVar criteria for being representative of the KM5c interglacial. The proxy data has been time averaged to the time slices used for assimilation.
+ 

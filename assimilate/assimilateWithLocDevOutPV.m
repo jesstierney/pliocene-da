@@ -1,4 +1,4 @@
-function[] = assimilateWithLocDevOutPV(label, estimatesLabel, Rlabel, radius, runs, sites)
+function[] = assimilateWithLocDevOutPV(label, timeSlice, estimatesLabel, Rlabel, radius, runs, sites)
 %% assimilate  Runs an assimilation for a particular time-slice with localization, saves deviations
 % ----------
 %   assimilateWithLoc(label, estimatesLabel, Rlabel, radius)
@@ -123,7 +123,15 @@ end
 
 % Get proxy and ensemble coordinates
 proxies = gridfile('proxiesPlioVar').metadata;
-siteCoords = str2double(proxies.site(sites,3:4));
+if timeSlice == "preindustrial"
+    siteCoords = str2double(proxies.site(sites,3:4));
+elseif timeSlice == "mid-pliocene"
+    siteCoords = str2double(proxies.site(sites,5:6));
+elseif timeSlice == "early-pliocene"
+    siteCoords = str2double(proxies.site(sites,7:8));
+else
+    error("timeslice doesn't match one of the three options (PI, midPlio, earlyPlio)")
+end
 ensCoords = ensMeta.latlon;
 
 % Get the weights

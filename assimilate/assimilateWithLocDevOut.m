@@ -1,4 +1,4 @@
-function[] = assimilateWithLocDevOut(label, estimatesLabel, Rlabel, radius, runs, sites)
+function[] = assimilateWithLocDevOut(label, timeSlice, estimatesLabel, Rlabel, radius, runs, sites)
 %% assimilate  Runs an assimilation for a particular time-slice with localization, saves deviations
 % ----------
 %   assimilateWithLoc(label, estimatesLabel, Rlabel, radius)
@@ -81,7 +81,10 @@ Ye = Ye(:,members);
 %% Design the prior
 
 % Only assimilate annual fields to save on file size
+% tos and tas annual only
 variables = ["tas_annual", "tos_annual"];
+% monthly tos and sea ice
+% variables = ["tos_monthly","sos_monthly","siconc_monthly"];
 % variables = ens.variables;
 % remove = ismember(variables, ["sos_monthly", "siconc_monthly", ...
 %     "tos_monthly","ev_JJA","ev_DJF","pr_JJA","pr_DJF","siconc_JJA","siconc_DJF","tas_JJA","tas_DJF"]);
@@ -123,7 +126,15 @@ end
 
 % Get proxy and ensemble coordinates
 proxies = gridfile('proxies').metadata;
-siteCoords = str2double(proxies.site(sites,3:4));
+if timeSlice == "preindustrial"
+    siteCoords = str2double(proxies.site(sites,3:4));
+elseif timeSlice == "mid-pliocene"
+    siteCoords = str2double(proxies.site(sites,5:6));
+elseif timeSlice == "early-pliocene"
+    siteCoords = str2double(proxies.site(sites,7:8));
+else
+    error("timeslice doesn't match one of the three options (PI, midPlio, earlyPlio)")
+end
 ensCoords = ensMeta.latlon;
 
 % Get the weights
